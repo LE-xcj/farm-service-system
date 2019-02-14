@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zhku.mapper.FarmerMapper" >
+  <resultMap id="resultMap" type="edu.zhku.pojo.Farmer" >
+    <id column="fid" property="fid" jdbcType="VARCHAR" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="psw" property="psw" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="CHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="decription" property="decription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fname, psw, phone, address, location, picture, decription
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="resultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_farmer
+    where fid = #{fid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_farmer
+    where fid = #{fid,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="insert" parameterType="edu.zhku.pojo.Farmer" >
+    insert into t_farmer (fid, fname, psw, 
+      phone, address, location, 
+      picture, decription)
+    values (#{fid,jdbcType=VARCHAR}, #{fname,jdbcType=VARCHAR}, #{psw,jdbcType=CHAR}, 
+      #{phone,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{decription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zhku.pojo.Farmer" >
+    insert into t_farmer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fname != null" >
+        fname,
+      </if>
+      <if test="psw != null" >
+        psw,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="decription != null" >
+        decription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null" >
+        #{psw,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="decription != null" >
+        #{decription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_farmer
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fname != null" >
+        fname = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psw != null" >
+        psw = #{record.psw,jdbcType=CHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=CHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picture != null" >
+        picture = #{record.picture,jdbcType=VARCHAR},
+      </if>
+      <if test="record.decription != null" >
+        decription = #{record.decription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_farmer
+    set fid = #{record.fid,jdbcType=VARCHAR},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      psw = #{record.psw,jdbcType=CHAR},
+      phone = #{record.phone,jdbcType=CHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      picture = #{record.picture,jdbcType=VARCHAR},
+      decription = #{record.decription,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Farmer" >
+    update t_farmer
+    <set >
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null" >
+        psw = #{psw,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="decription != null" >
+        decription = #{decription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zhku.pojo.Farmer" >
+    update t_farmer
+    set fname = #{fname,jdbcType=VARCHAR},
+      psw = #{psw,jdbcType=CHAR},
+      phone = #{phone,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      decription = #{decription,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=VARCHAR}
+  </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <select id="selectFarmerByCondition" resultMap="resultMap" parameterType="edu.zhku.pojo.Farmer">
+
+    select * from t_farmer
+      <where>
+        <include refid="query_farmer_sql" />
+      </where>
+  </select>
+
+  <sql id="query_farmer_sql">
+    <if test="fid != null" >
+      and fid = #{fid}
+    </if>
+    <if test="fname != null" >
+      and fname = #{fname}
+    </if>
+    <if test="psw != null" >
+      and psw = #{psw}
+    </if>
+    <if test="phone != null" >
+      and phone = #{phone}
+    </if>
+    <if test="address != null" >
+      and address = #{address}
+    </if>
+    <if test="location != null" >
+      and location = #{location}
+    </if>
+    <if test="picture != null" >
+      and picture = #{picture}
+    </if>
+    <if test="decription != null" >
+      and decription = #{decription}
+    </if>
+  </sql>
+</mapper>

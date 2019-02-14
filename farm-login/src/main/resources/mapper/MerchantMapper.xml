@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.zhku.mapper.MerchantMapper" >
+  <resultMap id="resultMap" type="edu.zhku.pojo.Merchant" >
+    <id column="mid" property="mid" jdbcType="VARCHAR" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="psw" property="psw" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="CHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="isVerify" property="isverify" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mid, mname, psw, phone, address, location, picture, description, isVerify
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="resultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_merchant
+    where mid = #{mid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_merchant
+    where mid = #{mid,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="insert" parameterType="edu.zhku.pojo.Merchant" >
+    insert into t_merchant (mid, mname, psw, 
+      phone, address, location, 
+      picture, description, isVerify
+      )
+    values (#{mid,jdbcType=VARCHAR}, #{mname,jdbcType=VARCHAR}, #{psw,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{picture,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{isverify,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zhku.pojo.Merchant" >
+    insert into t_merchant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="psw != null" >
+        psw,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="isverify != null" >
+        isVerify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null" >
+        #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isverify != null" >
+        #{isverify,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Merchant" >
+    update t_merchant
+    <set >
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null" >
+        psw = #{psw,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isverify != null" >
+        isVerify = #{isverify,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zhku.pojo.Merchant" >
+    update t_merchant
+    set mname = #{mname,jdbcType=VARCHAR},
+      psw = #{psw,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=CHAR},
+      address = #{address,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      isVerify = #{isverify,jdbcType=INTEGER}
+    where mid = #{mid,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectMerchantByCondition" resultMap="resultMap" parameterType="edu.zhku.pojo.Merchant">
+    select * from t_merchant
+    <where>
+      <include refid="query_merchant_sql"/>
+    </where>
+  </select>
+
+  <sql id="query_merchant_sql">
+    <if test="mid != null" >
+      and mid = #{mid}
+    </if>
+    <if test="mname != null" >
+      and mname = #{mname}
+    </if>
+    <if test="psw != null" >
+      and psw = #{psw}
+    </if>
+    <if test="phone != null" >
+      and phone = #{phone}
+    </if>
+    <if test="address != null" >
+      and address = #{address}
+    </if>
+    <if test="location != null" >
+      and location = #{location}
+    </if>
+    <if test="picture != null" >
+      and picture = #{picture}
+    </if>
+    <if test="description != null" >
+      and description =  #{description}
+    </if>
+    <if test="isverify != null" >
+      and isVerify = #{isVerify}
+    </if>
+  </sql>
+
+</mapper>
