@@ -1,6 +1,6 @@
 #配置Tomcat端口、url的编码
 server:
-  port: 10086
+  port: 10089
   tomcat:
     uri-encoding: utf-8
   #配置serverlet的路径
@@ -19,17 +19,6 @@ spring:
       url: jdbc:mysql://127.0.0.1:3306/farmservice?useUnicode=true&characterEncoding=utf8
       username: root
       password: 575534
-      #type: com.alibaba.druid.pool.DruidDataSource
-  redis:
-    host: 106.14.139.8
-    password:
-    port: 6379
-    database: 0
-    jedis:
-      pool:
-        max-active: 8
-        max-idle: 8
-        min-idle: 8
 
 mybatis:
   type-aliases-package: edu.zhku.pojo

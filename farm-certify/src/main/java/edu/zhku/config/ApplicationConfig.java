@@ -8,13 +8,11 @@ import org.springframework.context.annotation.Configuration;
  * @author chujian
  * @ClassName ApplicationConfig
  * @Description 功能描述
- * @date 2019/2/13 10:02
+ * @date 2019/2/15 23:39
  */
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages = "edu.zhku")     //扫描包
 public class ApplicationConfig {
-
-
 }
     

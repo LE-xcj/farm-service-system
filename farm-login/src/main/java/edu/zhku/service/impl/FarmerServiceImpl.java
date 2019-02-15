@@ -2,7 +2,7 @@ package edu.zhku.service.impl;
 
 import edu.zhku.constant.Code;
 import edu.zhku.constant.Role;
-import edu.zhku.mapper.FarmerMapper;
+import edu.zhku.dao.FarmerDao;
 import edu.zhku.pojo.Farmer;
 import edu.zhku.service.FarmerService;
 import edu.zhku.util.CodeVoFactory;
@@ -25,7 +25,7 @@ import java.util.List;
 public class FarmerServiceImpl implements FarmerService{
 
     @Autowired
-    private FarmerMapper farmerMapper;
+    private FarmerDao farmerDao;
 
     /**
      * 登录
@@ -44,6 +44,9 @@ public class FarmerServiceImpl implements FarmerService{
         //查询密码和用户名是否匹配
         List<Farmer> list = selectByCondition(farmer);
         if (list.size() == 1){
+
+            replaceFarmer(farmer, list.get(0));
+
             return CodeVoFactory.getVo(Code.SUCCESS);
         } else {
             return CodeVoFactory.getVo(Code.MISMATCH);
@@ -77,7 +80,7 @@ public class FarmerServiceImpl implements FarmerService{
         farmer.setFid(id);
 
         //注册
-        int flag = farmerMapper.insertSelective(farmer);
+        int flag = farmerDao.insertSelective(farmer);
         if (flag == 1){
             return CodeVoFactory.getVo(Code.SUCCESS);
         }
@@ -91,7 +94,7 @@ public class FarmerServiceImpl implements FarmerService{
         if (null == fid || "".equals(fid)){
             return null;
         }
-        Farmer farmer = farmerMapper.selectByPrimaryKey(fid);
+        Farmer farmer = farmerDao.selectByPrimaryKey(fid);
         return farmer;
     }
 
@@ -108,7 +111,7 @@ public class FarmerServiceImpl implements FarmerService{
             return null;
         }
 
-        List<Farmer> farmers = farmerMapper.selectFarmerByCondition(condition);
+        List<Farmer> farmers = farmerDao.selectFarmerByCondition(condition);
         return farmers;
     }
 
@@ -125,7 +128,7 @@ public class FarmerServiceImpl implements FarmerService{
             return CodeVoFactory.getVo(Code.FAIL);
         }
 
-        int flag = farmerMapper.updateByPrimaryKey(farmer);
+        int flag = farmerDao.updateByPrimaryKeySelective(farmer);
         if (flag == 1) {
             return CodeVoFactory.getVo(Code.SUCCESS);
         }
@@ -150,6 +153,24 @@ public class FarmerServiceImpl implements FarmerService{
         }
 
         return true;
+    }
+
+
+    private void replaceFarmer(Farmer source, Farmer target) {
+
+        if (source == null || target == null)
+            return;
+
+        source.setFid(target.getFid());
+        source.setFname(target.getFname());
+        source.setPsw(target.getPsw());
+        source.setPhone(target.getPhone());
+        source.setAddress(target.getAddress());
+        source.setLocation(target.getLocation());
+        source.setPicture(target.getPicture());
+        source.setDecription(target.getDecription());
+
+
     }
 
 }

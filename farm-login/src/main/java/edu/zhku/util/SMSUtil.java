@@ -52,7 +52,7 @@ public class SMSUtil {
 
     //计时
     private static Map<String, Timer> timers = new ConcurrentHashMap<>();
-    public static void timing(HttpSession session) {
+    public static void timing(HttpSession session, String key) {
 
         String sessionId = session.getId();
         Timer timer = timers.get(sessionId);
@@ -68,7 +68,7 @@ public class SMSUtil {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                session.removeAttribute("realCode");
+                session.removeAttribute(key);
                 System.out.println("删除");
 
             }

@@ -2,7 +2,7 @@ package edu.zhku.service.impl;
 
 import edu.zhku.constant.Code;
 import edu.zhku.constant.Role;
-import edu.zhku.mapper.MerchantMapper;
+import edu.zhku.dao.MerchantDao;
 import edu.zhku.pojo.Merchant;
 import edu.zhku.service.MerchantService;
 import edu.zhku.util.CodeVoFactory;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MerchantServiceImpl implements MerchantService{
 
     @Autowired
-    private MerchantMapper merchantMapper;
+    private MerchantDao merchantDao;
 
     /**
      * 登录
@@ -42,11 +42,29 @@ public class MerchantServiceImpl implements MerchantService{
         //查询密码和用户名是否匹配
         List<Merchant> list = selectByCondition(merchant);
         if (list.size() == 1){
+
+            replaceMerchant(merchant, list.get(0));
             return CodeVoFactory.getVo(Code.SUCCESS);
         } else {
             return CodeVoFactory.getVo(Code.MISMATCH);
         }
 
+
+    }
+
+    private void replaceMerchant(Merchant source, Merchant target) {
+        if (source == null || target == null)
+            return;
+
+        source.setMid(target.getMid());
+        source.setMname(target.getMname());
+        source.setPsw(target.getPsw());
+        source.setPhone(target.getPhone());
+        source.setAddress(target.getAddress());
+        source.setLocation(target.getLocation());
+        source.setPicture(target.getPicture());
+        source.setDescription(target.getDescription());
+        source.setIsverify(target.getIsverify());
     }
 
 
@@ -76,7 +94,7 @@ public class MerchantServiceImpl implements MerchantService{
         merchant.setMid(id);
 
         //注册
-        int flag = merchantMapper.insertSelective(merchant);
+        int flag = merchantDao.insertSelective(merchant);
         if (flag == 1){
             return CodeVoFactory.getVo(Code.SUCCESS);
         }
@@ -94,7 +112,7 @@ public class MerchantServiceImpl implements MerchantService{
         if (null == mid || "".equals(mid)){
             return null;
         }
-        Merchant merchant = merchantMapper.selectByPrimaryKey(mid);
+        Merchant merchant = merchantDao.selectByPrimaryKey(mid);
         return merchant;
     }
 
@@ -109,7 +127,7 @@ public class MerchantServiceImpl implements MerchantService{
         if (condition == null) {
             return null;
         }
-        List<Merchant> merchants = merchantMapper.selectMerchantByCondition(condition);
+        List<Merchant> merchants = merchantDao.selectMerchantByCondition(condition);
         return merchants;
     }
 
@@ -125,7 +143,7 @@ public class MerchantServiceImpl implements MerchantService{
             return CodeVoFactory.getVo(Code.FAIL);
         }
 
-        int flag = merchantMapper.updateByPrimaryKey(merchant);
+        int flag = merchantDao.updateByPrimaryKeySelective(merchant);
         if (flag == 1) {
             return CodeVoFactory.getVo(Code.SUCCESS);
         }

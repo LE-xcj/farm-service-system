@@ -1,21 +1,21 @@
 package edu.zhku.controller;
 
 import edu.zhku.constant.Code;
+import edu.zhku.constant.Literal;
+import edu.zhku.constant.Role;
 import edu.zhku.pojo.Farmer;
 import edu.zhku.service.FarmerService;
 import edu.zhku.util.CodeVoFactory;
 import edu.zhku.util.KeyFactory;
+import edu.zhku.util.RedisUtil;
 import edu.zhku.util.SMSUtil;
 import edu.zhku.vo.CodeVo;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * @author chujian
@@ -29,6 +29,9 @@ public class FarmerController {
 
     @Autowired
     FarmerService farmerService;
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @RequestMapping("/signIn")
     public ModelAndView signIn() {
@@ -44,15 +47,17 @@ public class FarmerController {
 
 
     @RequestMapping("/login")
-    public CodeVo login(Farmer farmer) throws Exception {
+    public CodeVo login(HttpSession session, Farmer farmer) throws Exception {
         //手机号和密码不能为空
         if (isNull(farmer)) {
             return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
         }
         CodeVo vo = farmerService.login(farmer);
 
+        setSession(session, farmer, vo);
         return vo;
     }
+
 
     @RequestMapping("/signUp")
     public ModelAndView signUp() throws Exception {
@@ -72,26 +77,34 @@ public class FarmerController {
 
         //简单校验
         if (isNull(farmer) || isNull(vCode)){
+
+            //不能为空
             return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+
         }
 
-        String realCode = (String) session.getAttribute("realCode");
+        String realCode = (String) session.getAttribute(Literal.FARMERREALCODE);
         CodeVo vo = farmerService.registe(farmer, vCode, realCode);
+        setSession(session, farmer, vo);
+
         return vo;
     }
 
     @RequestMapping("/sendCode")
     public void sendCode(HttpSession session, String phone) throws Exception{
 
+
+        //测试
+        System.out.println(session.getAttribute(Literal.FARMERREALCODE));
+
         String realCode = KeyFactory.generateVCode();
-        String s = (String) session.getAttribute("realCode");
-        session.setAttribute("realCode", realCode);
+        session.setAttribute(Literal.FARMERREALCODE, realCode);
 
         //发送短信
         //SMSUtil.sendMsg(phone, realCode);
 
         //开始计时
-        SMSUtil.timing(session);
+        SMSUtil.timing(session, Literal.FARMERREALCODE);
 
     }
 
@@ -107,6 +120,21 @@ public class FarmerController {
         mv.setViewName("index");
     }
 
+
+    @RequestMapping("/updateFarmer")
+    public CodeVo updateFarmer(Farmer farmer) throws Exception {
+        CodeVo vo = farmerService.updateFarmer(farmer);
+        return vo;
+    }
+
+    @RequestMapping("/selectFarmer")
+    public Farmer selectFarmer(HttpSession session) throws Exception {
+
+        String fid = (String) session.getAttribute(Role.FARMER.getPref());
+        Farmer farmer = farmerService.selectById(fid);
+
+        return farmer;
+    }
 
     /**
      * 主要用于校验farm对象是否为null，
@@ -130,5 +158,29 @@ public class FarmerController {
         }
         return false;
     }
+
+    /**
+     * 登录或注册成功，就在redis设置session obj键值对
+     * @param session
+     * @param farmer
+     * @param vo
+     */
+    private void setSession(HttpSession session, Farmer farmer, CodeVo vo) {
+
+        if (vo.getCode() == Code.SUCCESS.getCode()){
+
+            //会话id
+            String sessionId = session.getId();
+
+            //设置当前的登录的用户手机，因为一个会话可能登录两种角色，所以需要加上前缀
+            session.setAttribute(Role.FARMER.getPref(), farmer.getFid());
+
+            //redis那边也是
+            redisUtil.set(Role.FARMER.getPref() + sessionId, farmer);
+
+        }
+    }
+
+
 }
     

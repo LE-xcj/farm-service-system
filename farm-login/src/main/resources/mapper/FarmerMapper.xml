@@ -195,33 +195,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Farmer" >
-    update t_farmer
-    <set >
-      <if test="fname != null" >
-        fname = #{fname,jdbcType=VARCHAR},
-      </if>
-      <if test="psw != null" >
-        psw = #{psw,jdbcType=CHAR},
-      </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=CHAR},
-      </if>
-      <if test="address != null" >
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="location != null" >
-        location = #{location,jdbcType=VARCHAR},
-      </if>
-      <if test="picture != null" >
-        picture = #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="decription != null" >
-        decription = #{decription,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where fid = #{fid,jdbcType=VARCHAR}
-  </update>
+
+
   <update id="updateByPrimaryKey" parameterType="edu.zhku.pojo.Farmer" >
     update t_farmer
     set fname = #{fname,jdbcType=VARCHAR},
@@ -287,4 +262,36 @@
       and decription = #{decription}
     </if>
   </sql>
+
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Farmer" >
+    update t_farmer
+    <set >
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="psw != null" >
+        psw = #{psw,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="decription != null" >
+        decription = #{decription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=VARCHAR}
+  </update>
+
+
 </mapper>

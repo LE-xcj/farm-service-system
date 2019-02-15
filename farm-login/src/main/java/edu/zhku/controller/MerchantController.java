@@ -1,10 +1,13 @@
 package edu.zhku.controller;
 
 import edu.zhku.constant.Code;
+import edu.zhku.constant.Literal;
+import edu.zhku.constant.Role;
 import edu.zhku.pojo.Merchant;
 import edu.zhku.service.MerchantService;
 import edu.zhku.util.CodeVoFactory;
 import edu.zhku.util.KeyFactory;
+import edu.zhku.util.RedisUtil;
 import edu.zhku.util.SMSUtil;
 import edu.zhku.vo.CodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,10 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/merchant")
 public class MerchantController {
 
+
+    @Autowired
+    private RedisUtil redisUtil;
+
     @Autowired
     private MerchantService merchantService;
 
@@ -41,13 +48,14 @@ public class MerchantController {
 
 
     @RequestMapping("/login")
-    public CodeVo login(Merchant merchant) throws Exception {
+    public CodeVo login(HttpSession session, Merchant merchant) throws Exception {
         //手机号和密码不能为空
         if (isNull(merchant)) {
             return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
         }
         CodeVo vo = merchantService.login(merchant);
 
+        setSession(session, merchant, vo);
         return vo;
     }
 
@@ -72,23 +80,27 @@ public class MerchantController {
             return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
         }
 
-        String realCode = (String) session.getAttribute("realCode");
+        String realCode = (String) session.getAttribute(Literal.MERCHANTREALCODE);
         CodeVo vo = merchantService.registe(merchant, vCode, realCode);
+
+        setSession(session, merchant, vo);
         return vo;
     }
 
     @RequestMapping("/sendCode")
     public void sendCode(HttpSession session, String phone) throws Exception{
 
+
+        String s = (String) session.getAttribute(Literal.MERCHANTREALCODE);
+
         String realCode = KeyFactory.generateVCode();
-        String s = (String) session.getAttribute("realCode");
-        session.setAttribute("realCode", realCode);
+        session.setAttribute(Literal.MERCHANTREALCODE, realCode);
 
         //发送短信
         //SMSUtil.sendMsg(phone, realCode);
 
         //开始计时
-        SMSUtil.timing(session);
+        SMSUtil.timing(session, Literal.MERCHANTREALCODE);
 
     }
 
@@ -102,6 +114,20 @@ public class MerchantController {
         mv.addObject("action", "merchant");
 
         mv.setViewName("index");
+    }
+
+    @RequestMapping("/updateMerchant")
+    public CodeVo updateMerchant(Merchant merchant) throws Exception {
+        CodeVo vo = merchantService.updateMerchant(merchant);
+        return vo;
+    }
+
+
+    @RequestMapping("/selectMerchant")
+    public Merchant selectMerchant(HttpSession session) throws Exception {
+        String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
+        Merchant merchant = merchantService.selectById(mid);
+        return merchant;
     }
 
 
@@ -126,6 +152,28 @@ public class MerchantController {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * 登录或注册成功，就在redis设置session obj键值对
+     * @param session
+     * @param merchant
+     * @param vo
+     */
+    private void setSession(HttpSession session, Merchant merchant, CodeVo vo) {
+
+        if (vo.getCode() == Code.SUCCESS.getCode()){
+
+            String sessionId = session.getId();
+
+            //服务器这边的会话
+            session.setAttribute(Role.MERCHANT.getPref(), merchant.getMid());
+
+            //redis那边
+            redisUtil.set(Role.MERCHANT.getPref() + sessionId, merchant);
+
+        }
     }
 }
     
