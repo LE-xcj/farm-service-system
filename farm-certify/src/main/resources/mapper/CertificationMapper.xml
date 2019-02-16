@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.zhku.mapper.CertificationMapper" >
-  <resultMap id="BaseResultMap" type="edu.zhku.pojo.Certification" >
+  <resultMap id="resultMap" type="edu.zhku.pojo.Certification" >
     <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mid" property="mid" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="edu.zhku.pojo.Certification" extends="BaseResultMap" >
-    <result column="mid" property="mid" jdbcType="VARBINARY" />
-  </resultMap>
+
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -73,33 +72,9 @@
   <sql id="Blob_Column_List" >
     mid
   </sql>
-  
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="edu.zhku.pojo.CertificationExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_certify_record
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
 
-  
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_certify_record
-    where id = #{id,jdbcType=INTEGER}
-  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_certify_record
     where id = #{id,jdbcType=INTEGER}
@@ -144,28 +119,7 @@
     </trim>
   </insert>
   
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_certify_record
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.url != null" >
-        url = #{record.url,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.mid != null" >
-        mid = #{record.mid,jdbcType=VARBINARY},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
 
-  
   <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Certification" >
     update t_certify_record
     <set >
@@ -181,6 +135,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="edu.zhku.pojo.Certification" >
     update t_certify_record
     set url = #{url,jdbcType=VARCHAR},
@@ -194,4 +149,29 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selecetByCondition" parameterType="edu.zhku.pojo.Certification" resultMap="resultMap">
+    select * from t_certify_record
+    <where>
+      <include refid="query_sql"/>
+    </where>
+
+  </select>
+  
+  <sql id="query_sql">
+    <if test="id != null" >
+      and id = #{id}
+    </if>
+    <if test="url != null" >
+      and url = #{url}
+    </if>
+    <if test="status != null" >
+      and status = #{status}
+    </if>
+    <if test="mid != null" >
+      and mid = #{mid}
+    </if>
+  </sql>
+
 </mapper>

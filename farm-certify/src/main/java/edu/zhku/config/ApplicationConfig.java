@@ -3,6 +3,7 @@ package edu.zhku.config;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * @author chujian
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages = "edu.zhku")     //扫描包
+@ImportResource({"classpath:farm-certify-config.xml"})
 public class ApplicationConfig {
 }
     

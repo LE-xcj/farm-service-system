@@ -151,6 +151,8 @@ public class MerchantServiceImpl implements MerchantService{
     }
 
 
+
+
     /**
      * 判断商户是否已经注册，根据手机号
      * @param merchant

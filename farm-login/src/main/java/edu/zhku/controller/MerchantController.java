@@ -4,6 +4,7 @@ import edu.zhku.constant.Code;
 import edu.zhku.constant.Literal;
 import edu.zhku.constant.Role;
 import edu.zhku.pojo.Merchant;
+import edu.zhku.service.CertifyServiceFacade;
 import edu.zhku.service.MerchantService;
 import edu.zhku.util.CodeVoFactory;
 import edu.zhku.util.KeyFactory;
@@ -175,5 +176,15 @@ public class MerchantController {
 
         }
     }
+
+
+    @Autowired
+    private CertifyServiceFacade certifyServiceFacade;
+    @RequestMapping("/certify")
+    public String certify(String mid) {
+        certifyServiceFacade.certify(mid);
+        return "invoke";
+    }
+
 }
     

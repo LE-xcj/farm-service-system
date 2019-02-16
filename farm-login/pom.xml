@@ -25,6 +25,20 @@
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>edu.zhku</groupId>
+            <artifactId>farm-login-facade</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--认证系统的门面接口-->
+        <dependency>
+            <groupId>edu.zhku</groupId>
+            <artifactId>farm-certify-facade</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- 支持jsp的jar包 -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -111,14 +125,14 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
-        <!--热部署-->
+<!--
+        &lt;!&ndash;热部署&ndash;&gt;
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <!-- optional=true,依赖不会往下传递，如果有项目依赖本项目，并且想要使用devtools，需要重新引入 -->
+            &lt;!&ndash; optional=true,依赖不会往下传递，如果有项目依赖本项目，并且想要使用devtools，需要重新引入 &ndash;&gt;
             <optional>true</optional>
-        </dependency>
+        </dependency>-->
 
         <!--106短信接口的HttpUtils依赖-->
         <dependency>
@@ -147,6 +161,20 @@
             <version>9.3.7.v20160115</version>
         </dependency>
 
+        <!--springboot与dubbo的整合-->
+        <dependency>
+            <groupId>io.dubbo.springboot</groupId>
+            <artifactId>spring-boot-starter-dubbo</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!--zookeeper-->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.6</version>
+
+        </dependency>
 
     </dependencies>
 

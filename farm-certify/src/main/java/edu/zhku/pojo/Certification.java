@@ -7,7 +7,7 @@ public class Certification {
 
     private Integer status;
 
-    private byte[] mid;
+    private String mid;
 
     public Integer getId() {
         return id;
@@ -33,11 +33,11 @@ public class Certification {
         this.status = status;
     }
 
-    public byte[] getMid() {
+    public String getMid() {
         return mid;
     }
 
-    public void setMid(byte[] mid) {
+    public void setMid(String mid) {
         this.mid = mid;
     }
 }

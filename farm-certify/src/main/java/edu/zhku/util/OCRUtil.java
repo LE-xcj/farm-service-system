@@ -3,10 +3,14 @@ package edu.zhku.util;
 import com.baidu.aip.ocr.AipOcr;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author chujian
@@ -73,7 +77,7 @@ public class OCRUtil {
      * 高进度识别
      * 百度的接口只支持图片的二进制数组，所以调用之前需要将网络图片转为二进制数组
      * @param url  图片地址
-     * @return
+     * @return    图片识别后的数据
      */
     public static String preciseCertify(String url) {
 
@@ -95,7 +99,7 @@ public class OCRUtil {
      * @param urlStr
      * @return
      */
-    public static byte[] readImageFile(String urlStr) {
+    private static byte[] readImageFile(String urlStr) {
 
         InputStream is = null;
         ByteArrayOutputStream os = null;
@@ -131,6 +135,33 @@ public class OCRUtil {
         }
     }
 
+    private static final String REGEX = "企业名称([\\s\\S]*?)公司";
+    private static final Pattern PATTERN = Pattern.compile(REGEX);
+    private static final int BEGINNING = 4;
+
+    /**
+     * 提取公司名称
+     * @param data   百度OCR返回的识别结果
+     *               因为百度的OCR识别不能保证百分百识别，所以即使一张识别成功过的图片，下一次可能会识别失败。
+     *
+     * @return      公司的名称，如果OCR识别失败是提取不了，返回null
+     */
+    public static String getName(String data) {
+
+        Matcher matcher = PATTERN.matcher(data);
+        String name = null;
+
+        if (matcher.find()) {
+            String temp = matcher.group();
+
+            name = temp.substring(BEGINNING);
+
+            System.out.println(name);
+            return name;
+        }
+
+        return name;
+    }
 
 }
     
