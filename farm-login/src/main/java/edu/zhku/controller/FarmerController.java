@@ -172,11 +172,14 @@ public class FarmerController {
             //会话id
             String sessionId = session.getId();
 
-            //设置当前的登录的用户手机，因为一个会话可能登录两种角色，所以需要加上前缀
-            session.setAttribute(Role.FARMER.getPref(), farmer.getFid());
+            //农户id
+            String fid = farmer.getFid();
+
+            //设置当前的登录的用户，因为一个会话可能登录两种角色，所以需要加上前缀
+            session.setAttribute(Role.FARMER.getPref(), fid);
 
             //redis那边也是
-            redisUtil.set(Role.FARMER.getPref() + sessionId, farmer);
+            redisUtil.set(fid, sessionId);
 
         }
     }

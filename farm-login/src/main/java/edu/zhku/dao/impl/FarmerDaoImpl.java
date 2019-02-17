@@ -1,5 +1,6 @@
 package edu.zhku.dao.impl;
 
+import edu.zhku.constant.Table;
 import edu.zhku.dao.FarmerDao;
 import edu.zhku.mapper.FarmerMapper;
 import edu.zhku.pojo.Farmer;
@@ -37,7 +38,9 @@ public class FarmerDaoImpl implements FarmerDao{
         int flag = farmerMapper.insertSelective(farmer);
 
         if (flag == 1) {
-            redisUtil.set(farmer.getFid(), farmer);
+
+            insertOrUpdate(farmer);
+            //redisUtil.set(farmer.getFid(), farmer);
         }
 
         return flag;
@@ -51,7 +54,8 @@ public class FarmerDaoImpl implements FarmerDao{
 
         if (farmer == null) {
             farmer = farmerMapper.selectByPrimaryKey(fid);
-            redisUtil.set(fid, farmer);
+            insertOrUpdate(farmer);
+            //redisUtil.set(fid, farmer);
         }
 
         return farmer;
@@ -69,11 +73,16 @@ public class FarmerDaoImpl implements FarmerDao{
 
         int flag = farmerMapper.updateByPrimaryKeySelective(farmer);
         if (flag == 1) {
-            farmer = farmerMapper.selectByPrimaryKey(farmer.getFid());
-            redisUtil.set(farmer.getFid(), farmer);
+            insertOrUpdate(farmer);
+            //farmer = farmerMapper.selectByPrimaryKey(farmer.getFid());
+            //redisUtil.set(farmer.getFid(), farmer);
         }
 
         return flag;
+    }
+
+    private void insertOrUpdate(Farmer farmer) {
+        redisUtil.hmSet(Table.FARMERTABLE.name(), farmer.getFid(), farmer);
     }
 
 }

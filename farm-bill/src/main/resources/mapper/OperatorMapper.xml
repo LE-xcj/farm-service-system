@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.zhku.mapper.OperatorMapper">
+  <resultMap id="BaseResultMap" type="edu.zhku.pojo.Operator">
+    <id column="oid" jdbcType="VARCHAR" property="oid" />
+    <result column="oname" jdbcType="CHAR" property="oname" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, oname, sex, phone, picture, description, mid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_operator
+    where oid = #{oid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_operator
+    where oid = #{oid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="edu.zhku.pojo.Operator">
+    insert into t_operator (oid, oname, sex, phone,
+    picture, description, mid
+    )
+    values (#{oid,jdbcType=VARCHAR}, #{oname,jdbcType=CHAR}, #{sex,jdbcType=CHAR}, #{phone,jdbcType=CHAR},
+    #{picture,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zhku.pojo.Operator">
+    insert into t_operator
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="oname != null">
+        oname,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=VARCHAR},
+      </if>
+      <if test="oname != null">
+        #{oname,jdbcType=CHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=CHAR},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Operator">
+    update t_operator
+    <set>
+      <if test="oname != null">
+        oname = #{oname,jdbcType=CHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=CHAR},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        mid = #{mid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zhku.pojo.Operator">
+    update t_operator
+    set oname = #{oname,jdbcType=CHAR},
+      sex = #{sex,jdbcType=CHAR},
+      phone = #{phone,jdbcType=CHAR},
+      picture = #{picture,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      mid = #{mid,jdbcType=VARCHAR}
+    where oid = #{oid,jdbcType=VARCHAR}
+  </update>
+
+
+
+
+
+
+
+
+
+
+
+
+  <resultMap id="resultMap" type="edu.zhku.pojo.Operator">
+    <id column="oid" jdbcType="VARCHAR" property="oid" />
+    <result column="oname" jdbcType="CHAR" property="oname" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+  </resultMap>
+
+  <insert id="insertOperators" parameterType="java.util.List">
+    insert into t_operator (oid, oname, sex,
+                            phone,picture, description, mid) VALUES
+    <foreach collection="operators" separator="," item="item">
+      (
+        #{item.oid,jdbcType=VARCHAR}, #{item.oname,jdbcType=CHAR},
+        #{item.sex,jdbcType=CHAR}, #{item.phone,jdbcType=CHAR},
+        #{item.picture,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR},
+        #{item.mid,jdbcType=VARCHAR}
+      )
+    </foreach>
+  </insert>
+
+
+  <delete id="deleteOperatorsById" parameterType="java.util.List">
+     delete from t_operator
+        where oid IN
+        <foreach collection="ids" open="(" separator="," close=")" item="item">
+          #{item}
+        </foreach>
+  </delete>
+</mapper>

@@ -168,11 +168,13 @@ public class MerchantController {
 
             String sessionId = session.getId();
 
+            String mid = merchant.getMid();
+
             //服务器这边的会话
-            session.setAttribute(Role.MERCHANT.getPref(), merchant.getMid());
+            session.setAttribute(Role.MERCHANT.getPref(), mid);
 
             //redis那边
-            redisUtil.set(Role.MERCHANT.getPref() + sessionId, merchant);
+            redisUtil.set(mid, sessionId);
 
         }
     }

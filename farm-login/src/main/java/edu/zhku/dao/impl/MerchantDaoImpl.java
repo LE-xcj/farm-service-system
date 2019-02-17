@@ -1,5 +1,6 @@
 package edu.zhku.dao.impl;
 
+import edu.zhku.constant.Table;
 import edu.zhku.dao.MerchantDao;
 import edu.zhku.mapper.MerchantMapper;
 import edu.zhku.pojo.Farmer;
@@ -31,7 +32,9 @@ public class MerchantDaoImpl implements MerchantDao{
         int flag = merchantMapper.insertSelective(merchant);
 
         if (flag == 1) {
-            redisUtil.set(merchant.getMid(), merchant);
+
+            insertOrUpdate(merchant);
+            //redisUtil.set(merchant.getMid(), merchant);
         }
 
         return flag;
@@ -44,7 +47,8 @@ public class MerchantDaoImpl implements MerchantDao{
 
         if (merchant == null) {
             merchant = merchantMapper.selectByPrimaryKey(mid);
-            redisUtil.set(mid, merchant);
+            insertOrUpdate(merchant);
+            //redisUtil.set(mid, merchant);
         }
 
         return merchant;
@@ -59,12 +63,19 @@ public class MerchantDaoImpl implements MerchantDao{
     @Override
     public int updateByPrimaryKeySelective(Merchant merchant) throws Exception {
         int flag = merchantMapper.updateByPrimaryKeySelective(merchant);
+
         if (flag == 1) {
-            merchant = merchantMapper.selectByPrimaryKey(merchant.getMid());
-            redisUtil.set(merchant.getMid(), merchant);
+            insertOrUpdate(merchant);
+            //merchant = merchantMapper.selectByPrimaryKey(merchant.getMid());
+            //redisUtil.set(merchant.getMid(), merchant);
         }
 
         return flag;
+    }
+
+
+    private void insertOrUpdate(Merchant merchant) {
+        redisUtil.hmSet(Table.MERCHANTTABLE.name(), merchant.getMid(), merchant);
     }
 
 }

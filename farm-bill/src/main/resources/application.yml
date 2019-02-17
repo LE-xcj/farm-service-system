@@ -1,6 +1,6 @@
 #配置Tomcat端口、url的编码
 server:
-  port: 10089
+  port: 10087
   tomcat:
     uri-encoding: utf-8
   #配置serverlet的路径
@@ -19,14 +19,6 @@ spring:
       url: jdbc:mysql://127.0.0.1:3306/farmservice?useUnicode=true&characterEncoding=utf8
       username: root
       password: 575534
-  dubbo:
-      application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
-        name: farm-certify
-      registry:                 #注册中心配置，用于配置连接注册中心相关信息。
-        address: zookeeper://192.168.1.180:2181
-      protocol:     #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
-        name: dubbo
-        port: 20883     #服务调用端口
 
 mybatis:
   type-aliases-package: edu.zhku.pojo

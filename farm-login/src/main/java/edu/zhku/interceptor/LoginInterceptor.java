@@ -33,20 +33,21 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //获取服务器这边设置的属性
         HttpSession session = request.getSession();
-        Object phone = session.getAttribute(role);   //mercahntPhone 或者 farmerPhone
+        String id = (String) session.getAttribute(role);
 
         //判断是否已经在某个客户端登录了
-        if (null != phone){
+        if (null != id){
+
+            String key = id;
 
             //获取redis那边的信息
-            String sessionId = session.getId();
-            Object obj = redisUtil.get(role + sessionId);
+            Object value = redisUtil.get(key);
 
             //再从redis获取，判断session是否已经过期了
-            if(obj != null) {
+            if(value != null) {
 
                 //更新保存时长
-                redisUtil.set(role + sessionId, obj, MyDuration.LOGINALIVE);
+                redisUtil.set(key, value, MyDuration.LOGINALIVE);
                 return true;    //如果false，停止流程，api被拦截
 
             }
