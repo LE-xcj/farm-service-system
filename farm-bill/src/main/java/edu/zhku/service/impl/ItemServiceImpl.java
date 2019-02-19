@@ -121,6 +121,18 @@ public class ItemServiceImpl implements ItemService{
         return items;
     }
 
+    @Override
+    public List<Item> selectByItem(Item item) throws Exception {
+
+        if (null == item) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+        List<Item> items = itemDao.selectByItem(item);
+
+        return items;
+    }
+
     private List<MerchantConditon> getMerchantCondition(String address, String destination) {
 
         //调用登录系统查询商户的接口，根据address模糊查询指定范围内的商户

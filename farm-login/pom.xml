@@ -26,6 +26,7 @@
 
     <dependencies>
 
+        <!--实现门面接口-->
         <dependency>
             <groupId>edu.zhku</groupId>
             <artifactId>farm-login-facade</artifactId>

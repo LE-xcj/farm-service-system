@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.zhku.mapper.NoticeMapper">
+  <resultMap id="BaseResultMap" type="edu.zhku.pojo.Notice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="destination" jdbcType="VARCHAR" property="destination" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sendTime" jdbcType="DATE" property="sendtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role, destination, content, status, sendTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="edu.zhku.pojo.Notice">
+    insert into t_notice (id, role, destination, 
+      content, status, sendTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{role,jdbcType=INTEGER}, #{destination,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{sendtime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zhku.pojo.Notice">
+    insert into t_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="destination != null">
+        destination,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sendtime != null">
+        sendTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="destination != null">
+        #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendtime != null">
+        #{sendtime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Notice">
+    update t_notice
+    <set>
+      <if test="role != null">
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="destination != null">
+        destination = #{destination,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sendtime != null">
+        sendTime = #{sendtime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zhku.pojo.Notice">
+    update t_notice
+    set role = #{role,jdbcType=INTEGER},
+      destination = #{destination,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      sendTime = #{sendtime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+
+  <resultMap id="BaseResultMap" type="edu.zhku.pojo.Notice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="destination" jdbcType="VARCHAR" property="destination" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sendTime" jdbcType="DATE" property="sendtime" />
+  </resultMap>
+
+  <select id="selectByCondition" resultMap="resultMap" parameterType="edu.zhku.pojo.NoticeCondition">
+    select * from t_notice
+    <where>
+      <include refid="query_sql"/>
+    </where>
+
+    order by sendTime DESC
+
+    <include refid="page_sql"/>
+  </select>
+  
+  <sql id="query_sql">
+
+    <if test="destination != null">
+      and destination =  #{destination}
+    </if>
+    <if test="status != null">
+      and status = #{status}
+    </if>
+  </sql>
+  
+  <sql id="page_sql">
+    limit #{begin}, #{pageSize}
+  </sql>
+  
+  
+  <select id="count" parameterType="edu.zhku.pojo.NoticeCondition">
+      select * from t_notice
+      <where>
+        <include refid="query_sql"/>
+      </where>
+  </select>
+</mapper>

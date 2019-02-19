@@ -98,7 +98,7 @@ public class MerchantController {
         session.setAttribute(Literal.MERCHANTREALCODE, realCode);
 
         //发送短信
-        //SMSUtil.sendMsg(phone, realCode);
+        SMSUtil.sendMsg(phone, realCode);
 
         //开始计时
         SMSUtil.timing(session, Literal.MERCHANTREALCODE);
@@ -107,13 +107,12 @@ public class MerchantController {
 
 
     @RequestMapping("/index")
-    public void index() {
+    public void index(HttpSession session) {
 
         ModelAndView mv = new ModelAndView();
+        Object mid = session.getAttribute(Role.MERCHANT.name());
 
-        mv.addObject("role", "1");
-        mv.addObject("action", "merchant");
-
+        mv.addObject("mid", mid);
         mv.setViewName("index");
     }
 

@@ -25,4 +25,6 @@ public interface ItemMapper {
     int deleteItemsById(List<Integer> ids) throws Exception;
 
     List<Item> selectByCondition(ItemCondition condition) throws Exception;
+
+    List<Item> selectByItem(Item item) throws Exception;
 }

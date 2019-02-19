@@ -34,7 +34,7 @@ spring:
     application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
       name: farm-login
     registry:                 #注册中心配置，用于配置连接注册中心相关信息。
-      address: zookeeper://192.168.1.180:2181
+      address: zookeeper://106.14.139.8:2181
     protocol:     #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
       name: dubbo
       port: 20880

@@ -17,6 +17,7 @@ public interface ItemService {
 
     Item selectItemById(Integer iid) throws Exception;
     List<Item> selectByCondition(ItemCondition condition) throws Exception;
+    List<Item> selectByItem(Item item) throws Exception;
 
     int updateItemById(Item item) throws Exception;
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 设置日志  -->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+
+        <!-- 打开延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+
+        <!-- 将积极加载改为消极加载，也就是按需加载 -->
+
+        <setting name="aggressiveLazyLoading" value="false"/>
+
+        <!-- 开启二级缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <!--对单个pojo起别名-->
+        <!-- <typeAlias type="com.xc.pojo.User" alias="user"/> -->
+
+        <!-- 批量定义别名（推荐） -->
+        <!--扫描指定包下所有的实体，默认别名是类名，首字母大小写都可以-->
+        <package name="edu.zhku.pojo"/>
+    </typeAliases>
+
+</configuration>

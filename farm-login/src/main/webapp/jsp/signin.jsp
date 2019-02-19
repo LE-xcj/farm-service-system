@@ -31,7 +31,7 @@
     <script type="text/javascript" src="http://106.14.139.8/farm-login/js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
     <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
-
+    <script type="text/javascript" src="http://106.14.139.8/normal/js/dialog.js"></script>
 </head>
 <body>
 <div class="snow-container">
@@ -111,22 +111,6 @@
         return canLogin;
     }
 
-    <!--提示框-->
-    function showDialog(tip){
-        $.DialogByZ.Alert({Title: "提示", Content: tip,BtnL:"确定",FunL:alerts});
-    }
-    function alerts(){
-
-        $.DialogByZ.Close();
-    }
-
-    <!--检查手机号-->
-    function checkMobile(_phone){
-        if(!(/^1[3|4|5|8][0-9]\d{8}$/.test(_phone))){
-            return false;
-        }
-        return true;
-    }
 
 </script>
 

@@ -181,4 +181,29 @@
   <sql id="page_sql">
     limit #{begin}, #{pageSize}
   </sql>
+
+  <select id="selectByItem" parameterType="edu.zhku.pojo.Item" resultMap="resultMap">
+    select * from t_item 
+    <where>
+      <include refid="query_sql"/>
+    </where>
+  </select>
+  
+  <sql id="query_sql">
+    <if test="iname != null">
+      and iname like "%"#{iname}"%"
+    </if>
+    <if test="price != null">
+      and price = #{price}
+    </if>
+    <if test="unit != null">
+      and unit = #{unit}
+    </if>
+    <if test="mid != null">
+      and mid = #{mid}
+    </if>
+    <if test="status != null">
+      and status = #{status}
+    </if>
+  </sql>
 </mapper>

@@ -71,5 +71,11 @@ public class ItemDaoImpl implements ItemDao {
 
         return items;
     }
+
+    @Override
+    public List<Item> selectByItem(Item item) throws Exception {
+        List<Item> items = itemMapper.selectByItem(item);
+        return items;
+    }
 }
     
