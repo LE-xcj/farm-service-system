@@ -60,6 +60,7 @@ public class MerchantDaoImpl implements MerchantDao{
         return merchants;
     }
 
+
     @Override
     public int updateByPrimaryKeySelective(Merchant merchant) throws Exception {
         int flag = merchantMapper.updateByPrimaryKeySelective(merchant);

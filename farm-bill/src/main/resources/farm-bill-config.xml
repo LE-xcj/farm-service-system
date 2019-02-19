@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+    <!--引用登录系统的接口-->
+    <!--服务只有注册了才可以使用，否则就会导致系统启动失败-->
+    <!--check属性（默认为true），为false那么就不无需检测服务是否已经注册了，只有用到的时候才检测-->
+    <dubbo:reference id="farmerServiceFacade" interface="edu.zhku.service.FarmerServiceFacade" check="false"/>
+    <dubbo:reference id="merchantServiceFacade" interface="edu.zhku.service.MerchantServiceFacade" check="false"/>
+
+</beans>

@@ -1,5 +1,7 @@
 package edu.zhku.pojo;
 
+import edu.zhku.constant.Size;
+
 /**
  * @author chujian
  * @ClassName OperatorCondition
@@ -9,6 +11,44 @@ package edu.zhku.pojo;
 public class OperatorCondition {
 
     private Operator operator;
+    private Integer page;
+    private Integer pageSize = Size.OPERATORPAGESIZE;
+    private int begin;
 
+    public Operator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Operator operator) {
+        this.operator = operator;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getBegin() {
+        return begin;
+    }
+
+    public void setBegin(int begin) {
+        this.begin = begin;
+    }
+
+    public void initBegin(){
+        this.begin = (page - 1) * pageSize;
+    }
 }
     

@@ -20,4 +20,5 @@ public interface MerchantDao {
 
     //update
     int updateByPrimaryKeySelective(Merchant merchant) throws Exception;
+
 }

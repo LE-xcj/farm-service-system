@@ -24,11 +24,9 @@ public interface OperatorMapper {
     //批量插入
     int insertOperators(List<Operator> operators) throws Exception;
 
-    //todo
-    //条件查询
+    //分页查询
     List<Operator> selectOperatorByCondition(OperatorCondition condition) throws Exception;
 
-    //todo
     //根据id批量更新
     int updateOperatorsById(List<Operator> operators) throws Exception;
 

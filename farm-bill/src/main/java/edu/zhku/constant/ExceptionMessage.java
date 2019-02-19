@@ -16,5 +16,7 @@ public class ExceptionMessage {
     public static final String OBJNULL = "请求参数不能为空!";
 
     public static final String PARAMETORERRO = "请求参数有误！";
+
+
 }
     

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.zhku.mapper.BillMapper">
+  <resultMap id="BaseResultMap" type="edu.zhku.pojo.Bill">
+    <id column="bid" jdbcType="VARCHAR" property="bid" />
+    <result column="fid" jdbcType="VARCHAR" property="fid" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+    <result column="money" jdbcType="REAL" property="money" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createTime" jdbcType="DATE" property="createtime" />
+    <result column="deadline" jdbcType="INTEGER" property="deadline" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bid, fid, mid, money, status, createTime, deadline, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_bill
+    where bid = #{bid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_bill
+    where bid = #{bid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="edu.zhku.pojo.Bill">
+    insert into t_bill (bid, fid, mid, 
+      money, status, createTime, 
+      deadline, remark)
+    values (#{bid,jdbcType=VARCHAR}, #{fid,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR}, 
+      #{money,jdbcType=REAL}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=DATE}, 
+      #{deadline,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.zhku.pojo.Bill">
+    insert into t_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bid != null">
+        bid,
+      </if>
+      <if test="fid != null">
+        fid,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="deadline != null">
+        deadline,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bid != null">
+        #{bid,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="deadline != null">
+        #{deadline,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Bill">
+    update t_bill
+    <set>
+      <if test="fid != null">
+        fid = #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        mid = #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=REAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="deadline != null">
+        deadline = #{deadline,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.zhku.pojo.Bill">
+    update t_bill
+    set fid = #{fid,jdbcType=VARCHAR},
+      mid = #{mid,jdbcType=VARCHAR},
+      money = #{money,jdbcType=REAL},
+      status = #{status,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=DATE},
+      deadline = #{deadline,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where bid = #{bid,jdbcType=VARCHAR}
+  </update>
+</mapper>

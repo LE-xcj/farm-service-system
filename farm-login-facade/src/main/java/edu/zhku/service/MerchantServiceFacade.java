@@ -15,4 +15,7 @@ public interface MerchantServiceFacade {
      */
     int updateMerchantSelectedById(String merchant);
 
+
+    String queryMerchantByAddress(String address);
+
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -111,6 +112,16 @@ public class RedisUtil {
     public void hmSet(String key, Object hashKey, Object value){
         HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
         hash.put(key,hashKey,value);
+    }
+
+    /**
+     * hash批量添加
+     * @param key
+     * @param map
+     */
+    public void hmSet(String key, Map<Object, Object> map) {
+        HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
+        hash.putAll(key, map);
     }
 
     /**

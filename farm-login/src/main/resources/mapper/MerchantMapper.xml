@@ -224,7 +224,7 @@
       and phone = #{phone}
     </if>
     <if test="address != null" >
-      and address = #{address}
+      and address LIKE "%"#{address}"%"
     </if>
     <if test="location != null" >
       and location = #{location}
@@ -239,5 +239,6 @@
       and isVerify = #{isVerify}
     </if>
   </sql>
+
 
 </mapper>

@@ -136,6 +136,10 @@
 
 
 
+
+
+
+
   <delete id="deleteItemsById" parameterType="java.util.List">
 
     delete from t_item where iid in
@@ -144,6 +148,37 @@
     </foreach>
   </delete>
 
+  <resultMap id="resultMap" type="edu.zhku.pojo.Item">
+    <id column="iid" jdbcType="INTEGER" property="iid" />
+    <result column="iname" jdbcType="VARCHAR" property="iname" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="media" jdbcType="VARCHAR" property="media" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  
+  <select id="selectByCondition" parameterType="edu.zhku.pojo.ItemCondition" resultMap="resultMap">
+
+    select * from t_item where status = 1 and mid IN
+      <foreach collection="merchantConditons" open="(" separator="," close=")" item="item">
+        #{item.mid}
+      </foreach>
+    <include refid="order_sql"/>
+    <include refid="page_sql"/>
+  </select>
 
 
+
+  <sql id="order_sql">
+    ORDER BY price
+    <if test="desc">
+      desc
+    </if>
+  </sql>
+  
+  <sql id="page_sql">
+    limit #{begin}, #{pageSize}
+  </sql>
 </mapper>

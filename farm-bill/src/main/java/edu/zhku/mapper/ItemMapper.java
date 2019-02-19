@@ -24,6 +24,5 @@ public interface ItemMapper {
     //批量删除
     int deleteItemsById(List<Integer> ids) throws Exception;
 
-    //todo
     List<Item> selectByCondition(ItemCondition condition) throws Exception;
 }

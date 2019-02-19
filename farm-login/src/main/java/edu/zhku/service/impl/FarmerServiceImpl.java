@@ -5,6 +5,7 @@ import edu.zhku.constant.Role;
 import edu.zhku.dao.FarmerDao;
 import edu.zhku.pojo.Farmer;
 import edu.zhku.service.FarmerService;
+import edu.zhku.util.AMapUtil;
 import edu.zhku.util.CodeVoFactory;
 import edu.zhku.util.KeyFactory;
 import edu.zhku.vo.CodeVo;
@@ -78,6 +79,7 @@ public class FarmerServiceImpl implements FarmerService{
         //自动产生主键
         String id = KeyFactory.generateRoleKey(Role.FARMER);
         farmer.setFid(id);
+        setLocation(farmer);
 
         //注册
         int flag = farmerDao.insertSelective(farmer);
@@ -85,6 +87,27 @@ public class FarmerServiceImpl implements FarmerService{
             return CodeVoFactory.getVo(Code.SUCCESS);
         }
         return CodeVoFactory.getVo(Code.FAIL);
+    }
+
+    /**
+     * 设置farmer的location信息
+     * 将address转为地理编码
+     * 如果address为null、或者空，都直接返回
+     * @param farmer
+     */
+    private void setLocation(Farmer farmer) {
+
+        if (farmer == null ) {
+            return;
+        }
+        String address = farmer.getAddress();
+        if (address == null || "".equals(address.trim())){
+            return;
+        }
+
+        String location = AMapUtil.geoCode(address);
+        farmer.setLocation(location);
+
     }
 
 
@@ -128,6 +151,10 @@ public class FarmerServiceImpl implements FarmerService{
             return CodeVoFactory.getVo(Code.FAIL);
         }
 
+        //设置location
+        setLocation(farmer);
+
+        //更新
         int flag = farmerDao.updateByPrimaryKeySelective(farmer);
         if (flag == 1) {
             return CodeVoFactory.getVo(Code.SUCCESS);

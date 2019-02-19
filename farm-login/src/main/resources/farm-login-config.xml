@@ -12,6 +12,10 @@
     <!--定义bean节点，接口的实现类具体位置-->
     <bean id="merchantServiceFacadeImpl" class="edu.zhku.facade.MerchantServiceFacadeImpl"></bean>
 
+
+    <dubbo:service interface="edu.zhku.service.FarmerServiceFacade" ref="farmerServiceFacadeImpl"/>
+    <bean id="farmerServiceFacadeImpl" class="edu.zhku.facade.FarmerServiceFacadeImpl"></bean>
+
     <!--引用认证系统的接口-->
     <!--服务只有注册了才可以使用，否则就会导致系统启动失败-->
     <!--check属性（默认为true），为false那么就不无需检测服务是否已经注册了，只有用到的时候才检测-->

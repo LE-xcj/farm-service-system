@@ -20,6 +20,13 @@
 	</properties>
 
 	<dependencies>
+
+		<!--引入登录系统的门面接口-->
+		<dependency>
+			<groupId>edu.zhku</groupId>
+			<artifactId>farm-login-facade</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
 		<!-- 支持jsp的jar包 -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -106,6 +113,23 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+
+		<!--HTTPClient-->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<!--阿里的fastjson-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

@@ -7,6 +7,8 @@ import edu.zhku.service.MerchantServiceFacade;
 import edu.zhku.vo.CodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * @author chujian
  * @ClassName MerchantServiceFacadeImpl
@@ -31,6 +33,21 @@ public class MerchantServiceFacadeImpl implements MerchantServiceFacade {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    @Override
+    public String queryMerchantByAddress(String address) {
+
+
+        String data = null;
+        try {
+            List<Merchant> merchants = merchantService.queryByAddress(address);
+            data = JSON.toJSONString(merchants);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return data;
     }
 }
     

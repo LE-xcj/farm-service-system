@@ -6,6 +6,8 @@ package edu.zhku.constant;
  * @Description 功能描述
  * @date 2019/2/17 19:14
  */
-public enum Table {
+public class Table {
+
+    public static final String ITEMTABLE = "ItemTable";
 
 }

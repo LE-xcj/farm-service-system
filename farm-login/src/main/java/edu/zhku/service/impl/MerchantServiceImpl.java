@@ -5,12 +5,14 @@ import edu.zhku.constant.Role;
 import edu.zhku.dao.MerchantDao;
 import edu.zhku.pojo.Merchant;
 import edu.zhku.service.MerchantService;
+import edu.zhku.util.AMapUtil;
 import edu.zhku.util.CodeVoFactory;
 import edu.zhku.util.KeyFactory;
 import edu.zhku.vo.CodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -93,12 +95,25 @@ public class MerchantServiceImpl implements MerchantService{
         String id = KeyFactory.generateRoleKey(Role.MERCHANT);
         merchant.setMid(id);
 
+        setLocation(merchant);
+
         //注册
         int flag = merchantDao.insertSelective(merchant);
         if (flag == 1){
             return CodeVoFactory.getVo(Code.SUCCESS);
         }
         return CodeVoFactory.getVo(Code.FAIL);
+    }
+
+    /**
+     * 设置location信息
+     * @param merchant
+     */
+    private void setLocation(Merchant merchant) {
+
+        String address = merchant.getAddress();
+        String location = AMapUtil.geoCode(address);
+        merchant.setLocation(location);
     }
 
     /**
@@ -143,6 +158,7 @@ public class MerchantServiceImpl implements MerchantService{
             return CodeVoFactory.getVo(Code.FAIL);
         }
 
+        setLocation(merchant);
         int flag = merchantDao.updateByPrimaryKeySelective(merchant);
         if (flag == 1) {
             return CodeVoFactory.getVo(Code.SUCCESS);
@@ -150,7 +166,19 @@ public class MerchantServiceImpl implements MerchantService{
         return CodeVoFactory.getVo(Code.FAIL);
     }
 
+    @Override
+    public List<Merchant> queryByAddress(String address) throws Exception {
 
+        //返回一个长度0的集合
+        if (null == address)
+            return new ArrayList<>();
+
+        Merchant condition = new Merchant();
+        condition.setAddress(address);
+        List<Merchant> merchants = merchantDao.selectMerchantByCondition(condition);
+
+        return merchants;
+    }
 
 
     /**

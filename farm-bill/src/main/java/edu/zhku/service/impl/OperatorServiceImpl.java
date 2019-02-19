@@ -91,7 +91,7 @@ public class OperatorServiceImpl implements OperatorService {
 
     /**
      * 根据条件查询
-     * 非常重要
+     * 注意这里只是分页查询而已，将某个商户的机手分页显示
      * @param condition
      * @return
      * @throws Exception
@@ -102,6 +102,8 @@ public class OperatorServiceImpl implements OperatorService {
         if (null == condition) {
             throw new Exception(ExceptionMessage.OBJNULL);
         }
+
+        condition.initBegin();
 
         List<Operator> operators = operatorMapper.selectOperatorByCondition(condition);
 

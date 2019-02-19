@@ -22,4 +22,6 @@ public interface MerchantService {
 
     CodeVo updateMerchant(Merchant merchant) throws Exception;
 
+    List<Merchant> queryByAddress(String address) throws Exception;
+
 }
