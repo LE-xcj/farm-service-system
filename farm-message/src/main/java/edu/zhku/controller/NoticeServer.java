@@ -1,5 +1,6 @@
 package edu.zhku.controller;
 
+import edu.zhku.pojo.Notice;
 import net.sf.json.JSONObject;
 
 import javax.websocket.*;
@@ -68,9 +69,7 @@ public class NoticeServer {
     @OnClose
     public void onClose(@PathParam("roomName") String id, Session session) {
 
-        Set<Session> set = users.get(id);
-        set.remove(session);
-
+        removeSession(session);
         System.out.println("一个客户断开连接");
     }
 
@@ -122,8 +121,23 @@ public class NoticeServer {
      * @param error
      */
     @OnError
-    public void onError(Session session, Throwable error) {
+    public void onError(@PathParam("id")String id, Session session, Throwable error) {
+        removeSession(session);
         System.out.println("发生错误");
+    }
+
+
+
+    public void removeSession( Session session) {
+        Set<Map.Entry<String, Set<Session>>> entries = users.entrySet();
+
+        for (Map.Entry<String, Set<Session>> entry : entries) {
+            Set<Session> sets = entry.getValue();
+            if (sets.contains(session)) {
+                sets.remove(session);
+                return;
+            }
+        }
     }
 
     /**
@@ -136,8 +150,14 @@ public class NoticeServer {
         session.getBasicRemote().sendText(message);
     }
 
-    public static boolean notice(String id, String content) throws IOException {
-        Set<Session> sessions = users.get(id);
+    public static boolean notice(Notice notice) throws IOException {
+
+        Set<Session> sessions = users.get(notice.getDestination());
+
+        JSONObject jsonObject = JSONObject.fromObject(notice);
+
+        // 在消息中添加发送日期
+        jsonObject.put("date", DATE_FORMAT.format(new Date()));
 
         if (null == sessions || sessions.isEmpty()) {
             return false;
@@ -145,7 +165,7 @@ public class NoticeServer {
 
         //通知
         for (Session session : sessions) {
-            session.getBasicRemote().sendText(content);
+            session.getBasicRemote().sendText(jsonObject.toString());
         }
 
         return true;

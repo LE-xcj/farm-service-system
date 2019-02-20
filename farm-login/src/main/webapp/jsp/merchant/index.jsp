@@ -9,25 +9,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 
     <!--css-->
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="icon" type="image/png" href="http://106.14.139.8/merchant-index/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="http://106.14.139.8/merchant-index/assets/i/app-icon72x72@2x.png">
+    <link rel="stylesheet" href="http://106.14.139.8/merchant-index/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="http://106.14.139.8/merchant-index/assets/css/admin.css">
 
     <!--js-->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/amazeui.min.js"></script>
+    <script src="http://106.14.139.8/merchant-index/assets/js/jquery.min.js"></script>
+    <script src="http://106.14.139.8/merchant-index/assets/js/app.js"></script>
+    <script src="http://106.14.139.8/merchant-index/assets/js/amazeui.min.js"></script>
 </head>
 
 <body>
-
+<%--${pageContext.request.contextPath }--%>
 <!--头部导航栏-->
 <header class="am-topbar admin-header">
-    <div class="am-topbar-brand"><img src="assets/i/logo.png"></div>
+    <div class="am-topbar-brand"><img src="http://106.14.139.8/merchant-index/assets/i/logo.png"></div>
 
     <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
         <ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">

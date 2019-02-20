@@ -48,9 +48,7 @@
       <if test="status != null">
         status,
       </if>
-      <if test="sendtime != null">
-        sendTime,
-      </if>
+        sendTime
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -68,9 +66,7 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="sendtime != null">
-        #{sendtime,jdbcType=DATE},
-      </if>
+        now()
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Notice">
@@ -107,7 +103,7 @@
 
 
 
-  <resultMap id="BaseResultMap" type="edu.zhku.pojo.Notice">
+  <resultMap id="resultMap" type="edu.zhku.pojo.Notice">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="role" jdbcType="INTEGER" property="role" />
     <result column="destination" jdbcType="VARCHAR" property="destination" />
@@ -129,11 +125,11 @@
   
   <sql id="query_sql">
 
-    <if test="destination != null">
-      and destination =  #{destination}
+    <if test="notice.destination != null">
+      and destination =  #{notice.destination}
     </if>
-    <if test="status != null">
-      and status = #{status}
+    <if test="notice.status != null">
+      and status = #{notice.status}
     </if>
   </sql>
   
@@ -142,8 +138,8 @@
   </sql>
   
   
-  <select id="count" parameterType="edu.zhku.pojo.NoticeCondition">
-      select * from t_notice
+  <select id="count" parameterType="edu.zhku.pojo.NoticeCondition" resultType="java.lang.Integer">
+      select count(*) from t_notice
       <where>
         <include refid="query_sql"/>
       </where>

@@ -5,7 +5,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
-
 /**
  * @author chujian
  * @ClassName ApplicationConfig
@@ -15,8 +14,9 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages = "edu.zhku")     //扫描包
-@ImportResource({"classpath:farm-login-config.xml"})
+@ImportResource(locations = {"classpath:farm-login-config.xml"})
 public class ApplicationConfig {
 
 
 }
+

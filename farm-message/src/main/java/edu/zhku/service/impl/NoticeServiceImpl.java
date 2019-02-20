@@ -8,6 +8,7 @@ import edu.zhku.service.NoticeService;
 import edu.zhku.util.RedisUtil;
 import edu.zhku.vo.NoticeVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * @Description 功能描述
  * @date 2019/2/19 20:01
  */
+@Service
 public class NoticeServiceImpl implements NoticeService{
 
     @Resource(name = "redisUtil")
@@ -48,7 +50,7 @@ public class NoticeServiceImpl implements NoticeService{
         //在线，或者是会话还没失效
         if (null != obj) {
             //尝试通知（因为用户可能已经将关闭页面了
-            f = NoticeServer.notice(destination, content);
+            f = NoticeServer.notice(notice);
         }
 
         //向数据库插入通知记录
@@ -77,7 +79,7 @@ public class NoticeServiceImpl implements NoticeService{
         List<Notice> notices = noticeMapper.selectByCondition(condition);
 
         //计算总数
-        int count = noticeMapper.count(condition.getNotice());
+        int count = noticeMapper.count(condition);
         int pageSize = condition.getPageSize();
 
         //计算页数
@@ -91,6 +93,12 @@ public class NoticeServiceImpl implements NoticeService{
         return vo;
     }
 
+    /**
+     * 计算总页数
+     * @param count
+     * @param pageSize
+     * @return
+     */
     private int getTotalPage(int count, int pageSize) {
 
         int totalPage = count / pageSize;
@@ -103,6 +111,11 @@ public class NoticeServiceImpl implements NoticeService{
 
     }
 
+    /**
+     * 适配
+     * @param role
+     * @return
+     */
     private int roleAddapte(String role) {
         if (role.equals("farmer")) {
             return 1;

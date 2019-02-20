@@ -27,6 +27,7 @@ public class NoticeCondition {
 
     public void setPage(int page) {
         this.page = page;
+        this.begin = (page-1) * pageSize;
     }
 
     public int getPageSize() {
@@ -44,5 +45,6 @@ public class NoticeCondition {
     public void setBegin(int begin) {
         this.begin = begin;
     }
+
 }
     

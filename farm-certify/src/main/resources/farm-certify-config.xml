@@ -8,13 +8,13 @@
 
     <!-- 声明需要暴露的服务接口 -->
     <!--注册认证门面接口， ref引用具体实现类的位置-->
-    <dubbo:service interface="edu.zhku.service.CertifyServiceFacade" ref="certifyServiceFacadeImpl"/>
+    <dubbo:service interface="edu.zhku.service.CertifyServiceFacade" ref="certifyServiceFacadeImpl" retries="0" timeout="300000"/>
     <!--定义bean节点，接口的实现类具体位置-->
     <bean id="certifyServiceFacadeImpl" class="edu.zhku.facade.CertifyServiceFacadeImpl"></bean>
 
     <!--引用登录系统和消息系统的两个接口-->
     <!--服务只有注册了才可以使用，否则就会导致系统启动失败-->
     <!--check属性（默认为true），为false那么就不无需检测服务是否已经注册了，只有用到的时候才检测-->
-    <dubbo:reference id="notifyServiceFacade" interface="edu.zhku.service.NotifyServiceFacade" check="false"/>
-    <dubbo:reference id="merchantServiceFacade" interface="edu.zhku.service.MerchantServiceFacade" check="false"/>
+    <dubbo:reference id="notifyServiceFacade" interface="edu.zhku.service.NotifyServiceFacade" check="false" retries="0" timeout="300000"/>
+    <dubbo:reference id="merchantServiceFacade" interface="edu.zhku.service.MerchantServiceFacade" check="false" retries="0" timeout="300000"/>
 </beans>

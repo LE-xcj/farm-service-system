@@ -8,21 +8,21 @@
 
     <!-- 声明需要暴露的服务接口 -->
     <!--注册认证门面接口， ref引用具体实现类的位置-->
-    <dubbo:service interface="edu.zhku.service.MerchantServiceFacade" ref="merchantServiceFacadeImpl"/>
+    <dubbo:service interface="edu.zhku.service.MerchantServiceFacade" ref="merchantServiceFacadeImpl" timeout="300000" retries="0"/>
     <!--定义bean节点，接口的实现类具体位置-->
     <bean id="merchantServiceFacadeImpl" class="edu.zhku.facade.MerchantServiceFacadeImpl"></bean>
 
 
-    <dubbo:service interface="edu.zhku.service.FarmerServiceFacade" ref="farmerServiceFacadeImpl"/>
+    <dubbo:service interface="edu.zhku.service.FarmerServiceFacade" ref="farmerServiceFacadeImpl" timeout="300000" retries="0"/>
     <bean id="farmerServiceFacadeImpl" class="edu.zhku.facade.FarmerServiceFacadeImpl"></bean>
 
-    <dubbo:service interface="edu.zhku.service.LoginServiceFacade" ref="loginServiceFacadeImpl"/>
+    <dubbo:service interface="edu.zhku.service.LoginServiceFacade" ref="loginServiceFacadeImpl" timeout="300000" retries="0"/>
     <bean id="loginServiceFacadeImpl" class="edu.zhku.facade.LoginServiceFacadeImpl"></bean>
 
 
     <!--引用认证系统的接口-->
     <!--服务只有注册了才可以使用，否则就会导致系统启动失败-->
     <!--check属性（默认为true），为false那么就不无需检测服务是否已经注册了，只有用到的时候才检测-->
-    <dubbo:reference id="certifyServiceFacade" interface="edu.zhku.service.CertifyServiceFacade" check="false"/>
+    <dubbo:reference id="certifyServiceFacade" interface="edu.zhku.service.CertifyServiceFacade" check="false" timeout="300000" retries="0"/>
 
 </beans>

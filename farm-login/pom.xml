@@ -127,13 +127,13 @@
             <version>1.2</version>
         </dependency>
 
-        <!--热部署-->
+<!--        &lt;!&ndash;热部署&ndash;&gt;
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <!-- optional=true,依赖不会往下传递，如果有项目依赖本项目，并且想要使用devtools，需要重新引入 -->
+            &lt;!&ndash; optional=true,依赖不会往下传递，如果有项目依赖本项目，并且想要使用devtools，需要重新引入 &ndash;&gt;
             <optional>true</optional>
-        </dependency>
+        </dependency>-->
 
         <!--106短信接口的HttpUtils依赖-->
         <dependency>
@@ -141,7 +141,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.15</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.2.1</version>
@@ -150,7 +150,7 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
             <version>4.2.1</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -180,8 +180,15 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
+            <version>4.5</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

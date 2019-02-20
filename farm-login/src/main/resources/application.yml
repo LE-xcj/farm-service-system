@@ -16,9 +16,9 @@ spring:
       suffix: .jsp
   datasource:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/farmservice?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://106.14.139.8:3306/zhku?useUnicode=true&characterEncoding=utf8
       username: root
-      password: 575534
+      password: 201521314109
       #type: com.alibaba.druid.pool.DruidDataSource
   redis:
     host: 106.14.139.8

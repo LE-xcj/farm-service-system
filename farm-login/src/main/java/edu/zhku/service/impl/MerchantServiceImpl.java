@@ -112,6 +112,9 @@ public class MerchantServiceImpl implements MerchantService{
     private void setLocation(Merchant merchant) {
 
         String address = merchant.getAddress();
+        if (address == null) {
+            return;
+        }
         String location = AMapUtil.geoCode(address);
         merchant.setLocation(location);
     }

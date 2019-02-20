@@ -41,7 +41,7 @@
                 上面规范前提是：使用的是mapper代理方法
         -->
         <!-- 如果扫描多个包，每个包中间使用半角逗号分隔 -->
-        <property name="basePackage" value="eud.zhku.mapper"></property>
+        <property name="basePackage" value="edu.zhku.mapper"></property>
 
         <!-- 注意这样做是会有问题的，因为这优先级比加载db.propertie配置文件高 -->
         <!-- <property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->

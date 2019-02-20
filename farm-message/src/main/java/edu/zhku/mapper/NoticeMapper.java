@@ -20,6 +20,6 @@ public interface NoticeMapper {
 
 
     int insertSelective(Notice record);
-    List<Notice> selectByCondition(NoticeCondition notice) throws Exception;
-    int count(Notice notice) throws Exception;
+    List<Notice> selectByCondition(NoticeCondition condition) throws Exception;
+    int count(NoticeCondition notice) throws Exception;
 }

@@ -1,5 +1,6 @@
 package edu.zhku.controller;
 
+import edu.zhku.pojo.Notice;
 import edu.zhku.pojo.NoticeCondition;
 import edu.zhku.service.NoticeService;
 import edu.zhku.util.RedisUtil;
@@ -26,13 +27,15 @@ public class NoticeController {
 
     @RequestMapping("/queryNotice")
     public NoticeVo queryNotice(NoticeCondition condition) throws Exception {
-
-        redisUtil.set("skjdfkasjdfk", "ksdjflsak");
-        Object skjdfkasjdfk = redisUtil.get("skjdfkasjdfk");
-
         NoticeVo vo = noticeService.selectNoticeByCondition(condition);
         return vo;
     }
+
+    @RequestMapping("/notice")
+    public void notice(Notice notice) throws Exception {
+        noticeService.tryNotify("farmer", notice.getDestination(), notice.getContent());
+    }
+
 
 }
     

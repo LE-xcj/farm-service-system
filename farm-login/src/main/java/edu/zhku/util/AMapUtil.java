@@ -85,6 +85,7 @@ public class AMapUtil {
     public static String geoCode(String address) {
 
         String data = null;
+        System.out.println("hhhheee");
         //发送get请求
         CloseableHttpClient httpClient = HttpClients.createDefault();
 

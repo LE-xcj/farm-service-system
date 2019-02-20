@@ -3,6 +3,7 @@ package edu.zhku.facade;
 import edu.zhku.service.LoginServiceFacade;
 import edu.zhku.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author chujian

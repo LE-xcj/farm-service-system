@@ -2,6 +2,7 @@ package edu.zhku.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @Description 功能描述
  * @date 2019/2/14 22:15
  */
+@Component
 public class RedisUtil {
 
     @Autowired

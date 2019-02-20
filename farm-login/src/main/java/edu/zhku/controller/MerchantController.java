@@ -113,7 +113,7 @@ public class MerchantController {
         Object mid = session.getAttribute(Role.MERCHANT.name());
 
         mv.addObject("mid", mid);
-        mv.setViewName("index");
+        mv.setViewName("merchant/index");
     }
 
     @RequestMapping("/updateMerchant")
@@ -181,6 +181,7 @@ public class MerchantController {
 
     @Autowired
     private CertifyServiceFacade certifyServiceFacade;
+
     @RequestMapping("/certify")
     public String certify(String mid) {
         certifyServiceFacade.certify(mid);

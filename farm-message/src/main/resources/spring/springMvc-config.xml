@@ -15,7 +15,7 @@
 
     <!-- 对于注解中的handler可以单个配置 但是，实际开发建议使用组件扫描,这样就不需要定义handler 可以扫描：controller、service等等 -->
 
-    <context:component-scan base-package="edu.zhku.controller"></context:component-scan>
+    <context:component-scan base-package="edu.zhku"></context:component-scan>
 
     <!-- 注解映射器 -->
     <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean> -->
@@ -44,7 +44,14 @@
         </mvc:interceptor>
     </mvc:interceptors>-->
 
-
+    <!-- 文件上传 multipart解析器 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大为5MB -->
+        <property name="maxUploadSize">
+            <value>5242880</value>
+        </property>
+    </bean>
 
 
 </beans>

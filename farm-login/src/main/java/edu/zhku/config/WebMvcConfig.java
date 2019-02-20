@@ -2,7 +2,6 @@ package edu.zhku.config;
 
 import edu.zhku.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -14,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Description 功能描述
  * @date 2019/2/15 11:54
  */
-@Configuration
+//@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
