@@ -15,7 +15,7 @@ public class Bill {
 
     private Date createtime;
 
-    private Integer deadline;
+    private Date deadline;
 
     private String remark;
 
@@ -67,11 +67,11 @@ public class Bill {
         this.createtime = createtime;
     }
 
-    public Integer getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Integer deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 

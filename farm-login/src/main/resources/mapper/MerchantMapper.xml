@@ -236,7 +236,7 @@
       and description =  #{description}
     </if>
     <if test="isverify != null" >
-      and isVerify = #{isVerify}
+      and isVerify = #{isverify}
     </if>
   </sql>
 

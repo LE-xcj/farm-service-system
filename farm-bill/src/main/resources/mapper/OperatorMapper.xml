@@ -126,16 +126,6 @@
 
 
 
-  <resultMap id="resultMap" type="edu.zhku.pojo.Operator">
-    <id column="oid" jdbcType="VARCHAR" property="oid" />
-    <result column="oname" jdbcType="CHAR" property="oname" />
-    <result column="sex" jdbcType="CHAR" property="sex" />
-    <result column="phone" jdbcType="CHAR" property="phone" />
-    <result column="picture" jdbcType="VARCHAR" property="picture" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="mid" jdbcType="VARCHAR" property="mid" />
-  </resultMap>
-
   <insert id="insertOperators" parameterType="java.util.List">
     insert into t_operator (oid, oname, sex,
                             phone,picture, description, mid) VALUES
@@ -194,4 +184,12 @@
       LIMIT #{begin}, #{pageSize}
     </if>
   </sql>
+  
+  
+  <select id="queryOperatorForIDList" parameterType="java.util.List" resultMap="resultMap">
+    select * from t_operator WHERE oid in
+    <foreach collection="ids" open="(" separator="," close=")" item="item">
+        #{item}
+    </foreach>
+  </select>
 </mapper>

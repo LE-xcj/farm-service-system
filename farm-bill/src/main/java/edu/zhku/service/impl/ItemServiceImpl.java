@@ -8,17 +8,21 @@ import edu.zhku.dao.ItemDao;
 import edu.zhku.mapper.ItemMapper;
 import edu.zhku.pojo.Item;
 import edu.zhku.pojo.ItemCondition;
+import edu.zhku.pojo.ItemConditionForMerchant;
 import edu.zhku.pojo.MerchantConditon;
 import edu.zhku.service.FarmerServiceFacade;
 import edu.zhku.service.ItemService;
 import edu.zhku.service.MerchantServiceFacade;
 import edu.zhku.util.AMapUtil;
+import edu.zhku.util.PageUtil;
+import edu.zhku.vo.ItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chujian
@@ -83,7 +87,7 @@ public class ItemServiceImpl implements ItemService{
     private MerchantServiceFacade merchantServiceFacade;
     /**
      * 根据条件查询商品信息
-     * 重点
+     * 重点,给农户调用的s
      * @param condition
      * @return
      * @throws Exception
@@ -99,20 +103,21 @@ public class ItemServiceImpl implements ItemService{
         String fid = condition.getFid();
         String destination = getDestination(fid);
 
+        if (null == destination) {
+            throw new Exception(ExceptionMessage.LOCATIONNULL);
+        }
+
         //根据address模糊查询该位置范围的商户
         String address = condition.getAddress();
         List<MerchantConditon> merchantConditons = getMerchantCondition(address, destination);
 
         //如果该地区没有商户入驻
         if (null == merchantConditons){
-            return null;
+            return new ArrayList<>();
         }
 
         //对merchantCondition按照距离进行升序排序
         Collections.sort(merchantConditons);
-
-        //初始化开始地方
-        condition.initBegin();
 
         //填充查询条件
         condition.setMerchantConditons(merchantConditons);
@@ -122,16 +127,40 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public List<Item> selectByItem(Item item) throws Exception {
+    public int countForFarmer(ItemCondition condition) throws Exception {
+        int total = itemDao.countForFarmer(condition);
+        int totalPage = PageUtil.count(total, condition.getPageSize());
+        return totalPage;
+    }
 
-        if (null == item) {
+
+    /**
+     * 根据item条件查询
+     * 给商户用的
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ItemVo selectByItem(ItemConditionForMerchant condition) throws Exception {
+
+        if (null == condition) {
             throw new Exception(ExceptionMessage.OBJNULL);
         }
 
-        List<Item> items = itemDao.selectByItem(item);
+        List<Item> items = itemDao.selectByItem(condition);
 
-        return items;
+        int total = itemDao.countForMerchant(condition);
+        int totalPage = PageUtil.count(total, condition.getPageSize());
+
+        ItemVo vo = new ItemVo();
+        vo.setItems(items);
+        vo.setTotalPage(totalPage);
+
+
+        return vo;
     }
+
 
     private List<MerchantConditon> getMerchantCondition(String address, String destination) {
 
@@ -203,7 +232,7 @@ public class ItemServiceImpl implements ItemService{
      */
     @Override
     public int updateItemById(Item item) throws Exception {
-        if (isIllegal(item)) {
+        if (isIllegal(item) || isNull(item.getIid())) {
             throw new Exception(ExceptionMessage.PARAMETORERRO);
         }
 
@@ -291,6 +320,7 @@ public class ItemServiceImpl implements ItemService{
     }
 
 
+
     /**
      * 判断商品的信息是否合法
      * 非法：
@@ -309,13 +339,12 @@ public class ItemServiceImpl implements ItemService{
             return true;
         }
 
-        Integer iid = item.getIid();
         String iname = item.getIname();
         String mid = item.getMid();
         String unit = item.getUnit();
 
         //2、3
-        if (isNull(iid) || isNull(iname, mid, unit))
+        if (isNull(iname, mid, unit))
             return true;
 
         //4
@@ -327,6 +356,5 @@ public class ItemServiceImpl implements ItemService{
         return false;
 
     }
-
 }
     

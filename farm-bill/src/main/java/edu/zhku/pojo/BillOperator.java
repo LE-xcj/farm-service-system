@@ -1,13 +1,11 @@
 package edu.zhku.pojo;
 
-public class BillItem {
+public class BillOperator {
     private Integer id;
 
-    private Integer iid;
+    private String oid;
 
     private String bid;
-
-    private Integer num;
 
     public Integer getId() {
         return id;
@@ -17,12 +15,12 @@ public class BillItem {
         this.id = id;
     }
 
-    public Integer getIid() {
-        return iid;
+    public String getOid() {
+        return oid;
     }
 
-    public void setIid(Integer iid) {
-        this.iid = iid;
+    public void setOid(String oid) {
+        this.oid = oid == null ? null : oid.trim();
     }
 
     public String getBid() {
@@ -31,13 +29,5 @@ public class BillItem {
 
     public void setBid(String bid) {
         this.bid = bid == null ? null : bid.trim();
-    }
-
-    public Integer getNum() {
-        return num;
-    }
-
-    public void setNum(Integer num) {
-        this.num = num;
     }
 }

@@ -24,4 +24,7 @@ public interface MerchantService {
 
     List<Merchant> queryByAddress(String address) throws Exception;
 
+
+    boolean isCertify(String mid) throws Exception;
+
 }

@@ -5,13 +5,13 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="iid" jdbcType="INTEGER" property="iid" />
     <result column="bid" jdbcType="VARCHAR" property="bid" />
-    <result column="num" jdbcType="REAL" property="num" />
+    <result column="num" jdbcType="INTEGER" property="num" />
   </resultMap>
   <sql id="Base_Column_List">
     id, iid, bid, num
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_bill_item
     where id = #{id,jdbcType=INTEGER}
@@ -21,10 +21,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="edu.zhku.pojo.BillItem">
-    insert into t_bill_item (id, iid, bid, 
-      num)
-    values (#{id,jdbcType=INTEGER}, #{iid,jdbcType=INTEGER}, #{bid,jdbcType=VARCHAR}, 
-      #{num,jdbcType=REAL})
+    insert into t_bill_item (id, iid, bid,
+    num)
+    values (#{id,jdbcType=INTEGER}, #{iid,jdbcType=INTEGER}, #{bid,jdbcType=VARCHAR},
+    #{num,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="edu.zhku.pojo.BillItem">
     insert into t_bill_item
@@ -53,7 +53,7 @@
         #{bid,jdbcType=VARCHAR},
       </if>
       <if test="num != null">
-        #{num,jdbcType=REAL},
+        #{num,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -67,7 +67,7 @@
         bid = #{bid,jdbcType=VARCHAR},
       </if>
       <if test="num != null">
-        num = #{num,jdbcType=REAL},
+        num = #{num,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -76,7 +76,26 @@
     update t_bill_item
     set iid = #{iid,jdbcType=INTEGER},
       bid = #{bid,jdbcType=VARCHAR},
-      num = #{num,jdbcType=REAL}
+      num = #{num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+
+
+
+  <!--batch insert-->
+  <insert id="insertBillItemForList" parameterType="java.util.List">
+    insert into t_bill_item (id, iid, bid, num) values
+    <foreach collection="billItems" separator="," item="item">
+      (
+        #{item.id,jdbcType=INTEGER},
+        #{item.iid,jdbcType=INTEGER},
+        #{item.bid,jdbcType=VARCHAR},
+        #{item.num,jdbcType=INTEGER}
+      )
+    </foreach>
+
+  </insert>
 </mapper>

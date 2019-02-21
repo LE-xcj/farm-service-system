@@ -7,15 +7,15 @@
     <result column="mid" jdbcType="VARCHAR" property="mid" />
     <result column="money" jdbcType="REAL" property="money" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="createTime" jdbcType="DATE" property="createtime" />
-    <result column="deadline" jdbcType="INTEGER" property="deadline" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="deadline" jdbcType="TIMESTAMP" property="deadline" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
     bid, fid, mid, money, status, createTime, deadline, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_bill
     where bid = #{bid,jdbcType=VARCHAR}
@@ -25,12 +25,12 @@
     where bid = #{bid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="edu.zhku.pojo.Bill">
-    insert into t_bill (bid, fid, mid, 
-      money, status, createTime, 
-      deadline, remark)
-    values (#{bid,jdbcType=VARCHAR}, #{fid,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR}, 
-      #{money,jdbcType=REAL}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=DATE}, 
-      #{deadline,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+    insert into t_bill (bid, fid, mid,
+    money, status, createTime,
+    deadline, remark)
+    values (#{bid,jdbcType=VARCHAR}, #{fid,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR},
+    #{money,jdbcType=REAL}, #{status,jdbcType=INTEGER}, now(),
+    #{deadline,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="edu.zhku.pojo.Bill">
     insert into t_bill
@@ -50,15 +50,13 @@
       <if test="status != null">
         status,
       </if>
-      <if test="createtime != null">
-        createTime,
-      </if>
       <if test="deadline != null">
         deadline,
       </if>
       <if test="remark != null">
         remark,
       </if>
+      createTime
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="bid != null">
@@ -76,15 +74,13 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=DATE},
-      </if>
       <if test="deadline != null">
-        #{deadline,jdbcType=INTEGER},
+        #{deadline,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
+      now()
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Bill">
@@ -103,10 +99,10 @@
         status = #{status,jdbcType=INTEGER},
       </if>
       <if test="createtime != null">
-        createTime = #{createtime,jdbcType=DATE},
+        createTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
       <if test="deadline != null">
-        deadline = #{deadline,jdbcType=INTEGER},
+        deadline = #{deadline,jdbcType=TIMESTAMP},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
@@ -120,8 +116,8 @@
       mid = #{mid,jdbcType=VARCHAR},
       money = #{money,jdbcType=REAL},
       status = #{status,jdbcType=INTEGER},
-      createTime = #{createtime,jdbcType=DATE},
-      deadline = #{deadline,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      deadline = #{deadline,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR}
     where bid = #{bid,jdbcType=VARCHAR}
   </update>

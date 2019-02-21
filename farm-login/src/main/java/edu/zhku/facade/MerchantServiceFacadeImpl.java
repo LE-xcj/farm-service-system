@@ -49,5 +49,17 @@ public class MerchantServiceFacadeImpl implements MerchantServiceFacade {
 
         return data;
     }
+
+    @Override
+    public String queryMerchantById(String mid) {
+        String data = null;
+        try {
+            Merchant merchant = merchantService.selectById(mid);
+            data = JSON.toJSONString(merchant);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
 }
     

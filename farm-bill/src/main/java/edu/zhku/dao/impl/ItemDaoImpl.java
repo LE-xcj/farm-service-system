@@ -5,6 +5,7 @@ import edu.zhku.dao.ItemDao;
 import edu.zhku.mapper.ItemMapper;
 import edu.zhku.pojo.Item;
 import edu.zhku.pojo.ItemCondition;
+import edu.zhku.pojo.ItemConditionForMerchant;
 import edu.zhku.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -73,9 +74,27 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     @Override
-    public List<Item> selectByItem(Item item) throws Exception {
+    public List<Item> selectItemByIds(List<Integer> ids) throws Exception {
+
+        return itemMapper.selectItemByIds(ids);
+    }
+
+    @Override
+    public int countForFarmer(ItemCondition condition) throws Exception {
+        int num = itemMapper.countForFarmer(condition);
+        return num;
+    }
+
+    @Override
+    public List<Item> selectByItem(ItemConditionForMerchant item) throws Exception {
         List<Item> items = itemMapper.selectByItem(item);
         return items;
+    }
+
+    @Override
+    public int countForMerchant(ItemConditionForMerchant condition) throws Exception {
+        int count = itemMapper.countForMerchant(condition);
+        return count;
     }
 }
     

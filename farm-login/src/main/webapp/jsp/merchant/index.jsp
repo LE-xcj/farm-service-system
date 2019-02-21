@@ -1,8 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html class="no-js">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" charset=utf-8">
     <title>商户后台管理系统</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
@@ -83,7 +84,7 @@
         <div class="sideMenu">
             <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
             <ul>
-                <li><a href="">添加服务</a> </li>
+                <li><a href="http://127.0.0.1:10087/farmService/item/addItemView?mid='${merchant.mid}'&sid='${sid}'">添加服务</a> </li>
                 <li><a href="">服务列表</a></li>
                 <li><a href="">更新服务信息</a></li>
                 <li><a href="">农户评论</a></li>
@@ -103,8 +104,8 @@
 
             <h3 class="am-icon-gears"><em></em> <a href="#">账户管理</a></h3>
             <ul>
-                <li><a href="">商户认证</a></li>
-                <li><a href="">商户信息</a></li>
+                <li><a href=javascript:redir('/farmService/merchant/certifyView');>商户认证</a></li>
+                <li><a href="javascript:redir('/farmService/merchant/updateMerchantView')">商户信息</a></li>
                 <li><a href="">修改密码</a></li>
                 <li><a href="">修改手机号</a></li>
             </ul>
@@ -131,7 +132,7 @@
     <div class=" admin-content">
 
         <div class="daohang">
-            <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：清风抚雪</div>
+            <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;">${merchant.mname}</div>
         </div>
 
         <iframe id="showFrame" src="temp.html"

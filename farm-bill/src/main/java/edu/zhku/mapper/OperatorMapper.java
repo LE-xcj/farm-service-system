@@ -34,4 +34,10 @@ public interface OperatorMapper {
     int deleteOperatorsById(List<String> ids) throws Exception;
 
 
+    /**
+     * 根据机手的id集合批量查询机手信息
+     * @param ids
+     * @return
+     */
+    List<Operator> queryOperatorForIDList(List<String> ids);
 }

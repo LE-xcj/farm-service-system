@@ -3,7 +3,6 @@ package edu.zhku.dao.impl;
 import edu.zhku.constant.Table;
 import edu.zhku.dao.MerchantDao;
 import edu.zhku.mapper.MerchantMapper;
-import edu.zhku.pojo.Farmer;
 import edu.zhku.pojo.Merchant;
 import edu.zhku.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class MerchantDaoImpl implements MerchantDao{
     @Override
     public Merchant selectByPrimaryKey(String mid) throws Exception {
         Merchant merchant = null;
-        merchant = (Merchant) redisUtil.get(mid);
+        merchant = getMerchant(mid);
 
         if (merchant == null) {
             merchant = merchantMapper.selectByPrimaryKey(mid);
@@ -74,6 +73,11 @@ public class MerchantDaoImpl implements MerchantDao{
         return flag;
     }
 
+
+    public Merchant getMerchant(String mid)  {
+        Merchant merchant = (Merchant) redisUtil.hmGet(Table.MERCHANTTABLE.name(), mid);
+        return merchant;
+    }
 
     private void insertOrUpdate(Merchant merchant) {
         redisUtil.hmSet(Table.MERCHANTTABLE.name(), merchant.getMid(), merchant);

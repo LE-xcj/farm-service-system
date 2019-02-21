@@ -103,8 +103,6 @@ public class OperatorServiceImpl implements OperatorService {
             throw new Exception(ExceptionMessage.OBJNULL);
         }
 
-        condition.initBegin();
-
         List<Operator> operators = operatorMapper.selectOperatorByCondition(condition);
 
         return operators;

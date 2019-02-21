@@ -12,4 +12,7 @@
     <dubbo:reference id="farmerServiceFacade" interface="edu.zhku.service.FarmerServiceFacade" check="false" timeout="300000" retries="0"/>
     <dubbo:reference id="merchantServiceFacade" interface="edu.zhku.service.MerchantServiceFacade" check="false" timeout="300000" retries="0"/>
 
+    <!--消息系统-->
+    <dubbo:reference id="notifyServiceFacade" interface="edu.zhku.service.NotifyServiceFacade" check="false" timeout="300000" retries="0"/>
+
 </beans>

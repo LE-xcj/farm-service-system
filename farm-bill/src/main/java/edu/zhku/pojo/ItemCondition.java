@@ -49,6 +49,7 @@ public class ItemCondition{
 
     public void setPage(int page) {
         this.page = page;
+        this.begin = (page - 1) * pageSize;
     }
 
     public int getPageSize() {
@@ -83,8 +84,5 @@ public class ItemCondition{
         this.begin = begin;
     }
 
-    public void initBegin(){
-        this.begin = (page - 1) * pageSize;
-    }
 }
     

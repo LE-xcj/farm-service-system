@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author chujian
@@ -107,13 +108,37 @@ public class MerchantController {
 
 
     @RequestMapping("/index")
-    public void index(HttpSession session) {
+    public ModelAndView index(HttpSession session) throws Exception {
 
         ModelAndView mv = new ModelAndView();
-        Object mid = session.getAttribute(Role.MERCHANT.name());
+        String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
 
-        mv.addObject("mid", mid);
+        Merchant merchant = merchantService.selectById(mid);
+        mv.addObject("merchant", merchant);
+        mv.addObject("sid", session.getId());
+
         mv.setViewName("merchant/index");
+        return  mv;
+    }
+
+    @RequestMapping("/selectMerchant")
+    public Merchant selectMerchant(HttpSession session) throws Exception {
+        String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
+        Merchant merchant = merchantService.selectById(mid);
+        return merchant;
+    }
+
+    @RequestMapping("/updateMerchantView")
+    public ModelAndView updateMerchantView(HttpSession session) throws Exception {
+        ModelAndView mv = new ModelAndView();
+
+        String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
+
+        Merchant merchant = merchantService.selectById(mid);
+        mv.addObject("self", merchant);
+        mv.setViewName("merchant/personal");
+
+        return mv;
     }
 
     @RequestMapping("/updateMerchant")
@@ -123,11 +148,33 @@ public class MerchantController {
     }
 
 
-    @RequestMapping("/selectMerchant")
-    public Merchant selectMerchant(HttpSession session) throws Exception {
+
+    @Autowired
+    private CertifyServiceFacade certifyServiceFacade;
+    @RequestMapping("/certifyView")
+    public ModelAndView certifyView(HttpSession session) throws Exception {
+
+        ModelAndView mv = new ModelAndView();
+
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
-        Merchant merchant = merchantService.selectById(mid);
-        return merchant;
+
+        boolean certify = merchantService.isCertify(mid);
+
+        if (certify) {
+            mv.addObject("certify", "1");
+        } else {
+            mv.addObject("certify", "0");
+        }
+
+        mv.setViewName("merchant/certify");
+
+        return mv;
+    }
+
+    @RequestMapping("/certify")
+    public String certify(String mid) {
+        certifyServiceFacade.certify(mid);
+        return "invoke";
     }
 
 
@@ -176,16 +223,6 @@ public class MerchantController {
             redisUtil.set(mid, sessionId);
 
         }
-    }
-
-
-    @Autowired
-    private CertifyServiceFacade certifyServiceFacade;
-
-    @RequestMapping("/certify")
-    public String certify(String mid) {
-        certifyServiceFacade.certify(mid);
-        return "invoke";
     }
 
 }

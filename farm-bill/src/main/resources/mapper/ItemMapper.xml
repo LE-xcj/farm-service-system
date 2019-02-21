@@ -170,6 +170,14 @@
   </select>
 
 
+  <select id="countForFarmer" parameterType="edu.zhku.pojo.ItemCondition" resultType="java.lang.Integer">
+    select count(*) from t_item where status = 1 and mid IN
+    <foreach collection="merchantConditons" open="(" separator="," close=")" item="item">
+      #{item.mid}
+    </foreach>
+  </select>
+
+
 
   <sql id="order_sql">
     ORDER BY price
@@ -182,28 +190,48 @@
     limit #{begin}, #{pageSize}
   </sql>
 
-  <select id="selectByItem" parameterType="edu.zhku.pojo.Item" resultMap="resultMap">
+  <select id="selectByItem" parameterType="edu.zhku.pojo.ItemConditionForMerchant" resultMap="resultMap">
     select * from t_item 
     <where>
       <include refid="query_sql"/>
     </where>
+    <include refid="page_sql"/>
   </select>
   
   <sql id="query_sql">
-    <if test="iname != null">
-      and iname like "%"#{iname}"%"
-    </if>
-    <if test="price != null">
-      and price = #{price}
-    </if>
-    <if test="unit != null">
-      and unit = #{unit}
-    </if>
-    <if test="mid != null">
-      and mid = #{mid}
-    </if>
-    <if test="status != null">
-      and status = #{status}
+    <if test="item != null">
+      <if test="item.iname != null">
+        and iname like "%"#{item.iname}"%"
+      </if>
+      <if test="item.price != null">
+        and price = #{item.price}
+      </if>
+      <if test="item.unit != null">
+        and unit = #{item.unit}
+      </if>
+      <if test="item.mid != null">
+        and mid = #{item.mid}
+      </if>
+      <if test="item.status != null">
+        and status = #{item.status}
+      </if>
     </if>
   </sql>
+
+
+  <select id="countForMerchant"  parameterType="edu.zhku.pojo.ItemConditionForMerchant" resultType="java.lang.Integer">
+
+    select count(*) from t_item
+      <where>
+        <include refid="query_sql"/>
+      </where>
+  </select>
+  
+  <select id="selectItemByIds" parameterType="java.util.List" resultMap="resultMap">
+    select * from t_item where iid in
+    <foreach collection="ids" open="(" separator="," close=")" item="item">
+      #{item}
+    </foreach>
+  </select>
+
 </mapper>

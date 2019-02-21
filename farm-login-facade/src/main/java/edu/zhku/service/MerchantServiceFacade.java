@@ -18,4 +18,6 @@ public interface MerchantServiceFacade {
 
     String queryMerchantByAddress(String address);
 
+    String queryMerchantById(String mid);
+
 }

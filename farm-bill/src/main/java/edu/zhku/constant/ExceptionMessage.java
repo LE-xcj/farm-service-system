@@ -17,6 +17,8 @@ public class ExceptionMessage {
 
     public static final String PARAMETORERRO = "请求参数有误！";
 
+    public static final String LOCATIONNULL = "请填写您的地址，才能检索与您最近的商户";
+
 
 }
     

@@ -29,6 +29,7 @@ public class OperatorCondition {
 
     public void setPage(Integer page) {
         this.page = page;
+        this.begin = (page - 1) * pageSize;
     }
 
     public Integer getPageSize() {
@@ -47,8 +48,5 @@ public class OperatorCondition {
         this.begin = begin;
     }
 
-    public void initBegin(){
-        this.begin = (page - 1) * pageSize;
-    }
 }
     

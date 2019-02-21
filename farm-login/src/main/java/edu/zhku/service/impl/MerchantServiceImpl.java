@@ -177,10 +177,33 @@ public class MerchantServiceImpl implements MerchantService{
             return new ArrayList<>();
 
         Merchant condition = new Merchant();
+        condition.setIsverify(1);
         condition.setAddress(address);
         List<Merchant> merchants = merchantDao.selectMerchantByCondition(condition);
 
         return merchants;
+    }
+
+    /**
+     * 判断商户是否认证了
+     * @param mid
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean isCertify(String mid) throws Exception {
+
+
+        Merchant condtion = new Merchant();
+        condtion.setMid(mid);
+        condtion.setIsverify(1);
+
+        List<Merchant> merchants = selectByCondition(condtion);
+        if (merchants.isEmpty()) {
+            return false;
+        }
+
+        return true;
     }
 
 

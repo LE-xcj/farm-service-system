@@ -1,11 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: chujian
-  Date: 2019/2/19
-  Time: 17:04
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -31,57 +24,44 @@
 <div class="admin-biaogelist">
 
     <div class="listbiaoti am-cf">
-        <ul class="am-icon-flag on"> 修改个人信息</ul>
-
-        <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 >
-            <a href="#">修改个人信息</a>
-        </dl>
+        <ul class="am-icon-flag on"> 认证</ul>
 
     </div>
 
+
     <div class="fbneirong">
         <form class="am-form">
-            <div class="am-form-group am-cf">
-                <div class="you" style="text-align: center;">
-                    <img id="item_img" src="" style="width: 120px; height: 120px;"/>
-                </div>
-            </div>
-            <!--mid-->
-            <div style="display: none;">
-                <input value="mid" type="text" />
-            </div>
-            <div class="am-form-group am-cf">
-                <div class="zuo">名称：</div>
-                <div class="you">
-                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="名称">
-                </div>
-            </div>
-            <div class="am-form-group am-cf">
-                <div class="zuo">描述：</div>
-                <div class="you">
-                    <textarea class="" rows="2" id="doc-ta-1"></textarea>
-                </div>
-            </div>
-
-            <div class="am-form-group am-cf">
-                <div class="zuo">图片：</div>
-                <div class="you" style="height: 45px;">
-                    <input type="file" id="doc-ipt-file-1" onchange="previewFile()">
-                    <p class="am-form-help">请选择要上传的图片...</p>
-                </div>
-            </div>
 
 
-            <div class="am-form-group am-cf">
-                <div class="zuo">地址：</div>
+            <c:if test="${certify == '1'}">
+                <h1>您已经成功认证</h1>
+            </c:if>
+            <c:if test="${certify == '0'}">
 
-                <div class="you">
-                    <select id="province"></select>
-                    <select id="city"></select>
-                    <input type="text" />
+
+                <div class="am-form-group am-cf">
+                    <div class="you" style="text-align: center;">
+                        <img id="item_img" src="" style="width: 120px; height: 120px;"/>
+                    </div>
                 </div>
-            </div>
 
+                <div class="am-form-group am-cf">
+                    <div class="zuo">图片：</div>
+                    <div class="you" style="height: 45px;">
+                        <input type="file" id="doc-ipt-file-1" onchange="previewFile()">
+                        <p class="am-form-help">请选择要上传的文件...</p>
+                    </div>
+                </div>
+
+
+
+                <div class="am-form-group am-cf">
+                    <div class="you" style="margin-left: 11%;">
+                        <button type="submit" class="am-btn am-btn-success am-radius">认证</button>&nbsp; &raquo; &nbsp;
+                    </div>
+                </div>
+
+            </c:if>
 
         </form>
 
@@ -128,7 +108,8 @@
     }
 </script>
 
-<%--城市选择--%>
+
+<script src="city.js"></script>
 <script>
     (function(){
         var pHtmlStr = '';
