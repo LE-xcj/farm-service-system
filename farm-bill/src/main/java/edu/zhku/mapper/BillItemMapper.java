@@ -1,6 +1,7 @@
 package edu.zhku.mapper;
 
 import edu.zhku.pojo.BillItem;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,6 @@ public interface BillItemMapper {
 
     int updateByPrimaryKey(BillItem record);
 
-    int insertBillItemForList(List<BillItem> billItems);
+
+    int insertBillItemForList(@Param("billItems") List<BillItem> billItems) throws Exception;
 }

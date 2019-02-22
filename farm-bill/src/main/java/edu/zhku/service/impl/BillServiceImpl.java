@@ -12,6 +12,7 @@ import edu.zhku.service.MerchantServiceFacade;
 import edu.zhku.service.NotifyServiceFacade;
 import edu.zhku.util.KeyFactory;
 import edu.zhku.util.MessageFactory;
+import edu.zhku.util.PageUtil;
 import edu.zhku.vo.BillDTO;
 import edu.zhku.vo.BillVo;
 import edu.zhku.vo.ItemDTO;
@@ -19,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chujian
@@ -37,9 +40,11 @@ public class BillServiceImpl implements BillService {
     private ItemDao itemDao;
 
     @Override
-    public int createBill(Bill bill, List<Integer> itemIds, List<Integer> nums) throws Exception {
+    public int createBill(BillDO bill) throws Exception {
 
         //自己生产订单号
+        List<Integer> itemIds = bill.getItemIds();
+        List<Integer> nums = bill.getNums();
 
         if(illegal(bill) || illegal(itemIds, nums)) {
             throw new Exception(ExceptionMessage.PARAMETORERRO);
@@ -53,6 +58,13 @@ public class BillServiceImpl implements BillService {
 
         //向 “订单-商品” 第三张表插入记录
         billDao.insertBillItemForList(billItems);
+
+        String bid = bill.getBid();
+        String mid = bill.getMid();
+        String content = MessageFactory.getContent(bid);
+
+        //通知商户有新的订单
+        notice(Role.MERCHANT.getPref(), mid, content);
 
         return num;
     }
@@ -74,9 +86,17 @@ public class BillServiceImpl implements BillService {
 
         int num = billDao.updateBillById(bill);
 
+
         //根据订单状态是否为null来判断是否更新状态
         Integer status = bill.getStatus();
+
         if (status != null && status != 0) {
+
+            //订单id
+            String bid = bill.getBid();
+
+            //获取订单信息
+            bill = billDao.queryBillById(bid);
 
             //获取订单状态
             int flag = status;
@@ -92,8 +112,6 @@ public class BillServiceImpl implements BillService {
                 destination = bill.getMid();
             }
 
-            //订单id
-            String bid = bill.getBid();
 
             //获取模板消息
             String content = MessageFactory.getContent(bid, flag);
@@ -106,55 +124,56 @@ public class BillServiceImpl implements BillService {
     }
 
 
-    //外部接口
-    private FarmerServiceFacade farmerServiceFacade;
-    private MerchantServiceFacade merchantServiceFacade;
 
     @Override
-    public BillVo queryBill(BillCondition condition) throws Exception {
+    public List<BillVo> queryBill(BillCondition condition) throws Exception {
 
         if (null == condition) {
             throw new Exception(ExceptionMessage.OBJNULL);
         }
 
-        BillVo vo = new BillVo();
 
-        //1、订单 与 “订单-商品” 与 “订单-机手” 这三张表连接，设置bill基本信息
-        BillDTO dto = billDao.queryBill(condition);
-        Bill bill = dto.getBill();
-        vo.setBill(bill);
-
-        //2、获取billVo中的bill对象，然后尝试重redis缓存那边查询商户merchant、农户信息farmer
-        String fid = bill.getFid();
-        String mid = bill.getMid();
-        String farmer = farmerServiceFacade.queryFarmerById(fid);
-        String merchant = merchantServiceFacade.queryMerchantById(mid);
-        vo.setFarmer(farmer);
-        vo.setMerchant(merchant);
-
-        //3、获取billVo中“billItems集合，然后批量从redis查对应的商品信息items，以及设置对应的数量（要保证对应关系）
-        List<BillItem> billItems = dto.getBillItems();
-        List<ItemDTO> items = billDao.queryItemAndSetNum(billItems);
-        vo.setItems(items);
-
-        //4、获取billVo中的billOperators集合对象，然后从redis那边查对应的机手信息operators，可以无序
-        List<BillOperator> billOperators = dto.getBillOperators();
-        List<Operator> operators = billDao.queryOperator(billOperators);
-        vo.setOperators(operators);
+        //订单 与 “订单-商品” 与 “订单-机手” 这三张表连接，设置bill基本信息
+        List<BillDTO> dtos = billDao.queryBill(condition);
 
 
-        return vo;
+        //遍历结果集
+        List<BillVo> billVos = new ArrayList<>(dtos.size());
+        for (BillDTO dto : dtos) {
+
+            //订单的视图
+            BillVo vo = new BillVo();
+
+            //1、填充订单
+            fillBill(dto, vo);
+
+            //2、获取billVo中的bill对象，然后尝试重redis缓存那边查询商户merchant、农户信息farmer
+            fillFarmAndMercahnt(dto, vo);
+
+            //3、获取billVo中“billItems集合，然后批量从redis查对应的商品信息items，以及设置对应的数量（要保证对应关系）
+            fillItems(dto, vo);
+
+            //4、获取billVo中的billOperators集合对象，然后从redis那边查对应的机手信息operators，可以无序
+            fillOperators(dto, vo);
+
+            billVos.add(vo);
+        }
+
+
+        return billVos;
     }
 
     /**
      * 安排机手负责相应订单，并且通知农户负责人的信息
-     * @param bill
-     * @param operators
+     * @param billDO
      * @return
      * @throws Exception
      */
     @Override
-    public int arragenOperator(Bill bill, List<String> operators) throws Exception {
+    public int arragenOperator(BillDO billDO) throws Exception {
+
+        List<String> operators = billDO.getOperators();
+        Bill bill = (Bill) billDO;
 
         if (bill == null || operators == null || operators.isEmpty()) {
             throw new Exception(ExceptionMessage.OBJNULL);
@@ -177,7 +196,7 @@ public class BillServiceImpl implements BillService {
         String fid = bill.getFid();
         //预防fid为null
         if (null == fid) {
-            bill = billDao.queryBillById(bill.getBid());
+            bill =  billDao.queryBillById(bill.getBid());
             fid = bill.getFid();
         }
 
@@ -192,6 +211,13 @@ public class BillServiceImpl implements BillService {
         notice(Role.FARMER.getPref(), fid, content);
 
         return num;
+    }
+
+    @Override
+    public int count(BillCondition condition) throws Exception {
+        int total = billDao.count(condition);
+        int totalPage = PageUtil.count(total, condition.getPageSize());
+        return totalPage;
     }
 
     @Autowired
@@ -220,7 +246,15 @@ public class BillServiceImpl implements BillService {
      */
     private List<BillItem> buildBill(Bill bill, List<Integer> itemIds, List<Integer> nums) throws Exception {
 
-        //订单号
+        int length = itemIds.size();
+
+        //建立商品与数量的对应关系
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i=0; i<length; ++i) {
+            map.put(itemIds.get(i), nums.get(i));
+        }
+
+        //产生订单号
         String bid = KeyFactory.generateKey();
         bill.setBid(bid);
 
@@ -231,17 +265,15 @@ public class BillServiceImpl implements BillService {
         //获取商品的信息
         List<Item> items = itemDao.selectItemByIds(itemIds);
         float money = 0.0F;
-        int length = items.size();
+
 
         //计算金额
-        for (int i=0; i<length; ++i) {
-            Item item = items.get(i);
+        for (Item item : items) {
 
-            //数量
-            int num = nums.get(i);
+            Integer iid = item.getIid();
 
-            //商品id
-            Integer iid = itemIds.get(i);
+            //获取对应的数量
+            int num = map.get(iid);
 
             //单价 X 数量
             money += item.getPrice() * num;
@@ -250,6 +282,8 @@ public class BillServiceImpl implements BillService {
             billItem.setBid(bid);
             billItem.setIid(iid);
             billItem.setNum(num);
+
+            //添加到biillItem
             billItems.add(billItem);
 
         }
@@ -287,5 +321,92 @@ public class BillServiceImpl implements BillService {
         return false;
 
     }
+
+
+    /**
+     * 填充bill属性
+     * @param dto
+     * @param vo
+     */
+    private void fillBill(BillDTO dto, BillVo vo) {
+
+        Bill bill = new Bill();
+
+        bill.setBid(dto.getBid());
+        bill.setFid(dto.getFid());
+        bill.setMid(dto.getMid());
+        bill.setMoney(dto.getMoney());
+        bill.setStatus(dto.getStatus());
+        bill.setCreatetime(dto.getCreatetime());
+        bill.setDeadline(dto.getDeadline());
+        bill.setRemark(dto.getRemark());
+
+        vo.setBill(bill);
+
+    }
+
+
+    //外部接口
+    @Autowired
+    private FarmerServiceFacade farmerServiceFacade;
+
+    @Autowired
+    private MerchantServiceFacade merchantServiceFacade;
+    /**
+     * 填充农户和商户信息
+     * @param bill
+     * @param vo
+     */
+    private void fillFarmAndMercahnt(BillDTO bill, BillVo vo) throws Exception {
+
+        String fid = bill.getFid();
+        String mid = bill.getMid();
+
+        String farmer = null;
+        if (null != fid) {
+            farmer = farmerServiceFacade.queryFarmerById(fid);
+        }
+
+
+        String merchant = null;
+        if (null != mid){
+            merchant = merchantServiceFacade.queryMerchantById(mid);
+        }
+
+
+        vo.setFarmer(farmer);
+        vo.setMerchant(merchant);
+    }
+
+
+    /**
+     * 填充商品信息
+     * @param dto
+     * @param vo
+     * @throws Exception
+     */
+    private void fillItems(BillDTO dto, BillVo vo) throws Exception {
+        List<BillItem> billItems = dto.getBillItems();
+        List<ItemDTO> items = billDao.queryItemAndSetNum(billItems);
+        vo.setItems(items);
+    }
+
+    /**
+     * 填充机手信息,因为订单可能还是未确认状态，所以机手的信息会没有
+     * @param dto
+     * @param vo
+     * @throws Exception
+     */
+    private void fillOperators(BillDTO dto, BillVo vo) throws Exception {
+        List<BillOperator> billOperators = dto.getBillOperators();
+
+        if (null == billOperators || billOperators.isEmpty()) {
+            return;
+        }
+
+        List<Operator> operators = billDao.queryOperator(billOperators);
+        vo.setOperators(operators);
+    }
+
 }
     

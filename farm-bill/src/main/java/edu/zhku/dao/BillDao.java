@@ -11,7 +11,6 @@ import java.util.List; /**
  * @date 2019/2/21 19:12
  */
 
-//todo
 public interface BillDao {
 
     /**
@@ -27,7 +26,7 @@ public interface BillDao {
      * @param billItems
      * @return
      */
-    int insertBillItemForList(List<BillItem> billItems);
+    int insertBillItemForList(List<BillItem> billItems) throws Exception;
 
 
     /**
@@ -45,7 +44,7 @@ public interface BillDao {
      * @return
      * @throws Exception
      */
-    BillDTO queryBill(BillCondition condition) throws Exception;
+    List<BillDTO> queryBill(BillCondition condition) throws Exception;
 
     /**
      * 根据订单-商品，这第三张表来对商品进行查询，并设置对应的数量
@@ -69,7 +68,7 @@ public interface BillDao {
      * @param billOperators
      * @return
      */
-    int insertBillOperatorsForList(List<BillOperator> billOperators);
+    int insertBillOperatorsForList(List<BillOperator> billOperators) throws Exception;
 
     /**
      * 根据订单id查询订单信息
@@ -84,5 +83,13 @@ public interface BillDao {
      * @param ids  机手的id集合
      * @return   机手信息集合
      */
-    List<Operator> queryOperatorForIDList(List<String> ids);
+    List<Operator> queryOperatorForIDList(List<String> ids) throws Exception;
+
+    /**
+     * 计算总页数
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    int count(BillCondition condition) throws Exception;
 }

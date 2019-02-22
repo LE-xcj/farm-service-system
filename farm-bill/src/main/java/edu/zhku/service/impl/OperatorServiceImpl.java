@@ -1,7 +1,7 @@
 package edu.zhku.service.impl;
 
 import edu.zhku.constant.ExceptionMessage;
-import edu.zhku.mapper.OperatorMapper;
+import edu.zhku.dao.OperatorDao;
 import edu.zhku.pojo.Operator;
 import edu.zhku.pojo.OperatorCondition;
 import edu.zhku.service.OperatorService;
@@ -23,7 +23,7 @@ public class OperatorServiceImpl implements OperatorService {
 
 
     @Autowired
-    private OperatorMapper operatorMapper;
+    private OperatorDao operatorDao;
 
     /**
      * 增加机手
@@ -67,7 +67,7 @@ public class OperatorServiceImpl implements OperatorService {
 
         setID(operators);
 
-        int num = operatorMapper.insertOperators(operators);
+        int num = operatorDao.insertOperators(operators);
 
         return num;
     }
@@ -85,7 +85,7 @@ public class OperatorServiceImpl implements OperatorService {
             throw new Exception(ExceptionMessage.IDNULL);
         }
 
-        Operator operator = operatorMapper.selectByPrimaryKey(oid);
+        Operator operator = operatorDao.selectByPrimaryKey(oid);
         return operator;
     }
 
@@ -103,7 +103,7 @@ public class OperatorServiceImpl implements OperatorService {
             throw new Exception(ExceptionMessage.OBJNULL);
         }
 
-        List<Operator> operators = operatorMapper.selectOperatorByCondition(condition);
+        List<Operator> operators = operatorDao.selectOperatorByCondition(condition);
 
         return operators;
     }
@@ -122,7 +122,7 @@ public class OperatorServiceImpl implements OperatorService {
             throw new Exception(ExceptionMessage.ATTRIBUTENULL);
         }
 
-        int num = operatorMapper.updateByPrimaryKeySelective(operator);
+        int num = operatorDao.updateByPrimaryKeySelective(operator);
         return num;
     }
 
@@ -148,7 +148,7 @@ public class OperatorServiceImpl implements OperatorService {
             }
         }
 
-        int num = operatorMapper.updateOperatorsById(operators);
+        int num = operatorDao.updateOperatorsById(operators);
         return num;
     }
 
@@ -165,7 +165,7 @@ public class OperatorServiceImpl implements OperatorService {
             throw new Exception(ExceptionMessage.IDNULL);
         }
 
-        int num = operatorMapper.deleteByPrimaryKey(oid);
+        int num = operatorDao.deleteByPrimaryKey(oid);
 
         return num;
     }
@@ -184,7 +184,7 @@ public class OperatorServiceImpl implements OperatorService {
             throw new Exception(ExceptionMessage.OBJNULL);
         }
 
-        int num = operatorMapper.deleteOperatorsById(oids);
+        int num = operatorDao.deleteOperatorsById(oids);
 
         return num;
     }

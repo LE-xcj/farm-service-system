@@ -2,6 +2,7 @@ package edu.zhku.service;
 
 import edu.zhku.pojo.Bill;
 import edu.zhku.pojo.BillCondition;
+import edu.zhku.pojo.BillDO;
 import edu.zhku.vo.BillVo;
 
 import java.util.List;
@@ -14,13 +15,17 @@ import java.util.List;
  */
 public interface BillService {
 
-    int createBill(Bill bill, List<Integer> itemIds, List<Integer> nums) throws Exception;
+    int createBill(BillDO bill) throws Exception;
+
+    int arragenOperator(BillDO bill) throws Exception;
 
     int updateBill(Bill bill) throws Exception;
 
-    BillVo queryBill(BillCondition condition) throws Exception;
+    List<BillVo> queryBill(BillCondition condition) throws Exception;
 
-    int arragenOperator(Bill bill, List<String> operators) throws Exception;
+    int count(BillCondition condition) throws Exception;
+
+
 
 }
     

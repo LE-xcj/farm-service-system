@@ -121,4 +121,102 @@
       remark = #{remark,jdbcType=VARCHAR}
     where bid = #{bid,jdbcType=VARCHAR}
   </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <resultMap id="resultMap" type="edu.zhku.vo.BillDTO">
+
+    <id column="bid" jdbcType="VARCHAR" property="bid" />
+    <result column="fid" jdbcType="VARCHAR" property="fid" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+    <result column="money" jdbcType="REAL" property="money" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="deadline" jdbcType="TIMESTAMP" property="deadline" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+
+    <!--与 “订单-商品表” 进行一对多的映射-->
+    <collection property="billItems" ofType="edu.zhku.pojo.BillItem">
+      <id column="bi_id" jdbcType="INTEGER" property="id" />
+      <result column="iid" jdbcType="INTEGER" property="iid" />
+      <result column="bi_bid" jdbcType="VARCHAR" property="bid" />
+      <result column="num" jdbcType="INTEGER" property="num" />
+    </collection>
+
+    <!--与 “订单-机手表” 进行一对多映射,可以理解为一个服务需要多个机手-->
+    <collection property="billOperators" ofType="edu.zhku.pojo.BillOperator">
+      <id column="bo_id" jdbcType="INTEGER" property="id" />
+      <result column="oid" jdbcType="VARCHAR" property="oid" />
+      <result column="bo_bid" jdbcType="VARCHAR" property="bid" />
+    </collection>
+
+  </resultMap>
+
+  <!--条件查询订单，与两张表联结就是想知道每个订单的详情：这订单购买了什么商品、由哪些机手负责-->
+  <select id="queryBill" parameterType="edu.zhku.pojo.BillCondition" resultMap="resultMap">
+      SELECT tb.*, tbi.id bi_id, tbo.id bo_id, tbi.iid, tbi.num, tbi.bid, tbo.oid
+        from t_bill_item tbi
+        LEFT JOIN t_bill_operator tbo on tbi.bid = tbo.bid
+        JOIN (
+          select * from t_bill
+              <where>
+                <include refid="query_sql"/>
+              </where>
+              <include refid="order_sql" />
+              <include refid="page_sql"/>
+
+        ) tb on tbi.bid = tb.bid
+
+  </select>
+  
+  <select id="count" parameterType="edu.zhku.pojo.BillCondition" resultType="java.lang.Integer">
+    select count(*) from t_bill
+    <where>
+      <include refid="query_sql"/>
+    </where>
+  </select>
+
+  <sql id="query_sql">
+    <if test="bill.bid != null">
+      and bid = #{bill.bid}
+    </if>
+    <if test="bill.fid != null">
+      and fid =  #{bill.fid}
+    </if>
+    <if test="bill.mid != null">
+      and mid = #{bill.mid}
+    </if>
+    <if test="bill.status != null">
+      and status = #{bill.status}
+    </if>
+  </sql>
+
+  <sql id="order_sql">
+    <if test="dealineFirst">
+      ORDER by deadline
+    </if>
+    <if test="dealineFirst == false">
+      order by createTime
+    </if>
+
+    <if test="desc">
+      DESC
+    </if>
+
+  </sql>
+
+  <sql id="page_sql">
+    limit #{begin}, #{pageSize}
+  </sql>
+
 </mapper>

@@ -18,6 +18,8 @@ import java.util.List;
  * @Description 功能描述
  * @date 2019/2/18 20:57
  */
+
+//todo 需要整合redis优化查询
 @Component
 public class ItemDaoImpl implements ItemDao {
 

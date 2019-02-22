@@ -11,7 +11,8 @@ import edu.zhku.constant.Size;
 public class BillCondition {
 
     private Bill bill;
-    private boolean dealineFirst;
+    private boolean dealineFirst = false;
+    private boolean desc = false;
 
     //分页
     private int page;
@@ -58,6 +59,14 @@ public class BillCondition {
 
     public void setDealineFirst(boolean dealineFirst) {
         this.dealineFirst = dealineFirst;
+    }
+
+    public boolean isDesc() {
+        return desc;
+    }
+
+    public void setDesc(boolean desc) {
+        this.desc = desc;
     }
 }
     

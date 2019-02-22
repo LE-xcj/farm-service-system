@@ -9,8 +9,6 @@ import java.util.List; /**
  * @Description 功能描述
  * @date 2019/2/21 20:54
  */
-
-//todo
 public class MessageFactory {
 
     /**
@@ -65,6 +63,22 @@ public class MessageFactory {
                     .append("\n");
         }
         msg += builder.toString();
+        return msg;
+    }
+
+
+
+    private static final String PREF = "您有新的订单了, 单号: %s";
+
+    /**
+     * 通知商户有新的订单
+     * @param bid
+     * @return
+     */
+    public static String getContent(String bid) {
+
+        String msg = String.format(PREF, bid);
+
         return msg;
     }
 }

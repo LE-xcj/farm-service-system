@@ -126,6 +126,9 @@
 
 
 
+
+
+
   <insert id="insertOperators" parameterType="java.util.List">
     insert into t_operator (oid, oname, sex,
                             phone,picture, description, mid) VALUES

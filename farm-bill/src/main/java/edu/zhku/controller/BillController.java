@@ -2,7 +2,11 @@ package edu.zhku.controller;
 
 import edu.zhku.pojo.Bill;
 import edu.zhku.pojo.BillCondition;
+import edu.zhku.pojo.BillDO;
+import edu.zhku.service.BillService;
+import edu.zhku.vo.BillPageVo;
 import edu.zhku.vo.BillVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,16 +22,19 @@ import java.util.List;
 @RequestMapping("/bill")
 public class BillController {
 
+    @Autowired
+    private BillService billService;
     /**
      * 针对农户的,如果创建成功需要通知商户
      * 创建订单
      * @param bill
-     * @param itemIds   商品id的集合
-     * @param nums      商品数量
-     *                  注意id与num一一对应
+     *   注意id与num一一对应
      */
     @RequestMapping("/createBill")
-    public void createBill(Bill bill, List<Integer> itemIds, List<Integer> nums) {
+    public int createBill(BillDO bill) throws Exception {
+
+        int num = billService.createBill(bill);
+        return num;
 
     }
 
@@ -40,9 +47,17 @@ public class BillController {
      * @param condition
      */
     @RequestMapping("/queryBill")
-    public BillVo queryBill(BillCondition condition) {
+    public BillPageVo queryBill(BillCondition condition) throws Exception {
 
-        return null;
+        List<BillVo> vos = billService.queryBill(condition);
+
+        BillPageVo vo = new BillPageVo();
+        vo.setBills(vos);
+        if (!vos.isEmpty()) {
+            vo.setTotalPage(billService.count(condition));
+        }
+
+        return vo;
     }
 
     /**
@@ -53,8 +68,11 @@ public class BillController {
      *  -1：拒绝；-2：取消
      * @param bill
      */
-    public void updateBill(Bill bill) {
+    @RequestMapping("/updateBill")
+    public int updateBill(Bill bill) throws Exception {
 
+        int num = billService.updateBill(bill);
+        return num;
     }
 
 
@@ -64,10 +82,12 @@ public class BillController {
     /**
      * 给某个订单安排机手
      * @param bill  主要获取订单的id
-     * @param operators  多个机手的ids
      */
-    public void arragenOperator(Bill bill, List<String> operators) {
+    @RequestMapping("/arragenOperator")
+    public int arragenOperator(BillDO bill) throws Exception {
 
+        int num = billService.arragenOperator(bill);
+        return num;
     }
 }
     

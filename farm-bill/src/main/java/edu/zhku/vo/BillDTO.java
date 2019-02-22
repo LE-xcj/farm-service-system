@@ -12,10 +12,7 @@ import java.util.List;
  * @Description 功能描述
  * @date 2019/2/21 20:05
  */
-public class BillDTO {
-
-    //基本
-    private Bill bill;
+public class BillDTO extends Bill {
 
     //双方都徐亚知道
     //一对多，一个订单可能包含多个商品
@@ -24,13 +21,6 @@ public class BillDTO {
     //一对多，一个订单对应多个机手负责
     private List<BillOperator> billOperators;
 
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
-    }
 
     public List<BillItem> getBillItems() {
         return billItems;

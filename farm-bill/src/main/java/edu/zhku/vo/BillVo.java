@@ -22,7 +22,7 @@ public class BillVo {
     //基本
     private Bill bill;
 
-    //双方都徐亚知道
+    //双方都可以知道
     //一对多，一个订单可能包含多个商品
     private List<ItemDTO> items;
 

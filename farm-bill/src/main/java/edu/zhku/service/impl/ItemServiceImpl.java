@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import edu.zhku.constant.ExceptionMessage;
 import edu.zhku.dao.ItemDao;
-import edu.zhku.mapper.ItemMapper;
 import edu.zhku.pojo.Item;
 import edu.zhku.pojo.ItemCondition;
 import edu.zhku.pojo.ItemConditionForMerchant;
