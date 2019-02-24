@@ -24,6 +24,8 @@ public class BillController {
 
     @Autowired
     private BillService billService;
+
+
     /**
      * 针对农户的,如果创建成功需要通知商户
      * 创建订单

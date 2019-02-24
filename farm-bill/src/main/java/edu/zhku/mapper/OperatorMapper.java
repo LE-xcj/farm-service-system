@@ -40,4 +40,12 @@ public interface OperatorMapper {
      * @return
      */
     List<Operator> queryOperatorForIDList(@Param("ids") List<String> ids);
+
+    /**
+     * 计算总数
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    int count(OperatorCondition condition) throws Exception;
 }

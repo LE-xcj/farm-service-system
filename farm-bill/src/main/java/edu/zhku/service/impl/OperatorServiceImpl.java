@@ -108,6 +108,12 @@ public class OperatorServiceImpl implements OperatorService {
         return operators;
     }
 
+    @Override
+    public int count(OperatorCondition condition) throws Exception {
+        int total = operatorDao.count(condition);
+        return total;
+    }
+
     /**
      * 根据id更新
      * 对象、name、id都不能为空，否则抛出异常

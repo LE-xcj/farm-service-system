@@ -90,6 +90,17 @@ public class OperatorDaoImpl implements OperatorDao {
         return operators;
     }
 
+    /**
+     * 计算总数
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int count(OperatorCondition condition) throws Exception {
+        int total = operatorMapper.count(condition);
+        return total;
+    }
 
 
     /**

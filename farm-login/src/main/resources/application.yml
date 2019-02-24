@@ -6,6 +6,9 @@ server:
   #配置serverlet的路径
   servlet:
     context-path: /farmService
+    jsp:
+      init-parameters:
+        development: true
     #-path: *.action
 
 #视图解析器

@@ -8,9 +8,7 @@ import edu.zhku.vo.ItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -22,22 +20,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/item")
 public class ItemController {
-
-    @RequestMapping("/addItemView")
-    public ModelAndView addItemView(HttpSession session, String mid, String sid) {
-
-        ModelAndView mv = new ModelAndView();
-        setInfor(session, mid, sid);
-        mv.setViewName("merchant/addItem");
-
-        return mv;
-
-    }
-
-
     @Autowired
     private ItemService itemService;
 
+
+
+    /**
+     * 添加商品信息（商户使用）
+     * @param item
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/addItem")
     public int addItem(Item item) throws Exception {
         int flag = itemService.insertItem(item);
@@ -46,29 +39,11 @@ public class ItemController {
 
 
     /**
-     * 农户用的
+     * 分页查询商品信息（农户使用）
      * @param condition
      * @return
      * @throws Exception
      */
-    @RequestMapping("/queryItemByPageView")
-    public ModelAndView queryItemByPageView(ItemCondition condition) throws Exception {
-        List<Item> items = itemService.selectByCondition(condition);
-
-        int totalPage = 0;
-        if (null != items && !items.isEmpty()) {
-            totalPage = itemService.countForFarmer(condition);
-        }
-
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("items", items);
-        mv.addObject("totalPage", totalPage);
-
-        //todo
-        mv.setViewName("");
-        return mv;
-    }
-
     @RequestMapping("/queryItemByPage")
     public ItemVo queryItemByPage(ItemCondition condition) throws Exception{
         List<Item> items = itemService.selectByCondition(condition);
@@ -86,6 +61,12 @@ public class ItemController {
     }
 
 
+    /**
+     * 分页查询商品信息（商户用的）
+     * @param condition
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/queryItemForMerchant")
     public ItemVo queryItemForMerchant(ItemConditionForMerchant condition) throws Exception {
         ItemVo itemVo = itemService.selectByItem(condition);
@@ -93,12 +74,24 @@ public class ItemController {
 
     }
 
+    /**
+     * 根据商品id查询指定商品信息
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/queryItemById")
     public Item queryItemById(Integer id) throws Exception {
         Item item = itemService.selectItemById(id);
         return item;
     }
 
+    /**
+     * 更新商品信息，这里是以id更新信息
+     * @param item
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/updateItem")
     public int updateItem(Item item) throws Exception {
         int flag = itemService.updateItemById(item);
@@ -106,11 +99,6 @@ public class ItemController {
     }
 
 
-
-    private void setInfor(HttpSession session, String mid, String sid) {
-        session.setAttribute("mid", mid);
-        session.setAttribute("sid", sid);
-    }
 
 }
     

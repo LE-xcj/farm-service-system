@@ -3,10 +3,11 @@ package edu.zhku.controller;
 import edu.zhku.pojo.Operator;
 import edu.zhku.pojo.OperatorCondition;
 import edu.zhku.service.OperatorService;
+import edu.zhku.util.PageUtil;
+import edu.zhku.vo.OperatorVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -24,26 +25,46 @@ public class OperatorController {
     private OperatorService operatorService;
 
 
+    /**
+     * 添加机手信息
+     * @param operator
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/addOperator")
     public int addOperator(Operator operator) throws Exception {
         int flag = operatorService.insertOperator(operator);
-
         return flag;
     }
 
+    /**
+     * 分页查询机手信息
+     * 这里主要功能就是根据商户的id查询其对应的机手
+     * @param condition
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/queryOperatorByPage")
-    public ModelAndView queryOperatorByPage(OperatorCondition condition) throws Exception {
+    public OperatorVo queryOperatorByPage(OperatorCondition condition) throws Exception {
+
+        OperatorVo vo = new OperatorVo();
+
         List<Operator> operators = operatorService.selectOperatorByCondition(condition);
+        int count = operatorService.count(condition);
+        int totalPage = PageUtil.count(count, condition.getPageSize());
 
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("operators", operators);
+        vo.setOperators(operators);
+        vo.setTotalPage(totalPage);
 
-        //todo
-        mv.setViewName("");
-
-        return mv;
+        return vo;
     }
 
+    /**
+     * 根据id查询机手信息
+     * @param oid
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/queryOperatorById")
     public Operator queryOperatorById(String oid) throws Exception {
 
@@ -52,6 +73,12 @@ public class OperatorController {
 
     }
 
+    /**
+     * 根据id更新机手信息
+     * @param operator
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/updateOperatorById")
     public int updateOperatorById(Operator operator) throws Exception {
         int flag = operatorService.updateOperatorById(operator);

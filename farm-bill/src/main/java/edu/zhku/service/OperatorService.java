@@ -18,6 +18,7 @@ public interface OperatorService {
 
     Operator selectOperatorById(String oid) throws Exception;
     List<Operator> selectOperatorByCondition(OperatorCondition condition) throws Exception;
+    int count(OperatorCondition condition) throws Exception;
 
     int updateOperatorById(Operator operator) throws Exception;
     int updateOperatorsById(List<Operator> operators) throws Exception;

@@ -3,6 +3,7 @@
 <!doctype html>
 <html class="no-js">
 <head>
+    <%response.addHeader("P3P ", "CP=\"CAO PSA OUR\"");%>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" charset=utf-8">
     <title>商户后台管理系统</title>
     <meta name="description" content="这是一个 index 页面">
@@ -22,6 +23,9 @@
     <script src="http://106.14.139.8/merchant-index/assets/js/jquery.min.js"></script>
     <script src="http://106.14.139.8/merchant-index/assets/js/app.js"></script>
     <script src="http://106.14.139.8/merchant-index/assets/js/amazeui.min.js"></script>
+
+    <!--myjs-->
+    <script src="http://106.14.139.8/normal/js/iframeJS.js"></script>
 </head>
 
 <body>
@@ -84,8 +88,8 @@
         <div class="sideMenu">
             <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
             <ul>
-                <li><a href="http://127.0.0.1:10087/farmService/item/addItemView?mid='${merchant.mid}'&sid='${sid}'">添加服务</a> </li>
-                <li><a href="">服务列表</a></li>
+                <li><a href="javascript:redir('${pageContext.request.contextPath }/item/addItemView?mid=${mid}&sid=${sid}');">添加服务</a> </li>
+                <li><a href="javascript:redir('${pageContext.request.contextPath }/item/itemListView?mid=${mid}&sid=${sid}">服务列表</a></li>
                 <li><a href="">更新服务信息</a></li>
                 <li><a href="">农户评论</a></li>
             </ul>
@@ -104,7 +108,7 @@
 
             <h3 class="am-icon-gears"><em></em> <a href="#">账户管理</a></h3>
             <ul>
-                <li><a href=javascript:redir('/farmService/merchant/certifyView');>商户认证</a></li>
+                <li><a href="javascript:redir('/farmService/merchant/certifyView')";>商户认证</a></li>
                 <li><a href="javascript:redir('/farmService/merchant/updateMerchantView')">商户信息</a></li>
                 <li><a href="">修改密码</a></li>
                 <li><a href="">修改手机号</a></li>
@@ -127,18 +131,16 @@
 
     </div>
 
-
     <!--中间那块-->
     <div class=" admin-content">
 
         <div class="daohang">
-            <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;">${merchant.mname}</div>
+            <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;">欢迎登陆: ${merchant.mname}</div>
         </div>
 
         <iframe id="showFrame" src="temp.html"
                 class="main-page" scrolling="no" frameborder="0"
                 onload="changeFrameHeight()">
-
         </iframe>
     </div>
 
@@ -147,27 +149,5 @@
 
 </body>
 
-<!--ifram自适应-->
-<script>
-
-    function changeFrameHeight(){
-        var ifm = document.getElementById("showFrame");
-        ifm.width = document.documentElement.clientWidth;
-        ifm.height =document.documentElement.clientHeight;
-
-    }
-
-    window.onresize=function(){
-        changeFrameHeight();
-    }
-
-    <!-- 改变iframe的地址，重定向 -->
-    function redir(url){
-
-        console.info(url);
-
-        $("#showFrame").attr("src", url);
-    }
-</script>
 
 </html>

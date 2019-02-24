@@ -33,11 +33,15 @@ public interface OperatorDao {
     //分页查询
     List<Operator> selectOperatorByCondition(OperatorCondition condition) throws Exception;
 
+    //计算总数
+    int count(OperatorCondition condition) throws Exception;
+
     //根据id批量更新
     int updateOperatorsById(List<Operator> operators) throws Exception;
 
     //根据id批量删除
     int deleteOperatorsById(List<String> ids) throws Exception;
+
 
 }
     

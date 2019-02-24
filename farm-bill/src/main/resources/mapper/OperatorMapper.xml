@@ -177,8 +177,14 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="mid" jdbcType="VARCHAR" property="mid" />
   </resultMap>
+  
   <select id="selectOperatorByCondition" parameterType="edu.zhku.pojo.OperatorCondition" resultMap="resultMap">
     select * from t_operator where mid = #{operator.mid}
+    <include refid="page_condition_sql" />
+  </select>
+  
+  <select id="count" parameterType="edu.zhku.pojo.OperatorCondition" resultType="java.lang.Integer">
+    select count(*) from t_operator where mid = #{operator.mid}
     <include refid="page_condition_sql" />
   </select>
   

@@ -114,6 +114,7 @@ public class MerchantController {
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
 
         Merchant merchant = merchantService.selectById(mid);
+        mv.addObject("mid", mid);
         mv.addObject("merchant", merchant);
         mv.addObject("sid", session.getId());
 
