@@ -3,6 +3,7 @@ package edu.zhku.controller;
 import edu.zhku.pojo.Operator;
 import edu.zhku.pojo.OperatorCondition;
 import edu.zhku.service.OperatorService;
+import edu.zhku.util.CRODUtil;
 import edu.zhku.util.PageUtil;
 import edu.zhku.vo.OperatorVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,13 @@ public class OperatorController {
      * @throws Exception
      */
     @RequestMapping("/addOperator")
-    public int addOperator(Operator operator) throws Exception {
+    public String addOperator(Operator operator) throws Exception {
         int flag = operatorService.insertOperator(operator);
-        return flag;
+
+        String data = CRODUtil.getJsonp(flag);
+
+        return data;
+
     }
 
     /**
@@ -45,7 +50,7 @@ public class OperatorController {
      * @throws Exception
      */
     @RequestMapping("/queryOperatorByPage")
-    public OperatorVo queryOperatorByPage(OperatorCondition condition) throws Exception {
+    public String queryOperatorByPage(OperatorCondition condition) throws Exception {
 
         OperatorVo vo = new OperatorVo();
 
@@ -56,7 +61,10 @@ public class OperatorController {
         vo.setOperators(operators);
         vo.setTotalPage(totalPage);
 
-        return vo;
+        String data = CRODUtil.getJsonp(vo);
+
+        //跨域
+        return data;
     }
 
     /**
@@ -66,10 +74,13 @@ public class OperatorController {
      * @throws Exception
      */
     @RequestMapping("/queryOperatorById")
-    public Operator queryOperatorById(String oid) throws Exception {
+    public String queryOperatorById(String oid) throws Exception {
 
         Operator operator = operatorService.selectOperatorById(oid);
-        return operator;
+
+        String data = CRODUtil.getJsonp(operator);
+
+        return data;
 
     }
 
@@ -80,9 +91,12 @@ public class OperatorController {
      * @throws Exception
      */
     @RequestMapping("/updateOperatorById")
-    public int updateOperatorById(Operator operator) throws Exception {
+    public String updateOperatorById(Operator operator) throws Exception {
         int flag = operatorService.updateOperatorById(operator);
-        return flag;
+
+        String data = CRODUtil.getJsonp(flag);
+
+        return data;
 
     }
 

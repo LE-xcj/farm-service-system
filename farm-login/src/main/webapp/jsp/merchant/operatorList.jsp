@@ -11,34 +11,45 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
-    <meta name="description" content="这是一个 index 页面">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title></title>
+    <meta name="description" content="">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <!--css-->
+    <link rel="icon" type="image/png" href="http://106.14.139.8/merchant-index/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="http://106.14.139.8/merchant-index/assets/i/app-icon72x72@2x.png">
+    <link rel="stylesheet" href="http://106.14.139.8/merchant-index/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="http://106.14.139.8/merchant-index/assets/css/admin.css">
 
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <!--js-->
+    <script src="http://106.14.139.8/merchant-index/assets/js/jquery.min.js"></script>
+    <script src="http://106.14.139.8/merchant-index/assets/js/app.js"></script>
+    <script src="http://106.14.139.8/merchant-index/assets/js/amazeui.min.js"></script>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/amazeui.min.js"></script>
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
+    <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
+
+
 </head>
 
 <body>
-<div class=" admin-content">
+    <div class=" admin-content">
 
-    <div class="am-popup am-popup-inner" id="my-popups">
+    <!--模态框-->
+    <div class="am-popup am-popup-inner" id="my-popups" style="max-height: 500px">
 
         <div class="am-popup-hd">
             <h4 class="am-popup-title">修改</h4>
-            <span data-am-modal-close class="am-close">&times;</span> </div>
+            <span data-am-modal-close class="am-close">&times;</span>
+        </div>
+
         <div class="am-popup-bd">
 
             <form class="am-form tjlanmu">
@@ -49,7 +60,7 @@
                 </div>
                 <!--mid-->
                 <div style="display: none;">
-                    <input value="mid" type="text" />
+                    <input name="mid" type="text" value="${mid}"/>
                 </div>
                 <div class="am-form-group">
                     <div class="zuo">名称：</div>
@@ -103,14 +114,15 @@
 
     </div>
 
+
     <div class="admin-biaogelist">
 
         <!--栏目-->
         <div class="listbiaoti am-cf">
-            <ul class="am-icon-flag on">&nbsp;商品栏目管理</ul>
+            <ul class="am-icon-flag on">&nbsp;机手栏目管理</ul>
             <dl class="am-icon-home" style="float: right;">
                 当前位置： 首页 >
-                <a href="#">商品列表</a>
+                <a href="#" onclick="false">机手列表</a>
             </dl>
 
         </div>
@@ -118,217 +130,41 @@
         <!--表格-->
         <form class="am-form am-g">
             <table width="100%" class="am-table am-table-bordered am-table-radius am-table-striped am-table-hover">
+                <!--表头-->
                 <thead>
-                <tr class="am-success">
-                    <th class="table-check"><input type="checkbox" /></th>
-                    <th class="table-id">排序</th>
-                    <th class="table-id am-text-center">ID</th>
-                    <th class="table-title">栏目名称</th>
-                    <th class="table-type">数据量</th>
-                    <th class="table-author am-hide-sm-only">访问</th>
-                    <th class="table-date am-hide-sm-only">添加子栏目</th>
-                    <th width="163px" class="table-set">操作</th>
-                </tr>
+                    <tr class="am-success">
+                        <th><input type="checkbox" /></th>
+                        <th>头像</th>
+                        <th>机手编号</th>
+                        <th>名称</th>
+                        <th>性别</th>
+                        <th>手机号</th>
+                        <th>简介</th>
+                        <th width="120px" class="table-set" style="text-align: center">操作</th>
+                    </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="text" class="am-form-field am-radius am-input-sm" /></td>
-                    <td class="am-text-center">14</td>
-                    <td>
-                        <a href="#">Business management</a>
-                    </td>
-                    <td>default</td>
-                    <td class="am-hide-sm-only">访问</td>
-                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                    <td>
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-file" data-am-modal="{target: '#my-popups'}" title="添加子栏目"></a>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改"><span class="am-icon-pencil-square-o" ></span></button>
-                                <!-- 用按钮的时候 弹层 后缀需要加 问好 ？#的 时候才有效 真恶心 .html?# -->
 
-                                <button class="am-btn am-btn-default am-btn-xs am-text-warning  am-round" title="复制" data-am-modal="{target: '#my-popupss'}"><span class="am-icon-copy"></span></button>
-                                <!-- 做完发现 复制栏目没什么用处 早晚都要修改 -->
 
-                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除"><span class="am-icon-trash-o"></span></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="text" class="am-form-field am-radius am-input-sm" /></td>
-                    <td class="am-text-center">2</td>
-                    <td><i style="margin-left:30px">├─  </i>
-                        <a href="#">Business management</a>
-                    </td>
-                    <td>default</td>
-                    <td class="am-hide-sm-only">访问</td>
-                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                    <td>
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-file" data-am-modal="{target: '#my-popups'}" title="添加子栏目"></a>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改"><span class="am-icon-pencil-square-o" ></span></button>
-                                <!-- 用按钮的时候 弹层 后缀需要加 问好 ？#的 时候才有效 真恶心 .html?# -->
-
-                                <button class="am-btn am-btn-default am-btn-xs am-text-warning  am-round" title="复制"><span class="am-icon-copy"></span></button>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除"><span class="am-icon-trash-o"></span></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="text" class="am-form-field am-radius am-input-sm" /></td>
-                    <td class="am-text-center">3</td>
-                    <td><i style="margin-left:30px">├─  </i>
-                        <a href="#">Business management</a>
-                    </td>
-                    <td>default</td>
-                    <td class="am-hide-sm-only">访问</td>
-                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                    <td>
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-file" data-am-modal="{target: '#my-popups'}" title="添加子栏目"></a>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改"><span class="am-icon-pencil-square-o" ></span></button>
-                                <!-- 用按钮的时候 弹层 后缀需要加 问好 ？#的 时候才有效 真恶心 .html?# -->
-
-                                <button class="am-btn am-btn-default am-btn-xs am-text-warning  am-round" title="复制"><span class="am-icon-copy"></span></button>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除"><span class="am-icon-trash-o"></span></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="text" class="am-form-field am-radius am-input-sm" /></td>
-                    <td class="am-text-center">4</td>
-                    <td><i style="margin-left:30px">├─  </i>
-                        <a href="#">Business management</a>
-                    </td>
-                    <td>default</td>
-                    <td class="am-hide-sm-only">访问</td>
-                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                    <td>
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-file" data-am-modal="{target: '#my-popups'}" title="添加子栏目"></a>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改"><span class="am-icon-pencil-square-o" ></span></button>
-                                <!-- 用按钮的时候 弹层 后缀需要加 问好 ？#的 时候才有效 真恶心 .html?# -->
-
-                                <button class="am-btn am-btn-default am-btn-xs am-text-warning  am-round" title="复制"><span class="am-icon-copy"></span></button>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除"><span class="am-icon-trash-o"></span></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="text" class="am-form-field am-radius am-input-sm" /></td>
-                    <td class="am-text-center">5</td>
-                    <td><i style="margin-left:30px">├─  </i>
-                        <a href="#">Business management</a>
-                    </td>
-                    <td>default</td>
-                    <td class="am-hide-sm-only">访问</td>
-                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                    <td>
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-file" data-am-modal="{target: '#my-popups'}" title="添加子栏目"></a>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改"><span class="am-icon-pencil-square-o" ></span></button>
-                                <!-- 用按钮的时候 弹层 后缀需要加 问好 ？#的 时候才有效 真恶心 .html?# -->
-
-                                <button class="am-btn am-btn-default am-btn-xs am-text-warning  am-round" title="复制"><span class="am-icon-copy"></span></button>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除"><span class="am-icon-trash-o"></span></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="text" class="am-form-field am-radius am-input-sm" /></td>
-                    <td class="am-text-center">6</td>
-                    <td><i style="margin-left:30px">├─  </i>
-                        <a href="#">Business management</a>
-                    </td>
-                    <td>default</td>
-                    <td class="am-hide-sm-only">访问</td>
-                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                    <td>
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <a class="am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-file" data-am-modal="{target: '#my-popups'}" title="添加子栏目"></a>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}" title="修改"><span class="am-icon-pencil-square-o" ></span></button>
-                                <!-- 用按钮的时候 弹层 后缀需要加 问好 ？#的 时候才有效 真恶心 .html?# -->
-
-                                <button class="am-btn am-btn-default am-btn-xs am-text-warning  am-round" title="复制"><span class="am-icon-copy"></span></button>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round" title="删除"><span class="am-icon-trash-o"></span></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td><input type="text" class="am-form-field am-radius am-input-sm" /></td>
-                    <td class="am-text-center">15</td>
-                    <td>
-                        <a href="#">Business management</a>
-                    </td>
-                    <td>default</td>
-                    <td class="am-hide-sm-only"><i class="am-icon-close am-text-primary"></i></td>
-                    <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
-                    <td>
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <button class="am-btn am-btn-default am-btn-xs am-text-success am-round"><span class="am-icon-search"></span> </button>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round" data-am-modal="{target: '#my-popups'}"><span class="am-icon-pencil-square-o"></span></button>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-warning  am-round"><span class="am-icon-copy"></span></button>
-                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round"><span class="am-icon-trash-o"></span></button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
+                <tbody id="operatorList"></tr>
 
                 </tbody>
             </table>
             <div class="am-btn-group am-btn-group-xs">
-                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 上架</button>
-                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 下架</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 信息导出</button>
                 <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
             </div>
+            <!--下一页-->
             <ul class="am-pagination am-fr">
-                <li class="am-disabled">
-                    <a href="#">«</a>
-                </li>
-                <li class="am-active">
-                    <a href="#">1</a>
+                <li>
+                    <a href="javascript:check(-1);">«</a>
                 </li>
                 <li>
-                    <a href="#">2</a>
+                    <a href="#" id="currentPage">1</a>
                 </li>
                 <li>
-                    <a href="#">3</a>
+                    <a href="javascript:check(1);">»</a>
                 </li>
-                <li>
-                    <a href="#">4</a>
-                </li>
-                <li>
-                    <a href="#">5</a>
-                </li>
-                <li>
-                    <a href="#">»</a>
-                </li>
+                共<label id="totalPage">10</label>页
             </ul>
             <hr />
 
@@ -337,7 +173,7 @@
         <!--底部-->
         <div class="foods">
             <ul>
-                版权归<a href="http://www.zhku.edu.cn/" target="_blank" title="zhku">仲恺农业工程学院</a>
+                版权归<a href="http://www.zhku.edu.cn/" target="_blank" title="模板之家">仲恺农业工程学院</a>
             </ul>
             <dl>
                 <a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a>
@@ -351,4 +187,97 @@
 
 </body>
 
+<script>
+
+    $.ready = function(){
+        getOperators(1);
+    }
+
+
+    function check(_offset) {
+        var _begin = $("#currentPage").text();
+        _begin = parseInt(_begin);
+        _begin += _offset;
+
+        var _total = $("#totalPage").text();
+        _total = parseInt(_total);
+
+        console.info(_begin);
+        console.info("_total " + _total);
+        if(_begin == 0){
+            showDialog("已经是第一页了");
+            return;
+        }else if(_begin > _total){
+            showDialog("最后一页了");
+        }else{
+            getOperators(_begin);
+        }
+    }
+
+
+    <!--异步分页请求-->
+    function getOperators(_begin) {
+
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/operator/queryOperatorByPage",
+            dataType:'jsonp',  // 处理Ajax跨域问题
+            data: {'operator.mid': ${mid}, page: _begin},
+            async:true,
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+            jsonpCallback: "callback",
+            success: function(data){
+                fill(data, _begin);
+            },error: function (data) {
+                console.info("erro");
+            }
+        });
+    }
+
+    <!--空壳方法-->
+    function callback(data) {
+    }
+
+    <!--填充表格-->
+    function fill(data, _begin) {
+        var _operators = data.operators;
+        var _totalPage = data.totalPage;
+
+        $("#currentPage").text(_begin);
+        $("#totalPage").text(_totalPage);
+
+        var _tb = $("#operatorList");
+        _tb.html("");
+
+        for(var i=0; i<_operators.length; ++i){
+            console.info(_operators[i]);
+            var _tr = $("<tr></tr>");
+
+            var _td = $("<td></td>");
+            $("<input />").attr("type", "checkbox").attr("value", _operators[i].oid).appendTo(_td);
+            _td.appendTo(_tr);
+
+            _td = $("<td></td>");
+            $("<img />").attr("src", _operators[i].picture).attr("width", "80").attr("height", "80").appendTo(_td);
+            _td.appendTo(_tr);
+
+            $("<td></td>").text(_operators[i].oid).appendTo(_tr);
+            $("<td></td>").text(_operators[i].oname).appendTo(_tr);
+            $("<td></td>").text(_operators[i].sex).appendTo(_tr);
+            $("<td></td>").text(_operators[i].phone).appendTo(_tr);
+            $("<td></td>").text(_operators[i].description).appendTo(_tr);
+
+            var _a = $("<a></a>").attr("class", "am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o")
+                .attr("data-am-modal", "{target: '#my-popups'}")
+                .attr("title", "修改");
+            _td = $("<td></td>");
+            _a.appendTo(_td);
+            _td.appendTo(_tr);
+
+            _tr.appendTo(_tb);
+        }
+
+    }
+    
+</script>
 </html>

@@ -3,15 +3,14 @@
 <!doctype html>
 <html class="no-js">
 <head>
-    <%response.addHeader("P3P ", "CP=\"CAO PSA OUR\"");%>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" charset=utf-8">
+
     <title>商户后台管理系统</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
 
     <!--css-->
     <link rel="icon" type="image/png" href="http://106.14.139.8/merchant-index/assets/i/favicon.png">
@@ -56,10 +55,10 @@
 
             <li class="kuanjie">
                 <a href="#">主页</a>
-                <a href="#">商品管理</a>
+                <a href="javascript:redir('${pageContext.request.contextPath }/item/addItemView');">商品管理</a>
                 <a href="#">机手管理</a>
                 <a href="#">订单管理</a>
-                <a href="#">个人中心</a>
+                <a href="javascript:redir('${pageContext.request.contextPath }/merchant/updateMerchantView');">个人中心</a>
             </li>
             <li class="soso">
                 <p>
@@ -88,9 +87,8 @@
         <div class="sideMenu">
             <h3 class="am-icon-flag"><em></em> <a href="#">商品管理</a></h3>
             <ul>
-                <li><a href="javascript:redir('${pageContext.request.contextPath }/item/addItemView?mid=${mid}&sid=${sid}');">添加服务</a> </li>
-                <li><a href="javascript:redir('${pageContext.request.contextPath }/item/itemListView?mid=${mid}&sid=${sid}">服务列表</a></li>
-                <li><a href="">更新服务信息</a></li>
+                <li><a href="javascript:redir('${pageContext.request.contextPath }/item/addItemView');">添加服务</a> </li>
+                <li><a href="javascript:redir('${pageContext.request.contextPath }/item/itemListView');">服务列表</a></li>
                 <li><a href="">农户评论</a></li>
             </ul>
 
@@ -101,15 +99,14 @@
 
             <h3 class="am-icon-users"><em></em> <a href="#">机手管理</a></h3>
             <ul>
-                <li><a href="">添加机手</a> </li>
-                <li><a href="">机手列表</a> </li>
-                <li><a href="">更新机手信息</a> </li>
+                <li><a href="javascript:redir('${pageContext.request.contextPath }/operator/addOperatorView');">添加机手</a> </li>
+                <li><a href="javascript:redir('${pageContext.request.contextPath }/operator/operatorListView');">机手列表</a> </li>
             </ul>
 
             <h3 class="am-icon-gears"><em></em> <a href="#">账户管理</a></h3>
             <ul>
-                <li><a href="javascript:redir('/farmService/merchant/certifyView')";>商户认证</a></li>
-                <li><a href="javascript:redir('/farmService/merchant/updateMerchantView')">商户信息</a></li>
+                <li><a href="javascript:redir('${pageContext.request.contextPath }/merchant/certifyView');">商户认证</a></li>
+                <li><a href="javascript:redir('${pageContext.request.contextPath }/merchant/updateMerchantView');">商户信息</a></li>
                 <li><a href="">修改密码</a></li>
                 <li><a href="">修改手机号</a></li>
             </ul>

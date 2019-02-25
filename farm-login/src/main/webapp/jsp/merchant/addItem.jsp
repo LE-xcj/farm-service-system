@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <title></title>
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
 
     <!--css-->
     <link rel="icon" type="image/png" href="http://106.14.139.8/merchant-index/assets/i/favicon.png">
@@ -25,7 +26,11 @@
     <script src="http://106.14.139.8/merchant-index/assets/js/app.js"></script>
     <script src="http://106.14.139.8/merchant-index/assets/js/amazeui.min.js"></script>
 
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
     <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
 </head>
 
 <body>
@@ -92,7 +97,7 @@
 
             <div class="am-form-group am-cf">
                 <div class="you" style="margin-left: 11%;">
-                    <button type="submit" class="am-btn am-btn-success am-radius">上架</button>&nbsp; &raquo; &nbsp;
+                    <button type="submit" class="am-btn am-btn-success am-radius">上架</button>
                 </div>
             </div>
         </form>
@@ -156,21 +161,26 @@
             type:"post",
             url:"http://127.0.0.1:10087/farmService/item/addItem",
             async:false,
+            dataType:'jsonp',  // 处理Ajax跨域问题
             data:{iname:iname, price:price, mid:mid, unit:unit, description:description},
+            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+            jsonpCallback: "callback",
             success: function(data){
                 console.info(data.code);
-                if(data== 1){
+                if(data.code== 1){
                     canAdd = true;
                     showDialog("添加成功！");
                     clear();
                 }
+            },error: function (data) {
+                showDialog("添加失败！");
             }
         });
         return canAdd;
     }
     
     function clear() {
-        $("input[name='iname']").val();
+        $("input[name='iname']").val('');
         $("textarea[name='description']").val('');
         $("input[name='price']").val('');
         $("input[name='unit']").val('');

@@ -185,7 +185,6 @@
   
   <select id="count" parameterType="edu.zhku.pojo.OperatorCondition" resultType="java.lang.Integer">
     select count(*) from t_operator where mid = #{operator.mid}
-    <include refid="page_condition_sql" />
   </select>
   
   <sql id="page_condition_sql">

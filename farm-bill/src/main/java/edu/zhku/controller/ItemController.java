@@ -4,6 +4,7 @@ import edu.zhku.pojo.Item;
 import edu.zhku.pojo.ItemCondition;
 import edu.zhku.pojo.ItemConditionForMerchant;
 import edu.zhku.service.ItemService;
+import edu.zhku.util.CRODUtil;
 import edu.zhku.vo.ItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +33,12 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/addItem")
-    public int addItem(Item item) throws Exception {
+    public String addItem(Item item) throws Exception {
         int flag = itemService.insertItem(item);
-        return flag;
+
+        String data = CRODUtil.getJsonp(flag);
+
+        return data;
     }
 
 
@@ -45,7 +49,7 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/queryItemByPage")
-    public ItemVo queryItemByPage(ItemCondition condition) throws Exception{
+    public String queryItemByPage(ItemCondition condition) throws Exception{
         List<Item> items = itemService.selectByCondition(condition);
 
         int totalPage = 0;
@@ -57,7 +61,9 @@ public class ItemController {
         vo.setItems(items);
         vo.setTotalPage(totalPage);
 
-        return vo;
+        String data = CRODUtil.getJsonp(vo);
+
+        return data;
     }
 
 
@@ -68,9 +74,12 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/queryItemForMerchant")
-    public ItemVo queryItemForMerchant(ItemConditionForMerchant condition) throws Exception {
+    public String queryItemForMerchant(ItemConditionForMerchant condition) throws Exception {
         ItemVo itemVo = itemService.selectByItem(condition);
-        return itemVo;
+
+        String data = CRODUtil.getJsonp(itemVo);
+
+        return data;
 
     }
 
@@ -81,10 +90,16 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/queryItemById")
-    public Item queryItemById(Integer id) throws Exception {
+    public String queryItemById(Integer id) throws Exception {
         Item item = itemService.selectItemById(id);
-        return item;
+
+
+        String data = CRODUtil.getJsonp(item);
+
+        return data;
     }
+
+
 
     /**
      * 更新商品信息，这里是以id更新信息
@@ -93,9 +108,13 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/updateItem")
-    public int updateItem(Item item) throws Exception {
+    public String updateItem(Item item) throws Exception {
         int flag = itemService.updateItemById(item);
-        return flag;
+
+        String data = CRODUtil.getJsonp(flag);
+
+        return data;
+
     }
 
 
