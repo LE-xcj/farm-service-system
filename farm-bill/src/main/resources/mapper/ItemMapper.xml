@@ -234,4 +234,12 @@
     </foreach>
   </select>
 
+
+  <update id="updateItemStatus">
+    update t_item set status = #{status} WHERE iid IN
+    <foreach collection="ids" open="(" separator="," close=")" item="item">
+        #{item}
+    </foreach>
+  </update>
+
 </mapper>

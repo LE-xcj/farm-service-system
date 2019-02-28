@@ -46,6 +46,7 @@ public interface ItemService {
 
 
     int updateItemById(Item item) throws Exception;
+    int updateItemStatus(List<Integer> ids, int status) throws Exception;
 
     int deleteItemById(Integer iid) throws Exception;
     int deleteItemsById(List<Integer> ids) throws Exception;

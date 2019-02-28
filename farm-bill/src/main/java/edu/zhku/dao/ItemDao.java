@@ -71,5 +71,13 @@ public interface ItemDao {
      */
     List<Item> selectItemByIds(List<Integer> ids) throws Exception;
 
+    /**
+     * 批量更新商品状态
+     * @param ids
+     * @param status
+     * @return
+     * @throws Exception
+     */
+    int updateItemStatus(List<Integer> ids, int status) throws Exception;
 }
     

@@ -1,15 +1,19 @@
 package edu.zhku.controller;
 
+import edu.zhku.constant.Path;
 import edu.zhku.pojo.Item;
 import edu.zhku.pojo.ItemCondition;
 import edu.zhku.pojo.ItemConditionForMerchant;
+import edu.zhku.pojo.ItemUpdateDTO;
 import edu.zhku.service.ItemService;
-import edu.zhku.util.CRODUtil;
+import edu.zhku.util.FileUtil;
 import edu.zhku.vo.ItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,12 +37,13 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/addItem")
-    public String addItem(Item item) throws Exception {
+    public int addItem(Item item, MultipartFile file) throws Exception {
+
+        setPicture(item, file);
+
         int flag = itemService.insertItem(item);
 
-        String data = CRODUtil.getJsonp(flag);
-
-        return data;
+        return flag;
     }
 
 
@@ -49,7 +54,7 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/queryItemByPage")
-    public String queryItemByPage(ItemCondition condition) throws Exception{
+    public ItemVo queryItemByPage(ItemCondition condition) throws Exception{
         List<Item> items = itemService.selectByCondition(condition);
 
         int totalPage = 0;
@@ -61,9 +66,8 @@ public class ItemController {
         vo.setItems(items);
         vo.setTotalPage(totalPage);
 
-        String data = CRODUtil.getJsonp(vo);
 
-        return data;
+        return vo;
     }
 
 
@@ -74,12 +78,11 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/queryItemForMerchant")
-    public String queryItemForMerchant(ItemConditionForMerchant condition) throws Exception {
+    public ItemVo queryItemForMerchant(ItemConditionForMerchant condition) throws Exception {
         ItemVo itemVo = itemService.selectByItem(condition);
 
-        String data = CRODUtil.getJsonp(itemVo);
 
-        return data;
+        return itemVo;
 
     }
 
@@ -90,13 +93,11 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/queryItemById")
-    public String queryItemById(Integer id) throws Exception {
+    public Item queryItemById(Integer id) throws Exception {
         Item item = itemService.selectItemById(id);
 
 
-        String data = CRODUtil.getJsonp(item);
-
-        return data;
+        return item;
     }
 
 
@@ -108,16 +109,37 @@ public class ItemController {
      * @throws Exception
      */
     @RequestMapping("/updateItem")
-    public String updateItem(Item item) throws Exception {
+    public int updateItem(Item item, MultipartFile file) throws Exception {
+
+        setPicture(item, file);
+
         int flag = itemService.updateItemById(item);
 
-        String data = CRODUtil.getJsonp(flag);
-
-        return data;
+        return flag;
 
     }
 
 
+    @RequestMapping("/updateItemStatus")
+    public int updateItemStatus(ItemUpdateDTO dto) throws Exception {
+        List<Integer> ids = dto.getIds();
+        int status = dto.getStatus();
+        int num = itemService.updateItemStatus(ids, status);
+        return num;
+    }
+
+    /**
+     * 设置图片资源
+     * @param item
+     * @param file
+     * @throws IOException
+     */
+    private void setPicture(Item item, MultipartFile file) throws IOException {
+        if (null != file) {
+            String url = FileUtil.saveImg(file, Path.ITEM);
+            item.setMedia(url);
+        }
+    }
 
 }
     

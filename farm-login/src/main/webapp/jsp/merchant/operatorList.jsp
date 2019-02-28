@@ -52,7 +52,7 @@
 
         <div class="am-popup-bd">
 
-            <form class="am-form tjlanmu">
+            <form class="am-form tjlanmu" method="post" onsubmit="return updateOperator();">
                 <div class="am-form-group am-cf">
                     <div class="you" style="text-align: center;">
                         <img id="operator_img" src="" style="width: 80px; height: 80px;" />
@@ -62,10 +62,13 @@
                 <div style="display: none;">
                     <input name="mid" type="text" value="${mid}"/>
                 </div>
+                <div style="display: none;">
+                    <input name="oid" type="text" value=""/>
+                </div>
                 <div class="am-form-group">
                     <div class="zuo">名称：</div>
                     <div class="you">
-                        <input type="email" class="am-input-sm" id="doc-ipt-email-1" placeholder="">
+                        <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="" name="oname">
                     </div>
                 </div>
                 <div class="am-form-group">
@@ -73,31 +76,34 @@
                     <div class="you"></div>
                 </div>
                 <div class="am-form-group am-cf">
-                    <div class="zuo">栏目描述：</div>
+                    <div class="zuo">简介：</div>
                     <div class="you">
-                        <textarea class="" rows="2" id="doc-ta-1"></textarea>
+                        <textarea class="" rows="2" id="doc-ta-1" name="description"></textarea>
                     </div>
                 </div>
                 <div class="am-form-group am-cf">
-                    <div class="zuo">栏目图片：</div>
+                    <div class="zuo">头像：</div>
                     <div class="you" style="height: 45px;">
-                        <input type="file" id="doc-ipt-file-1">
-                        <p class="am-form-help">请选择要上传的文件...</p>
+                        <input type="file" id="doc-ipt-file-1" onchange="previewFile()" name="file">
+                        <p class="am-form-help">请选择要上传的头像...</p>
                     </div>
                 </div>
 
                 <div class="am-form-group am-cf">
                     <div class="zuo">性别：</div>
                     <div class="you" >
-                        男&nbsp;&nbsp;<input type="radio" class="" rows="2" id="doc-ta-1" checked="checked" name="sex"></input>
-                        &nbsp;&nbsp;&nbsp;女&nbsp;&nbsp;<input type="radio" class="" rows="2" id="doc-ta-1" name="sex"></input>
+                        男&nbsp;&nbsp;
+                        <input type="radio" class="" rows="2" id="man" name="sex" value="男" />
+                        &nbsp;&nbsp;&nbsp;
+                        女&nbsp;&nbsp;
+                        <input type="radio" class="" rows="2" id="woman" name="sex" value="女" />
                     </div>
                 </div>
 
                 <div class="am-form-group am-cf">
                     <div class="zuo">手机号：</div>
                     <div class="you" >
-                        <input type="email" class="am-input-sm" id="doc-ipt-email-1" placeholder="">
+                        <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="" name="phone">
                     </div>
                 </div>
 
@@ -164,7 +170,7 @@
                 <li>
                     <a href="javascript:check(1);">»</a>
                 </li>
-                共<label id="totalPage">10</label>页
+                共<label id="totalPage">0</label>页
             </ul>
             <hr />
 
@@ -221,21 +227,15 @@
         $.ajax({
             type:"post",
             url:"http://127.0.0.1:10087/farmService/operator/queryOperatorByPage",
-            dataType:'jsonp',  // 处理Ajax跨域问题
+            dataType:'json',  // 处理Ajax跨域问题
             data: {'operator.mid': ${mid}, page: _begin},
             async:true,
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-            jsonpCallback: "callback",
             success: function(data){
                 fill(data, _begin);
             },error: function (data) {
                 console.info("erro");
             }
         });
-    }
-
-    <!--空壳方法-->
-    function callback(data) {
     }
 
     <!--填充表格-->
@@ -269,7 +269,10 @@
 
             var _a = $("<a></a>").attr("class", "am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o")
                 .attr("data-am-modal", "{target: '#my-popups'}")
-                .attr("title", "修改");
+                .attr("title", "修改")
+                .attr("href", "javascript:void(0);")
+                .attr("onclick", "display(this)");
+
             _td = $("<td></td>");
             _a.appendTo(_td);
             _td.appendTo(_tr);
@@ -278,6 +281,83 @@
         }
 
     }
-    
+
+
+
+    function display(_this) {
+        var raw = $(_this).parents('tr').children('td');
+
+        var _img = raw.eq(1).children(0);
+        var src = _img.attr("src");
+
+        console.info(src);
+
+        var oid = raw.eq(2).text();
+        var oname = raw.eq(3).text();
+        var sex = raw.eq(4).text();
+        var phone = raw.eq(5).text();
+        var description = raw.eq(6).text();
+
+        if ("女" == sex) {
+            /*用prop来改，不要用attr，attr好像是一次性*/
+            $("#woman").prop("checked", true);
+        } else {
+            $("#man").prop("checked", true);
+        }
+
+        $("#operator_img").attr("src", src);
+        $("input[name='oid']").val(oid);
+        $("input[name='oname']").val(oname);
+        $("textarea[name='description']").val(description);
+        $("input[name='phone']").val(phone);
+    }
+
+    function updateOperator() {
+
+        var picture = $("#operator_img").attr("src");
+        var oid = $("input[name='oid']").val();
+        var oname= $("input[name='oname']").val();
+        var description = $("textarea[name='description']").val();
+        var sex = $("input[name='sex']:checked").val();
+        var phone = $("input[name='phone']").val();
+        var mid = $("input[name='mid']").val();
+
+        var formData = new FormData();
+        formData.append("picture", picture);
+        formData.append("oid", oid);
+        formData.append("oname", oname);
+        formData.append("description", description);
+        formData.append("sex", sex);
+        formData.append("phone", phone);
+        formData.append("mid", mid);
+        formData.append("file", $("input[name='file']").get(0).files[0]);
+
+        var canUpdate = false;
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/operator/updateOperatorById",
+            async:false,
+            dataType:'json',  // 处理Ajax跨域问题
+            data:formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            success: function(data){
+                if(data == 1){
+                    canUpdate = true;
+                    showDialog("更新成功！");
+                }
+            },error: function (data) {
+                showDialog("更新失败！");
+            }
+        });
+        return canUpdate;
+    }
 </script>
 </html>

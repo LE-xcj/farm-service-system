@@ -239,6 +239,22 @@ public class ItemServiceImpl implements ItemService{
         return num;
     }
 
+    /**
+     * 批量更新item信息
+     * @param ids
+     * @param status
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int updateItemStatus(List<Integer> ids, int status) throws Exception {
+        if (null == ids || ids.isEmpty()) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+        int num = itemDao.updateItemStatus(ids, status);
+        return num;
+    }
+
 
     /**
      * 根据id删除商品

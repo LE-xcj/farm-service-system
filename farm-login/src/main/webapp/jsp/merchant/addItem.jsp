@@ -75,7 +75,7 @@
                 <div class="zuo">图片：</div>
                 <div class="you" style="height: 45px;">
                     <input type="file" id="doc-ipt-file-1" onchange="previewFile()" name="file">
-                    <p class="am-form-help">请选择要上传的文件...</p>
+                    <p class="am-form-help">请选择要上传的图片...</p>
                 </div>
             </div>
 
@@ -156,18 +156,31 @@
 
         var canAdd = false;
 
+        var formData = new FormData();
+        formData.append("iname", iname);
+        formData.append("price", price);
+        formData.append("mid", mid);
+        formData.append("unit", unit);
+        formData.append("description", description);
+        formData.append("file", $("input[name='file']").get(0).files[0]);
 
         $.ajax({
             type:"post",
             url:"http://127.0.0.1:10087/farmService/item/addItem",
             async:false,
-            dataType:'jsonp',  // 处理Ajax跨域问题
-            data:{iname:iname, price:price, mid:mid, unit:unit, description:description},
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-            jsonpCallback: "callback",
+            dataType:'json',  // 处理Ajax跨域问题
+            data:formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
             success: function(data){
-                console.info(data.code);
-                if(data.code== 1){
+                if(data== 1){
                     canAdd = true;
                     showDialog("添加成功！");
                     clear();

@@ -12,7 +12,6 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
 
     <!--css-->
@@ -47,7 +46,7 @@
     </div>
 
     <div class="fbneirong">
-        <form class="am-form" method="post" onsubmit="return canAddOperator();">
+        <form class="am-form" method="post" onsubmit="return canAddOperator();" enctype="multipart/form-data">
             <%--图片--%>
             <div class="am-form-group am-cf">
                 <div class="you" style="text-align: center;">
@@ -83,8 +82,8 @@
             <div class="am-form-group am-cf">
                 <div class="zuo">性别：</div>
                 <div class="you">
-                    男&nbsp;&nbsp;<input type="radio" class="" rows="2" id="doc-ta-1" checked="checked" name="sex"></input>
-                    &nbsp;&nbsp;&nbsp;女&nbsp;&nbsp;<input type="radio" class="" rows="2" id="doc-ta-1" name="sex"></input>
+                    男&nbsp;&nbsp;<input type="radio" class="" rows="2" id="doc-ta-1" checked="checked" name="sex" value="男"></input>
+                    &nbsp;&nbsp;&nbsp;女&nbsp;&nbsp;<input type="radio" class="" rows="2" id="doc-ta-1" name="sex" value="女"></input>
                 </div>
             </div>
 
@@ -149,24 +148,43 @@
     function canAddOperator() {
         var oname = $("input[name='oname']").val();
         var description = $("textarea[name='description']").val();
-        var sex = $("textarea[name='sex']").val();
+        var sex = $("input[name='sex']:checked").val();
         var phone = $("input[name='phone']").val();
         var mid = $("input[name='mid']").val();
 
         var canAdd = false;
 
+        var formData = new FormData();
+        formData.append("oname", oname);
+        formData.append("phone", phone);
+        formData.append("mid", mid);
+        formData.append("sex", sex);
+        formData.append("description", description);
 
+        formData.append("file", $("input[name='file']").get(0).files[0]);
+
+        console.info("formdata : " + formData);
+        //{oname:oname, phone:phone, mid:mid, sex:sex, description:description}
         $.ajax({
             type:"post",
             url:"http://127.0.0.1:10087/farmService/operator/addOperator",
-            dataType:'jsonp',  // 处理Ajax跨域问题
+            dataType:'json',  // 处理Ajax跨域问题
+            crossDomain: true,
             async:false,
-            data:{oname:oname, phone:phone, mid:mid, sex:sex, description:description},
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-            jsonpCallback: "callback",
+            data:formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+
             success: function(data){
                 console.info(data.code);
-                if(data.code== 1){
+                if(data == 1){
                     canAdd = true;
                     showDialog("添加成功！");
                     clear();
@@ -185,8 +203,5 @@
         $("input[name='file']").val('');
     }
 
-    <!--空壳方法-->
-    function callback(data) {
-    }
 </script>
 </html>

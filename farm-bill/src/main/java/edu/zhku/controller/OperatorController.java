@@ -1,15 +1,18 @@
 package edu.zhku.controller;
 
+import edu.zhku.constant.Path;
 import edu.zhku.pojo.Operator;
 import edu.zhku.pojo.OperatorCondition;
 import edu.zhku.service.OperatorService;
-import edu.zhku.util.CRODUtil;
+import edu.zhku.util.FileUtil;
 import edu.zhku.util.PageUtil;
 import edu.zhku.vo.OperatorVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,14 +36,17 @@ public class OperatorController {
      * @throws Exception
      */
     @RequestMapping("/addOperator")
-    public String addOperator(Operator operator) throws Exception {
+    public int addOperator(Operator operator, MultipartFile file) throws Exception {
+
+        setPicture(operator, file);
+
         int flag = operatorService.insertOperator(operator);
 
-        String data = CRODUtil.getJsonp(flag);
 
-        return data;
+        return flag;
 
     }
+
 
     /**
      * 分页查询机手信息
@@ -50,7 +56,7 @@ public class OperatorController {
      * @throws Exception
      */
     @RequestMapping("/queryOperatorByPage")
-    public String queryOperatorByPage(OperatorCondition condition) throws Exception {
+    public OperatorVo queryOperatorByPage(OperatorCondition condition) throws Exception {
 
         OperatorVo vo = new OperatorVo();
 
@@ -61,10 +67,7 @@ public class OperatorController {
         vo.setOperators(operators);
         vo.setTotalPage(totalPage);
 
-        String data = CRODUtil.getJsonp(vo);
-
-        //跨域
-        return data;
+        return vo;
     }
 
     /**
@@ -74,13 +77,12 @@ public class OperatorController {
      * @throws Exception
      */
     @RequestMapping("/queryOperatorById")
-    public String queryOperatorById(String oid) throws Exception {
+    public Operator queryOperatorById(String oid) throws Exception {
 
         Operator operator = operatorService.selectOperatorById(oid);
 
-        String data = CRODUtil.getJsonp(operator);
 
-        return data;
+        return operator;
 
     }
 
@@ -91,13 +93,26 @@ public class OperatorController {
      * @throws Exception
      */
     @RequestMapping("/updateOperatorById")
-    public String updateOperatorById(Operator operator) throws Exception {
+    public int updateOperatorById(Operator operator, MultipartFile file) throws Exception {
+        setPicture(operator, file);
+
         int flag = operatorService.updateOperatorById(operator);
+        return flag;
 
-        String data = CRODUtil.getJsonp(flag);
+    }
 
-        return data;
 
+    /**
+     * 设置图片
+     * @param operator
+     * @param file
+     * @throws IOException
+     */
+    private void setPicture(Operator operator, MultipartFile file) throws IOException {
+        if (file != null) {
+            String url = FileUtil.saveImg(file, Path.OPERATOR);
+            operator.setPicture(url);
+        }
     }
 
 }

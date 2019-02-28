@@ -68,4 +68,13 @@ public interface ItemMapper {
      * @throws Exception
      */
     List<Item> selectItemByIds(@Param("ids") List<Integer> ids) throws Exception;
+
+    /**
+     * 批量更新商品的状态
+     * @param ids
+     * @param status
+     * @return
+     * @throws Exception
+     */
+    int updateItemStatus(@Param("ids") List<Integer> ids, @Param("status") int status) throws Exception;
 }

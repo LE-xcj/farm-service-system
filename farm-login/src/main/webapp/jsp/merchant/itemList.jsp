@@ -43,7 +43,7 @@
 <div class=" admin-content">
 
     <!--模态框-->
-    <div class="am-popup am-popup-inner" id="my-popups" style="max-height: 500px">
+    <div class="am-popup am-popup-inner" id="my-popups" style="max-height: 520px">
 
         <div class="am-popup-hd">
             <h4 class="am-popup-title">修改</h4>
@@ -52,20 +52,25 @@
 
         <div class="am-popup-bd">
 
-            <form class="am-form tjlanmu">
+            <form class="am-form tjlanmu" method="post" onsubmit="return updateItem();">
                 <div class="am-form-group am-cf">
                     <div class="you" style="text-align: center;">
-                        <img id="operator_img" src="" style="width: 80px; height: 80px;" />
+                        <img id="item_img" src="" style="width: 80px; height: 80px;" />
                     </div>
                 </div>
                 <!--mid-->
                 <div style="display: none;">
                     <input name="mid" type="text" value="${mid}"/>
                 </div>
+                <!--iid-->
+                <div style="display: none">
+
+                    <input name="iid" type="text"/>
+                </div>
                 <div class="am-form-group">
                     <div class="zuo">名称：</div>
                     <div class="you">
-                        <input type="email" class="am-input-sm" id="doc-ipt-email-1" placeholder="">
+                        <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="" required="" name="iname">
                     </div>
                 </div>
                 <div class="am-form-group">
@@ -73,31 +78,30 @@
                     <div class="you"></div>
                 </div>
                 <div class="am-form-group am-cf">
-                    <div class="zuo">栏目描述：</div>
+                    <div class="zuo">商品简介：</div>
                     <div class="you">
-                        <textarea class="" rows="2" id="doc-ta-1"></textarea>
+                        <textarea class="" rows="2" id="doc-ta-1" name="description"></textarea>
                     </div>
                 </div>
                 <div class="am-form-group am-cf">
-                    <div class="zuo">栏目图片：</div>
+                    <div class="zuo">商品图片：</div>
                     <div class="you" style="height: 45px;">
-                        <input type="file" id="doc-ipt-file-1">
-                        <p class="am-form-help">请选择要上传的文件...</p>
+                        <input type="file" id="doc-ipt-file-1" name="file" onchange="previewFile()">
+                        <p class="am-form-help">请选择要上传的图片...</p>
                     </div>
                 </div>
 
                 <div class="am-form-group am-cf">
-                    <div class="zuo">性别：</div>
+                    <div class="zuo">价格：</div>
                     <div class="you" >
-                        男&nbsp;&nbsp;<input type="radio" class="" rows="2" id="doc-ta-1" checked="checked" name="sex"></input>
-                        &nbsp;&nbsp;&nbsp;女&nbsp;&nbsp;<input type="radio" class="" rows="2" id="doc-ta-1" name="sex"></input>
+                        <input type="number" name="price" required="">
                     </div>
                 </div>
 
                 <div class="am-form-group am-cf">
-                    <div class="zuo">手机号：</div>
+                    <div class="zuo">单位：</div>
                     <div class="you" >
-                        <input type="email" class="am-input-sm" id="doc-ipt-email-1" placeholder="">
+                        <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="" name="unit">
                     </div>
                 </div>
 
@@ -113,7 +117,7 @@
         </div>
 
     </div>
-
+    <!--模态框end-->
 
     <div class="admin-biaogelist">
 
@@ -138,7 +142,7 @@
                 <!--表头-->
                 <thead>
                 <tr class="am-success">
-                    <th><input type="checkbox" /></th>
+                    <th><input type="checkbox" onchange="selectAll(this)" id="all"/></th>
                     <th>图片</th>
                     <th>服务名</th>
                     <th>价格</th>
@@ -156,9 +160,9 @@
             </table>
             <div class="am-btn-group am-btn-group-xs">
                 <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 信息导出</button>
-                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 上架</button>
-                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 下架</button>
-                <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                <button type="button" class="am-btn am-btn-default" onclick="updateStatus(1)"><span class="am-icon-save"></span> 上架</button>
+                <button type="button" class="am-btn am-btn-default" onclick="updateStatus(0)"><span class="am-icon-save"></span> 下架</button>
+                <button type="button" class="am-btn am-btn-default" onclick="updateStatus(-1)"><span class="am-icon-trash-o"></span> 删除</button>
             </div>
             <!--下一页-->
             <ul class="am-pagination am-fr">
@@ -171,7 +175,7 @@
                 <li>
                     <a href="javascript:check(1);">»</a>
                 </li>
-                共<label id="totalPage">10</label>页
+                共<label id="totalPage">0</label>页
             </ul>
             <hr />
 
@@ -232,21 +236,15 @@
         $.ajax({
             type:"post",
             url:"http://127.0.0.1:10087/farmService/item/queryItemForMerchant",
-            dataType:'jsonp',  // 处理Ajax跨域问题
+            dataType:'json',  // 处理Ajax跨域问题
             data: {'item.mid': ${mid}, page: _begin, 'item.status': _status},
             async:true,
-            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-            jsonpCallback: "callback",
             success: function(data){
                 fill(data, _begin);
             },error: function (data) {
                 console.info("erro");
             }
         });
-    }
-
-    <!--空壳方法-->
-    function callback(data) {
     }
 
 
@@ -265,22 +263,31 @@
             var _tr = $("<tr></tr>");
 
             var _td = $("<td></td>");
-            $("<input />").attr("type", "checkbox").attr("value", _items[i].oid).appendTo(_td);
+            $("<input />").attr("type", "checkbox").attr("value", _items[i].iid).appendTo(_td);
             _td.appendTo(_tr);
 
             _td = $("<td></td>");
-            $("<img />").attr("src", _items[i].picture).attr("width", "80").attr("height", "80").appendTo(_td);
+            $("<img />").attr("src", _items[i].media).attr("width", "80").attr("height", "80").appendTo(_td);
             _td.appendTo(_tr);
 
             $("<td></td>").text(_items[i].iname).appendTo(_tr);
             $("<td></td>").text(_items[i].price).appendTo(_tr);
-            $("<td></td>").text("元/" + _items[i].unit).appendTo(_tr);
+            $("<td></td>").text(_items[i].unit).appendTo(_tr);
             $("<td></td>").text(_items[i].description).appendTo(_tr);
-            $("<td></td>").text(_items[i].status).appendTo(_tr);
+
+            var _i =  $("<i></i>");
+            if(_items[i].status == 1) {
+                _i.attr("class", "am-icon-check am-text-warning");
+            } else {
+                _i.attr("class", "am-icon-close am-text-primary");
+            }
+            $("<td></td>").append(_i).appendTo(_tr);
 
             var _a = $("<a></a>").attr("class", "am-btn am-btn-default am-btn-xs am-text-success am-round am-icon-pencil-square-o")
                 .attr("data-am-modal", "{target: '#my-popups'}")
-                .attr("title", "修改");
+                .attr("title", "修改")
+                .attr("href", "javascript:void(0);")
+                .attr("onclick", "display(this)");
             _td = $("<td></td>");
             _a.appendTo(_td);
             _td.appendTo(_tr);
@@ -290,5 +297,151 @@
 
     }
 
+    function display(_this) {
+        var raw = $(_this).parents('tr').children('td');
+
+        var _checkbox = raw.eq(0).children('input').eq(0);
+        var _img = raw.eq(1).children(0);
+
+        var iid = _checkbox.val();
+        var src = _img.attr("src");
+
+        console.info(src);
+
+        var iname = raw.eq(2).text();
+        var price = raw.eq(3).text();
+        var unit = raw.eq(4).text();
+        var description = raw.eq(5).text();
+
+
+        $("#item_img").attr("src", src);
+        $("input[name='iid']").val(iid);
+        $("input[name='iname']").val(iname);
+        $("textarea[name='description']").val(description);
+        $("input[name='price']").val(price);
+        $("input[name='unit']").val(unit);
+    }
+
+    function updateItem() {
+        var iid = $("input[name='iid']").val();
+        var iname = $("input[name='iname']").val();
+        var description = $("textarea[name='description']").val();
+        var price = $("input[name='price']").val();
+        var unit = $("input[name='unit']").val();
+        var mid = $("input[name='mid']").val();
+
+        console.info(iname);
+        var formData = new FormData();
+        formData.append("iname", iname);
+        formData.append("price", price);
+        formData.append("iid", iid);
+        formData.append("unit", unit);
+        formData.append("mid", mid);
+        formData.append("description", description);
+
+        formData.append("file", $("input[name='file']").get(0).files[0]);
+
+        var canUpdate = false;
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/item/updateItem",
+            async:false,
+            dataType:'json',  // 处理Ajax跨域问题
+            data:formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            success: function(data){
+                if(data == 1){
+                    canUpdate = true;
+                    showDialog("更新成功！");
+                }
+            },error: function (data) {
+                showDialog("更新失败！");
+            }
+        });
+        return canUpdate;
+    }
+
+    /**
+     * 显示选择上传的图片略缩图
+     * 当选择了图片文件时触发这个方法
+     */
+    function previewFile() {
+        // 通过标签选择器获取HTML元素
+        var preview = document.querySelector('img');
+        console.info(preview);
+        var file = document.querySelector('input[type=file]').files[0];
+        // Js内置文件流
+        var reader = new FileReader();
+
+        // 更新img标签的src属性为图片的本地路径，就可以显示了
+        reader.onloadend = function () {
+            preview.src = reader.result;
+        }
+
+        // 图片文件不空就显示
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            // 图片文件是空的
+            preview.src = "";
+        }
+    }
+
+
+    function selectAll(_this) {
+        var _check = $(_this).prop("checked");
+        $("table :checkbox").each(function(key, value){
+            $(value).prop("checked", _check);
+        });
+    }
+
+    function updateStatus(_status){
+        var ids = [];
+        $("table :checkbox").each(function(key, value){
+            var _checked = $(value).prop("checked");
+            if (_checked && $(value).attr("id") != "all") {
+                var id = parseInt($(value).val());
+                ids.push(id);
+            }
+        });
+
+
+        console.info(ids);
+        var formData = new FormData();
+        formData.append("ids", ids);
+        formData.append("status", _status);
+
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/item/updateItemStatus",
+            async:false,
+            dataType:'json',
+            data:formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            success: function(data){
+                showDialog("更新成功！");
+                refress();
+            },error: function (data) {
+                showDialog("更新失败！");
+            }
+        });
+
+    }
 </script>
 </html>

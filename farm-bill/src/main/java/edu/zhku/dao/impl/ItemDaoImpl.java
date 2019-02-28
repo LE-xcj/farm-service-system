@@ -82,6 +82,12 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     @Override
+    public int updateItemStatus(List<Integer> ids, int status) throws Exception {
+        int num = itemMapper.updateItemStatus(ids, status);
+        return num;
+    }
+
+    @Override
     public int countForFarmer(ItemCondition condition) throws Exception {
         int num = itemMapper.countForFarmer(condition);
         return num;
