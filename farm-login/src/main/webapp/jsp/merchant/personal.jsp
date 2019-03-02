@@ -47,7 +47,7 @@
     </div>
 
     <div class="fbneirong">
-        <form class="am-form">
+        <form class="am-form" method="post" onsubmit="return update();">
             <div class="am-form-group am-cf">
                 <div class="you" style="text-align: center;">
                     <img id="item_img" src="${slef.picture}" style="width: 120px; height: 120px;"/>
@@ -60,20 +60,20 @@
             <div class="am-form-group am-cf">
                 <div class="zuo">名称：</div>
                 <div class="you">
-                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="名称" value="${self.mname}">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="名称" value="${self.mname}" name="mname">
                 </div>
             </div>
             <div class="am-form-group am-cf">
                 <div class="zuo">描述：</div>
                 <div class="you">
-                    <textarea class="" rows="2" id="doc-ta-1">${self.description}</textarea>
+                    <textarea class="" rows="2" id="doc-ta-1" name="description" >${self.description}</textarea>
                 </div>
             </div>
 
             <div class="am-form-group am-cf">
                 <div class="zuo">图片：</div>
                 <div class="you" style="height: 45px;">
-                    <input type="file" id="doc-ipt-file-1" onchange="previewFile()">
+                    <input type="file" id="doc-ipt-file-1" onchange="previewFile()" name="file">
                     <p class="am-form-help">请选择要上传的图片...</p>
                 </div>
             </div>
@@ -83,9 +83,9 @@
                 <div class="zuo">地址：</div>
 
                 <div class="you">
-                    <select id="province"></select>
-                    <select id="city"></select>
-                    <input type="text" placeholder="详细地址" id="address"/>
+                    <select id="province" name="province"></select>
+                    <select id="city" name="city"></select>
+                    <input type="text" placeholder="详细地址" id="detail" name="detail" value=""/>
                 </div>
             </div>
 
@@ -160,5 +160,66 @@
         });
         $("#province").change();
     })();
+</script>
+
+<script>
+    $.ready = function(){
+        var _address = "${self.address}";
+        console.info(_address);
+        //遍历省的select
+        $("#province").each(
+            function(){
+                posit($(this), true);
+            }
+        );
+
+        //遍历城市的select
+        $("#city").each(
+            function(){
+               posit($(this), false);
+            }
+        );
+
+        function posit(_select, is_province) {
+            _select.children("option").each(function () {
+                var _option_value = $(this).text();
+                var _begin = _address.indexOf(_option_value);
+                if (-1 != _begin) {
+                    var _target = _address.substr(_begin, _option_value.length);
+                    $(this).attr("selected", true);
+                    if (is_province) {
+                        $("#province").change();
+                    } else {
+                        var _detail = _address.substr(_begin + _option_value.length);
+                        $("#detail").val(_detail);
+                    }
+                    return;
+                }
+            });
+        }
+    }
+</script>
+
+<script>
+    
+    function update() {
+        var _mname = $("input[name='mname']").val();
+        var _description = $("textarea[name='description']").val();
+        var _proive = $("#province option:selected").text();
+        var _city = $("#city option:selected").text();
+        var _detail = $("input[name='detail']").val();
+        var _mid = $("input[name='mid']").val();
+
+        var _address = _proive + _city + _detail;
+        console.info(_mid + " " + _mname + " " + _description + " " + _address);
+
+        var formData = new FormData();
+        formData.append("mname", _mname);
+        formData.append("description", _description);
+        formData.append("address", _address);
+        formData.append("mid", _mid);
+        formData.append("file", $("input[name='file']").get(0).files[0]);
+    }
+    
 </script>
 </html>

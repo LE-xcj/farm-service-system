@@ -31,6 +31,15 @@ public class CertifyServiceImpl implements CertifyService {
     CertificationMapper mapper;
 
     @Override
+    public int insertRecord(Certification certification) throws Exception {
+        if (null == certification) {
+            return 0;
+        }
+        int num = mapper.insertSelective(certification);
+        return num;
+    }
+
+    @Override
     public void certify(String mid) throws Exception {
 
         //创建一个查询条件

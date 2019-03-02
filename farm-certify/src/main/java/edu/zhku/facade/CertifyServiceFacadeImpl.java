@@ -1,5 +1,6 @@
 package edu.zhku.facade;
 
+import edu.zhku.pojo.Certification;
 import edu.zhku.service.CertifyService;
 import edu.zhku.service.CertifyServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,20 @@ public class CertifyServiceFacadeImpl implements CertifyServiceFacade{
 
     @Autowired
     private CertifyService certifyService;
+
+    @Override
+    public int insertRecord(String mid, String url) {
+        Certification record = new Certification();
+        record.setMid(mid);
+        record.setUrl(url);
+        int num = 0;
+        try {
+            num = certifyService.insertRecord(record);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return num;
+    }
 
     @Override
     public void certify(String mid) {

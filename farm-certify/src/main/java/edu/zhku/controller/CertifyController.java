@@ -1,5 +1,6 @@
 package edu.zhku.controller;
 
+import edu.zhku.pojo.Certification;
 import edu.zhku.service.CertifyService;
 import edu.zhku.util.CertifyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/certify")
 public class CertifyController {
 
-    @RequestMapping("/test")
-    public String test(String mid) {
-        return "hello " + mid;
+    @RequestMapping("/testInsert")
+    public String testInsert(String mid, String url) throws Exception {
+        Certification record = new Certification();
+        record.setUrl(url);
+        record.setMid(mid);
+        int i = certifyService.insertRecord(record);
+        return "hello " + i;
     }
 
     @Autowired

@@ -8,6 +8,9 @@ package edu.zhku.service;
  */
 public interface CertifyServiceFacade {
 
+
+    int insertRecord(String mid, String url);
+
     void certify(String mid);
 
 }

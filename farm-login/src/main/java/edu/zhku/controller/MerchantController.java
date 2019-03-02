@@ -1,22 +1,23 @@
 package edu.zhku.controller;
 
+import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import edu.zhku.constant.Code;
 import edu.zhku.constant.Literal;
+import edu.zhku.constant.Path;
 import edu.zhku.constant.Role;
 import edu.zhku.pojo.Merchant;
 import edu.zhku.service.CertifyServiceFacade;
 import edu.zhku.service.MerchantService;
-import edu.zhku.util.CodeVoFactory;
-import edu.zhku.util.KeyFactory;
-import edu.zhku.util.RedisUtil;
-import edu.zhku.util.SMSUtil;
+import edu.zhku.util.*;
 import edu.zhku.vo.CodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -142,8 +143,18 @@ public class MerchantController {
         return mv;
     }
 
+    /**
+     * 更新信息
+     * @param merchant
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/updateMerchant")
-    public CodeVo updateMerchant(Merchant merchant) throws Exception {
+    public CodeVo updateMerchant(Merchant merchant, MultipartFile file) throws Exception {
+        if (null != file) {
+            String picture = FileUtil.saveImg(file, Path.MERCHANT);
+            merchant.setPicture(picture);
+        }
         CodeVo vo = merchantService.updateMerchant(merchant);
         return vo;
     }
@@ -173,9 +184,20 @@ public class MerchantController {
     }
 
     @RequestMapping("/certify")
-    public String certify(String mid) {
-        certifyServiceFacade.certify(mid);
-        return "invoke";
+    public int certify(String mid, MultipartFile file) throws IOException {
+        int num = 0;
+        if (null != file) {
+
+            //保存图片
+            String url = FileUtil.saveImg(file, Path.CERTIFY);
+
+            //插入记录
+            certifyServiceFacade.insertRecord(mid, url);
+
+            //再验证
+            certifyServiceFacade.certify(mid);
+        }
+        return num;
     }
 
 

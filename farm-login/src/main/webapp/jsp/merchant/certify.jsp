@@ -33,18 +33,16 @@
     <div class="fbneirong">
         <form class="am-form">
 
-
             <c:if test="${certify == '1'}">
                 <h1>您已经成功认证</h1>
             </c:if>
-            <c:if test="${certify == '0'}">
 
-
-                <div class="am-form-group am-cf">
-                    <div class="you" style="text-align: center;">
-                        <img id="item_img" src="" style="width: 120px; height: 120px;"/>
-                    </div>
+            <div class="am-form-group am-cf">
+                <div class="you" style="text-align: center;">
+                    <img id="item_img" src=""/>
                 </div>
+            </div>
+            <c:if test="${certify == '0'}">
 
                 <div class="am-form-group am-cf">
                     <div class="zuo">图片：</div>
