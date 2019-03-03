@@ -9,6 +9,7 @@ import edu.zhku.util.AMapUtil;
 import edu.zhku.util.CodeVoFactory;
 import edu.zhku.util.KeyFactory;
 import edu.zhku.vo.CodeVo;
+import edu.zhku.vo.MerchantVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -205,6 +206,102 @@ public class MerchantServiceImpl implements MerchantService{
 
         return true;
     }
+
+    /**
+     * 更新密码
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public CodeVo updatePsw(MerchantVo vo) throws Exception {
+
+        if (null == vo) {
+            return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+        }
+
+
+        String mid = vo.getMid();
+        String newPsw = vo.getPsw();
+        String originPsw = vo.getOriginPsw();
+
+        if (isNull(mid, newPsw, originPsw)) {
+            return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+        }
+
+        //与原来的密码匹配
+        Merchant merchant = selectById(mid);
+
+        if (originPsw.equals(merchant.getPsw())) {
+            Merchant m = new Merchant();
+            m.setPsw(newPsw);
+            m.setMid(mid);
+
+            updateMerchant(m);
+            return CodeVoFactory.getVo(Code.SUCCESS);
+        }
+        return CodeVoFactory.getVo(Code.WORONGPSW);
+    }
+
+    /**
+     * 更新手机号
+     * @param merchant
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public CodeVo updatePhone(Merchant merchant) throws Exception {
+
+
+        if (null == merchant) {
+            return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+        }
+
+        String psw = merchant.getPsw();
+        String newPhone = merchant.getPhone();
+        String mid = merchant.getMid();
+
+        if (isNull(mid, psw, newPhone)) {
+            return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+        }
+
+        Merchant m = selectById(mid);
+        String originPsw = m.getPsw();
+
+        Code code = null;
+        //匹配密码是否正确
+        if (originPsw.equals(psw)) {
+
+            //判断新的手机号是否已经注册了
+            if (exist(merchant)) {
+                code = Code.PHONEEXIST;
+            } else {
+                updateMerchant(merchant);
+                code = Code.SUCCESS;
+            }
+
+        } else {
+            code = Code.WORONGPSW;
+        }
+
+        return CodeVoFactory.getVo(code);
+    }
+
+
+    /**
+     * 判断是否为null
+     * @param strs
+     * @return
+     */
+    private boolean isNull(String... strs) {
+        for (String s : strs) {
+            if (null == strs) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     /**

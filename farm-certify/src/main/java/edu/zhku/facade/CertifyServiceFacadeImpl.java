@@ -1,5 +1,6 @@
 package edu.zhku.facade;
 
+import edu.zhku.constant.Status;
 import edu.zhku.pojo.Certification;
 import edu.zhku.service.CertifyService;
 import edu.zhku.service.CertifyServiceFacade;
@@ -28,6 +29,27 @@ public class CertifyServiceFacadeImpl implements CertifyServiceFacade{
             e.printStackTrace();
         }
         return num;
+    }
+
+    @Override
+    public String getUrl(String mid) {
+
+        Certification condition = new Certification();
+        condition.setMid(mid);
+        condition.setStatus(Status.CERTIFYSUCCESS);
+
+        String url = null;
+        try {
+            Certification result = certifyService.select(condition);
+
+            if (result != null) {
+                url = result.getUrl();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return url;
     }
 
     @Override

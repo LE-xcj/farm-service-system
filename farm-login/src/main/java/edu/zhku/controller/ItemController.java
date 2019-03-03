@@ -1,6 +1,8 @@
 package edu.zhku.controller;
 
 import edu.zhku.constant.Role;
+import edu.zhku.service.MerchantService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,14 +19,23 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/item")
 public class ItemController {
 
+    @Autowired
+    private MerchantService merchantService;
 
     @RequestMapping("/addItemView")
-    public ModelAndView addItemView(HttpSession session) {
+    public ModelAndView addItemView(HttpSession session) throws Exception {
 
         ModelAndView mv = new ModelAndView();
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
         mv.addObject("mid", mid);
-        mv.setViewName("merchant/addItem");
+
+        boolean certify = merchantService.isCertify(mid);
+        if (certify) {
+            mv.setViewName("merchant/addItem");
+        } else {
+            mv.setViewName("merchant/certify");
+        }
+
         return mv;
 
     }

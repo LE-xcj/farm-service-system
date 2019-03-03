@@ -1,9 +1,9 @@
 package edu.zhku.service;
 
 
-import edu.zhku.constant.Code;
 import edu.zhku.pojo.Farmer;
 import edu.zhku.vo.CodeVo;
+import edu.zhku.vo.FarmerVo;
 
 import java.util.List;
 
@@ -24,4 +24,7 @@ public interface FarmerService {
 
     CodeVo updateFarmer(Farmer farmer) throws Exception;
 
+    CodeVo updatePsw(FarmerVo vo) throws Exception;
+
+    CodeVo updatePhone(Farmer farmer) throws Exception;
 }

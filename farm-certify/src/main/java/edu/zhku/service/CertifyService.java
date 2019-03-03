@@ -12,6 +12,8 @@ public interface CertifyService {
 
     int insertRecord(Certification certification) throws Exception;
 
+    Certification select(Certification condtion) throws Exception;
+
     void certify(String mid) throws Exception;
 
 }

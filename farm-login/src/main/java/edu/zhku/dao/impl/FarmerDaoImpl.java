@@ -5,6 +5,7 @@ import edu.zhku.dao.FarmerDao;
 import edu.zhku.mapper.FarmerMapper;
 import edu.zhku.pojo.Farmer;
 import edu.zhku.util.RedisUtil;
+import javafx.scene.control.Tab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,8 @@ import java.util.List;
  * 读：从redis读，无则再从mysql读，并将读到的数据写到redis
  * 写：写到mysql，然后更新到redis中
  */
+
+//todo 这里还需要解决更新同步的问题
 @Component
 public class FarmerDaoImpl implements FarmerDao{
 
@@ -40,7 +43,6 @@ public class FarmerDaoImpl implements FarmerDao{
         if (flag == 1) {
 
             insertOrUpdate(farmer);
-            //redisUtil.set(farmer.getFid(), farmer);
         }
 
         return flag;
@@ -49,13 +51,11 @@ public class FarmerDaoImpl implements FarmerDao{
     @Override
     public Farmer selectByPrimaryKey(String fid) throws Exception {
 
-        Farmer farmer = null;
-        farmer = (Farmer) redisUtil.get(fid);
+        Farmer farmer = getFarmer(fid);
 
         if (farmer == null) {
             farmer = farmerMapper.selectByPrimaryKey(fid);
             insertOrUpdate(farmer);
-            //redisUtil.set(fid, farmer);
         }
 
         return farmer;
@@ -75,10 +75,14 @@ public class FarmerDaoImpl implements FarmerDao{
         if (flag == 1) {
             insertOrUpdate(farmer);
             //farmer = farmerMapper.selectByPrimaryKey(farmer.getFid());
-            //redisUtil.set(farmer.getFid(), farmer);
         }
 
         return flag;
+    }
+
+    private Farmer getFarmer(String fid) {
+        Farmer farmer = (Farmer) redisUtil.hmGet(Table.FARMERTABLE.name(), fid);
+        return farmer;
     }
 
     private void insertOrUpdate(Farmer farmer) {

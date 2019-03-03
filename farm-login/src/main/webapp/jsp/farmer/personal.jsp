@@ -35,6 +35,7 @@
 
 <body>
 
+<%--重要--%>
 <div class="admin-biaogelist">
 
     <div class="listbiaoti am-cf">
@@ -50,23 +51,23 @@
         <form class="am-form" method="post" onsubmit="return update();">
             <div class="am-form-group am-cf">
                 <div class="you" style="text-align: center;">
-                    <img id="item_img" src="${self.picture}" style="width: 120px; height: 120px;"/>
+                    <img id="farmer_img" src="${self.picture}" style="width: 120px; height: 120px;"/>
                 </div>
             </div>
-            <!--mid-->
+            <!--fid-->
             <div style="display: none;">
-                <input name="mid" value="${self.mid}" type="text" />
+                <input name="fid" value="${self.fid}" type="text" />
             </div>
             <div class="am-form-group am-cf">
                 <div class="zuo">名称：</div>
                 <div class="you">
-                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="名称" value="${self.mname}" name="mname">
+                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="名称" value="${self.fname}" name="fname">
                 </div>
             </div>
             <div class="am-form-group am-cf">
                 <div class="zuo">描述：</div>
                 <div class="you">
-                    <textarea class="" rows="2" id="doc-ta-1" name="description" >${self.description}</textarea>
+                    <textarea class="" rows="2" id="doc-ta-1" name="decription" >${self.decription}</textarea>
                 </div>
             </div>
 
@@ -99,16 +100,6 @@
 
     </div>
 
-
-    <div class="foods">
-        <ul>
-            版权归
-            <a href="http://www.zhku.edu.cn/" target="_blank" title="模板之家">仲恺农业工程学院</a>
-        </ul>
-        <dl>
-            <a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a>
-        </dl>
-    </div>
 
 </div>
 
@@ -176,7 +167,7 @@
         //遍历城市的select
         $("#city").each(
             function(){
-               posit($(this), false);
+                posit($(this), false);
             }
         );
 
@@ -201,30 +192,29 @@
 </script>
 
 <script>
-    
+
     function update() {
-        var _mname = $("input[name='mname']").val();
-        var _description = $("textarea[name='description']").val();
+        var _fname = $("input[name='fname']").val();
+        var _decription = $("textarea[name='decription']").val();
         var _proive = $("#province option:selected").text();
         var _city = $("#city option:selected").text();
         var _detail = $("input[name='detail']").val();
-        var _mid = $("input[name='mid']").val();
+        var _fid = $("input[name='fid']").val();
 
         var _address = _proive + _city + _detail;
-        console.info(_mid + " " + _mname + " " + _description + " " + _address);
+        console.info(_fid + " " + _fname + " " + _decription + " " + _address);
 
         var formData = new FormData();
-        formData.append("mname", _mname);
-        formData.append("description", _description);
+        formData.append("fname", _fname);
+        formData.append("decription", _decription);
         formData.append("address", _address);
-        formData.append("mid", _mid);
+        formData.append("fid", _fid);
         formData.append("file", $("input[name='file']").get(0).files[0]);
 
-        var _update = false;
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10086/farmService/merchant/updateMerchant",
+            url:"http://127.0.0.1:10086/farmService/farmer/updateFarmer",
             async:false,
             dataType:'json',  // 处理Ajax跨域问题
             data:formData,
@@ -239,7 +229,6 @@
             processData: false,
             success: function(data){
                 if(data.code == 1){
-                    _update = true;
                     showDialog(data.tip);
                 } else {
                     showDialog(data.tip);
@@ -249,8 +238,8 @@
             }
         });
 
-        return _update;
+        return false;
     }
-    
+
 </script>
 </html>

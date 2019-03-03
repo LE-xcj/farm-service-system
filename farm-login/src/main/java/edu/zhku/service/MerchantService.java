@@ -2,6 +2,7 @@ package edu.zhku.service;
 
 import edu.zhku.pojo.Merchant;
 import edu.zhku.vo.CodeVo;
+import edu.zhku.vo.MerchantVo;
 
 import java.util.List;
 
@@ -24,7 +25,11 @@ public interface MerchantService {
 
     List<Merchant> queryByAddress(String address) throws Exception;
 
-
     boolean isCertify(String mid) throws Exception;
+
+
+    CodeVo updatePsw(MerchantVo vo) throws Exception;
+
+    CodeVo updatePhone(Merchant merchant) throws Exception;
 
 }

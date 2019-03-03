@@ -31,36 +31,36 @@
 
 
     <div class="fbneirong">
-        <form class="am-form">
+        <form class="am-form" method="post" onsubmit="return certify();">
 
-            <c:if test="${certify == '1'}">
-                <h1>您已经成功认证</h1>
-            </c:if>
+            <c:choose>
+
+                <c:when test="${certify == '1'}">
+                    <h1>您已经成功认证!</h1>
+                </c:when>
+
+                <c:otherwise>
+                    <div class="am-form-group am-cf">
+                        <h1>您还没有进行经营许可认证，请认证：</h1>
+                        <div class="you" style="height: 45px;">
+                            <input type="file" id="doc-ipt-file-1" onchange="previewFile()" name="file">
+                            <p class="am-form-help">请选择要上传的经营许可证...</p>
+                        </div>
+                    </div>
+
+                    <div class="am-form-group am-cf">
+                        <div class="you" style="margin-left: 0px;">
+                            <button type="submit" class="am-btn am-btn-success am-radius">认证</button>&nbsp; &raquo; &nbsp;
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
 
             <div class="am-form-group am-cf">
                 <div class="you" style="text-align: center;">
-                    <img id="item_img" src=""/>
+                    <img id="item_img" src="" style="width: 500px"/>
                 </div>
             </div>
-            <c:if test="${certify == '0'}">
-
-                <div class="am-form-group am-cf">
-                    <div class="zuo">图片：</div>
-                    <div class="you" style="height: 45px;">
-                        <input type="file" id="doc-ipt-file-1" onchange="previewFile()">
-                        <p class="am-form-help">请选择要上传的文件...</p>
-                    </div>
-                </div>
-
-
-
-                <div class="am-form-group am-cf">
-                    <div class="you" style="margin-left: 11%;">
-                        <button type="submit" class="am-btn am-btn-success am-radius">认证</button>&nbsp; &raquo; &nbsp;
-                    </div>
-                </div>
-
-            </c:if>
 
         </form>
 
@@ -104,6 +104,41 @@
             // 图片文件是空的
             preview.src = "";
         }
+    }
+
+    function certify() {
+        var certify = false;
+        var formData = new FormData();
+        formData.append("file", $("input[name='file']").get(0).files[0]);
+
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10086/farmService/merchant/certify",
+            async:true,
+            dataType:'json',  // 处理Ajax跨域问题
+            data:formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            success: function(data){
+                if(data == 1){
+                    certify = true;
+                    showDialog("请求成功！");
+                } else {
+                    showDialog("认证失败！");
+                }
+            },error: function (data) {
+                showDialog("请求失败！");
+            }
+        });
+
+        return certify;
     }
 </script>
 

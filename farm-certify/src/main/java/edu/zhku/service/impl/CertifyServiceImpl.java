@@ -40,6 +40,22 @@ public class CertifyServiceImpl implements CertifyService {
     }
 
     @Override
+    public Certification select(Certification condtion) throws Exception {
+        if (null == condtion){
+            return null;
+        }
+
+        List<Certification> list = mapper.selecetByCondition(condtion);
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        Certification certification = list.get(0);
+
+        return certification;
+    }
+
+    @Override
     public void certify(String mid) throws Exception {
 
         //创建一个查询条件

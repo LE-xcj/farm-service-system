@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>edu.zhku</groupId>
 			<artifactId>farm-certify-facade</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.2-SNAPSHOT</version>
 		</dependency>
 
 		<!--消息系统的门面接口-->

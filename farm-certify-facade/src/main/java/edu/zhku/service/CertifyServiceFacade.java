@@ -11,6 +11,8 @@ public interface CertifyServiceFacade {
 
     int insertRecord(String mid, String url);
 
+    String getUrl(String mid);
+
     void certify(String mid);
 
 }

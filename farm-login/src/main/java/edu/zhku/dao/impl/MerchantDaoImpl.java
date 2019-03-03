@@ -16,7 +16,7 @@ import java.util.List;
  * @Description 功能描述
  * @date 2019/2/15 15:27
  */
-
+//todo 这里还需要解决更新同步的问题
 @Component
 public class MerchantDaoImpl implements MerchantDao{
 
@@ -33,7 +33,6 @@ public class MerchantDaoImpl implements MerchantDao{
         if (flag == 1) {
 
             insertOrUpdate(merchant);
-            //redisUtil.set(merchant.getMid(), merchant);
         }
 
         return flag;
@@ -41,13 +40,11 @@ public class MerchantDaoImpl implements MerchantDao{
 
     @Override
     public Merchant selectByPrimaryKey(String mid) throws Exception {
-        Merchant merchant = null;
-        merchant = getMerchant(mid);
+        Merchant merchant = getMerchant(mid);
 
         if (merchant == null) {
             merchant = merchantMapper.selectByPrimaryKey(mid);
             insertOrUpdate(merchant);
-            //redisUtil.set(mid, merchant);
         }
 
         return merchant;
@@ -67,7 +64,6 @@ public class MerchantDaoImpl implements MerchantDao{
         if (flag == 1) {
             insertOrUpdate(merchant);
             //merchant = merchantMapper.selectByPrimaryKey(merchant.getMid());
-            //redisUtil.set(merchant.getMid(), merchant);
         }
 
         return flag;

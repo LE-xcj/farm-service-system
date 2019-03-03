@@ -8,27 +8,27 @@
     <link class="TextFont" href="#" rel="stylesheet" type="text/css" />
     <link class="TitleFont" href="#" rel="stylesheet" type="text/css" />
     <link href='http://fonts.useso.com/css?family=Lato:300,400,700,400italic|Droid+Sans|PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow|Open+Sans:400,300' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="javascript/jquery-latest.js"></script>
-    <script type="text/javascript" src="javascript/red-sky-options.js"></script>
-    <script type="text/javascript" src="shortcodes/shortcodes.js"></script>
-    <script type="text/javascript" src="javascript/jquery.prettyPhoto.js"></script>
+
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/red-sky-options.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/shortcodes/shortcodes.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/jquery.prettyPhoto.js"></script>
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- CSS -->
-    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link href="css/responsive.css" rel="stylesheet" type="text/css">
-    <link href="shortcodes/shortcodes.css" rel="stylesheet" type="text/css">
-    <link href="css/prettyPhoto.css" rel="stylesheet" type="text/css">
+
+
+    <link href="http://106.14.139.8/farmer-index/index/css/style.css" rel="stylesheet" type="text/css">
+    <link href="http://106.14.139.8/farmer-index/index/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="http://106.14.139.8/farmer-index/index/shortcodes/shortcodes.css" rel="stylesheet" type="text/css">
+    <link href="http://106.14.139.8/farmer-index/index/css/prettyPhoto.css" rel="stylesheet" type="text/css">
 
     <!-- START SETTINGS BOX -->
-    <script type="text/javascript" src="settingsbox/farbtastic/farbtastic.js"></script>
-    <script type="text/javascript" src="settingsbox/settingsbox.js"></script>
-    <link href="settingsbox/settingsbox.css" rel="stylesheet" type="text/css">
-    <link href="settingsbox/farbtastic/farbtastic.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/settingsbox/farbtastic/farbtastic.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/settingsbox/settingsbox.js"></script>
+    <link href="http://106.14.139.8/farmer-index/index/settingsbox/settingsbox.css" rel="stylesheet" type="text/css">
+    <link href="http://106.14.139.8/farmer-index/index/settingsbox/farbtastic/farbtastic.css" rel="stylesheet" type="text/css">
     <!-- END SETTINGS BOX -->
 
-    <title>无人机农田服务系统</title>
 </head>
 
 <body>
@@ -105,12 +105,12 @@
             </div>
             <div class="columns two_last">
                 <ul class="social">
-                    <li><a href="#"><img src="images/social/faccebook.png" class="show-tooltip" alt="facebook" title="Facebook" /></a></li>
-                    <li><a href="#"><img src="images/social/pinterest.png" class="show-tooltip" alt="pinterest" title="Pinterest" /></a></li>
-                    <li><a href="#"><img src="images/social/skype.png" class="show-tooltip" alt="skype" title="Skype" /></a></li>
-                    <li><a href="#"><img src="images/social/tube.png" class="show-tooltip" alt="tube" title="YouTube" /></a></li>
-                    <li><a href="#"><img src="images/social/twitter_1.png" class="show-tooltip" alt="twitter" title="Twitter" /></a></li>
-                    <li><a href="#"><img src="images/social/viemo.png" class="show-tooltip" alt="vimeo" title="Vimeo" /></a></li>
+                    <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/faccebook.png" class="show-tooltip" alt="facebook" title="Facebook" /></a></li>
+                    <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/pinterest.png" class="show-tooltip" alt="pinterest" title="Pinterest" /></a></li>
+                    <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/skype.png" class="show-tooltip" alt="skype" title="Skype" /></a></li>
+                    <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/tube.png" class="show-tooltip" alt="tube" title="YouTube" /></a></li>
+                    <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/twitter_1.png" class="show-tooltip" alt="twitter" title="Twitter" /></a></li>
+                    <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/viemo.png" class="show-tooltip" alt="vimeo" title="Vimeo" /></a></li>
                 </ul>
             </div>
             <div class="clear"></div>
@@ -135,29 +135,6 @@
                 <div class="logo"><a href="index-2.html"><span>farm</span>Service</a></div>
             </div>
             <div class="two-thirds_last columns">
-                <form action="http://wp.red-sky.pl/">
-
-                    <select class="navigationmicro" name="myDestination" onChange="this.form.window_name.value++; ob=this.form.myDestination; window.open(ob.options[ob.selectedIndex].value,'Window_Name'+this.form.window_name.value)">
-                        <option value="index-2.html">- Homepage -</option>
-                        <option value="shortcodes.html">Features</option>
-                        <option value="shortcodes.html">- Shortcodes</option>
-                        <option value="page_404.html">- 404 Error</option>
-                        <option value="sample_page.html">- Sample Page</option>
-                        <option value="page_r_sidebar.html">- Right Sidebar</option>
-                        <option value="page_l_sidebar.html">- Left Sidebar</option>
-                        <option value="page_wide.html">- Full width page</option>
-                        <option value="single_project.html">Portfolio</option>
-                        <option value="portfolio_2col.html">- 2 columns</option>
-                        <option value="portfolio_3col.html">- 3 columns</option>
-                        <option value="portfolio_4col.html">- 4 columns</option>
-                        <option value="single_project.html">- Single Project</option>
-                        <option value="blog.html">Blog</option>
-                        <option value="single_post.html">- Single Post</option>
-                        <option value="contact.html">Contact Us</option>
-                    </select>
-
-                    <input name="window_name" style="display:none;" type="hidden" value="1">
-                </form>
 
                 <ul class="topmenu">
                     <li class="active"><a class="active" href="index-2.html">悬赏</a></li>
@@ -181,12 +158,10 @@
 
                     <li><a href="single_project.html">账户管理</a>
                         <ul class="MenuDropdown">
-                            <li><a href="portfolio_2col.html">个人信息</a></li>
-                            <li><a href="portfolio_3col.html">订单查看</a></li>
-
-                            <li><a href="portfolio_3col.html">修改密码</a></li>
-                            <li><a href="portfolio_3col.html">修改手机号</a></li>
-                            <li><a href="portfolio_3col.html">注销</a></li>
+                            <li><a href="${pageContext.request.contextPath }/farmer/updateFarmerView" target="_blank">个人信息</a></li>
+                            <li><a href="" data-toggle="modal" data-target="#updatePswModel" onclick="false">修改密码</a></li>
+                            <li><a href="#">订单查看</a></li>
+                            <li><a href="#">注销</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -203,7 +178,8 @@
         <!-- START SLIDER 第一部分-->
         <div class="skywalkerSlider">
             <ul class="skywalkerSliderContent">
-                <li class="skywalkerSliderContentItem skywalkerSliderContentActive"> <img class="skywalkerSliderContentItemImage" src="images/images/walker_29.jpg" alt="" />
+                <li class="skywalkerSliderContentItem skywalkerSliderContentActive">
+                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_29.jpg" alt="" />
                     <div class="skywalkerSliderContentItemBox">
                         <div class="skywalkerSliderContentItemBoxPrev"></div>
                         <div class="skywalkerSliderContentItemBoxNext"></div>
@@ -219,7 +195,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="skywalkerSliderContentItem"> <img class="skywalkerSliderContentItemImage" src="images/images/walker_28.jpg" alt="" />
+                <li class="skywalkerSliderContentItem">
+                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_28.jpg" alt="" />
                     <div class="skywalkerSliderContentItemBox">
                         <div class="skywalkerSliderContentItemBoxPrev"></div>
                         <div class="skywalkerSliderContentItemBoxNext"></div>
@@ -235,7 +212,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="skywalkerSliderContentItem"> <img class="skywalkerSliderContentItemImage" src="images/images/walker_27.jpg" alt="" />
+                <li class="skywalkerSliderContentItem">
+                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_27.jpg" alt="" />
                     <div class="skywalkerSliderContentItemBox">
                         <div class="skywalkerSliderContentItemBoxPrev"></div>
                         <div class="skywalkerSliderContentItemBoxNext"></div>
@@ -251,7 +229,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="skywalkerSliderContentItem"> <img class="skywalkerSliderContentItemImage" src="images/images/walker_26.jpg" alt="" />
+                <li class="skywalkerSliderContentItem">
+                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_26.jpg" alt="" />
                     <div class="skywalkerSliderContentItemBox">
                         <div class="skywalkerSliderContentItemBoxPrev"></div>
                         <div class="skywalkerSliderContentItemBoxNext"></div>
@@ -267,7 +246,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="skywalkerSliderContentItem"> <img class="skywalkerSliderContentItemImage" src="images/images/walker_25.jpg" alt="" />
+                <li class="skywalkerSliderContentItem">
+                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_25.jpg" alt="" />
                     <div class="skywalkerSliderContentItemBox">
                         <div class="skywalkerSliderContentItemBoxPrev"></div>
                         <div class="skywalkerSliderContentItemBoxNext"></div>
@@ -285,19 +265,20 @@
                 </li>
             </ul>
             <ul  class="skywalkerSliderPreview">
-                <li class="skywalkerSliderPreviewItem skywalkerSliderPreviewActive"> <img class="skywalkerSliderPreviewItemImage" src="images/images/walker_29.jpg" alt="" />
+                <li class="skywalkerSliderPreviewItem skywalkerSliderPreviewActive">
+                    <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_29.jpg" alt="" />
                     <div class="skywalkerSliderPreviewItemOpacity"></div>
                 </li>
-                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="images/images/walker_28.jpg" alt="" />
+                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_28.jpg" alt="" />
                     <div class="skywalkerSliderPreviewItemOpacity"></div>
                 </li>
-                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="images/images/walker_27.jpg" alt="" />
+                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_27.jpg" alt="" />
                     <div class="skywalkerSliderPreviewItemOpacity"></div>
                 </li>
-                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="images/images/walker_26.jpg" alt="" />
+                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_26.jpg" alt="" />
                     <div class="skywalkerSliderPreviewItemOpacity"></div>
                 </li>
-                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="images/images/walker_25.jpg" alt="" />
+                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_25.jpg" alt="" />
                     <div class="skywalkerSliderPreviewItemOpacity"></div>
                 </li>
             </ul>
@@ -317,49 +298,62 @@
             <div class="carouselView">
                 <div class="carouselContainer">
                     <div class="columns four">
-                        <div class="work"> <a href="images/images/walker_1.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span><img src="images/images/walker_1.jpg" alt="cards" /></a>
+                        <div class="work">
+                            <%--放大图--%>
+                            <a href="http://106.14.139.8/farmer-index/index/images/images/walker_1.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
+                                <%--缩小图--%>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_1.jpg" alt="cards" /></a>
                             <h3><a href="single_project.html">Good stuff</a></h3>
                             <h4>Leaflets, Design</h4>
                         </div>
                     </div>
                     <div class="columns four">
-                        <div class="work"> <a href="images/images/walker_2.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span><img src="images/images/walker_2.jpg" alt="cards" /></a>
+                        <div class="work">
+                            <a href="http://106.14.139.8/farmer-index/index/images/images/walker_2.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_2.jpg" alt="cards" /></a>
                             <h3><a href="single_project.html">Color print</a></h3>
                             <h4>Brochure, print</h4>
                         </div>
                     </div>
                     <div class="columns four">
-                        <div class="work"> <a href="images/images/walker_3.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span><img src="images/images/walker_3.jpg" alt="cards" /></a>
+                        <div class="work">
+                            <a href="http://106.14.139.8/farmer-index/index/images/images/walker_3.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_3.jpg" alt="cards" /></a>
                             <h3><a href="single_project.html">Funny cards</a></h3>
                             <h4>Prints start, Design</h4>
                         </div>
                     </div>
                     <div class="columns four">
-                        <div class="work"> <a href="images/images/walker_4.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span><img src="images/images/walker_4.jpg" alt="cards" /></a>
+                        <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_4.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
+                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_4.jpg" alt="cards" /></a>
                             <h3><a href="single_project.html">Rockable</a></h3>
                             <h4>Brandbook, Design</h4>
                         </div>
                     </div>
                     <div class="columns four">
-                        <div class="work"> <a href="images/images/walker_5.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span><img src="images/images/walker_5.jpg" alt="cards" /></a>
+                        <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_5.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
+                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_5.jpg" alt="cards" /></a>
                             <h3><a href="single_project.html">Good stuff</a></h3>
                             <h4>Leaflets, Design</h4>
                         </div>
                     </div>
                     <div class="columns four">
-                        <div class="work"> <a href="images/images/walker_6.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span><img src="images/images/walker_6.jpg" alt="cards" /></a>
+                        <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_6.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
+                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_6.jpg" alt="cards" /></a>
                             <h3><a href="single_project.html">Color print</a></h3>
                             <h4>Brochure, print</h4>
                         </div>
                     </div>
                     <div class="columns four">
-                        <div class="work"> <a href="images/images/walker_7.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span><img src="images/images/walker_7.jpg" alt="cards" /></a>
+                        <div class="work"> <a href="images/images/walker_7.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
+                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_7.jpg" alt="cards" /></a>
                             <h3><a href="single_project.html">Funny cards</a></h3>
                             <h4>Prints start, Design</h4>
                         </div>
                     </div>
                     <div class="columns four_last">
-                        <div class="work"> <a href="images/images/walker_8.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span><img src="images/images/walker_8.jpg" alt="cards" /></a>
+                        <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_8.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
+                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_8.jpg" alt="cards" /></a>
                             <h3><a href="single_project.html">Rockable</a></h3>
                             <h4>Brandbook, Design</h4>
                         </div>
@@ -382,7 +376,8 @@
                     <div class="columns four">
                         <div class="newpost">
                             <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span><img src="images/images/walker_9.jpg" alt="cards" /></a>
+                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" alt="cards" /></a>
                             <div class="postphoto"></div>
                             <h2><a href="single_post.html">Good stuff</a></h2>
                             <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
@@ -391,7 +386,8 @@
                     <div class="columns four">
                         <div class="newpost">
                             <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span><img src="images/images/walker_10.jpg" alt="cards" /></a>
+                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_10.jpg" alt="cards" /></a>
                             <div class="postvideo"></div>
                             <h2><a href="single_post.html">Best choice</a></h2>
                             <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
@@ -400,7 +396,8 @@
                     <div class="columns four">
                         <div class="newpost">
                             <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span><img src="images/images/walker_11.jpg" alt="cards" /></a>
+                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_11.jpg" alt="cards" /></a>
                             <div class="posttext"></div>
                             <h2><a href="single_post.html">Best future</a></h2>
                             <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
@@ -409,7 +406,8 @@
                     <div class="columns four">
                         <div class="newpost">
                             <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span><img src="images/images/walker_12.jpg" alt="cards" /></a>
+                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_12.jpg" alt="cards" /></a>
                             <div class="postvideo"></div>
                             <h2><a href="single_post.html">Why us</a></h2>
                             <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
@@ -418,7 +416,8 @@
                     <div class="columns four">
                         <div class="newpost">
                             <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span><img src="images/images/walker_9.jpg" alt="cards" /></a>
+                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" alt="cards" /></a>
                             <div class="postphoto"></div>
                             <h2><a href="single_post.html">Good stuff</a></h2>
                             <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
@@ -427,7 +426,8 @@
                     <div class="columns four">
                         <div class="newpost">
                             <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span><img src="images/images/walker_10.jpg" alt="cards" /></a>
+                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_10.jpg" alt="cards" /></a>
                             <div class="postvideo"></div>
                             <h2><a href="single_post.html">Best choice</a></h2>
                             <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
@@ -445,7 +445,8 @@
                     <div class="columns four_last">
                         <div class="newpost">
                             <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span><img src="images/images/walker_12.jpg" alt="cards" /></a>
+                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
+                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_12.jpg" alt="cards" /></a>
                             <div class="postvideo"></div>
                             <h2><a href="single_post.html">Why us</a></h2>
                             <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
@@ -495,12 +496,12 @@
         </div>
         <div class="columns two_last">
             <ul class="social">
-                <li><a href="#"><img src="images/social/f.png" class="show-tooltip" alt="facebook" title="Facebook" /></a></li>
-                <li><a href="#"><img src="images/social/p.png" class="show-tooltip" alt="pinterest" title="Pinterest" /></a></li>
-                <li><a href="#"><img src="images/social/s.png" class="show-tooltip" alt="skype" title="Skype" /></a></li>
-                <li><a href="#"><img src="images/social/t.png" class="show-tooltip" alt="tube" title="YouTube" /></a></li>
-                <li><a href="#"><img src="images/social/twitter.png" class="show-tooltip" alt="twitter" title="Twitter" /></a></li>
-                <li><a href="#"><img src="images/social/v.png" class="show-tooltip" alt="vimeo" title="Vimeo" /></a></li>
+                <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/f.png" class="show-tooltip" alt="facebook" title="Facebook" /></a></li>
+                <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/p.png" class="show-tooltip" alt="pinterest" title="Pinterest" /></a></li>
+                <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/s.png" class="show-tooltip" alt="skype" title="Skype" /></a></li>
+                <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/t.png" class="show-tooltip" alt="tube" title="YouTube" /></a></li>
+                <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/twitter.png" class="show-tooltip" alt="twitter" title="Twitter" /></a></li>
+                <li><a href="#"><img src="http://106.14.139.8/farmer-index/index/images/social/v.png" class="show-tooltip" alt="vimeo" title="Vimeo" /></a></li>
             </ul>
         </div>
         <div class="clear"></div>
@@ -509,5 +510,6 @@
 <!-- END BOTTOMAREA -->
 
 </body>
+
 
 </html>

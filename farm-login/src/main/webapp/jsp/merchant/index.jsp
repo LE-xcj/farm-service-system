@@ -25,6 +25,15 @@
 
     <!--myjs-->
     <script src="http://106.14.139.8/normal/js/iframeJS.js"></script>
+
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
+    <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
+
+    <!--模态框的资源-->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -55,8 +64,8 @@
 
             <li class="kuanjie">
                 <a href="#">主页</a>
-                <a href="javascript:redir('${pageContext.request.contextPath }/item/addItemView');">商品管理</a>
-                <a href="#">机手管理</a>
+                <a href="javascript:redir('${pageContext.request.contextPath }/item/itemListView');">商品管理</a>
+                <a href="javascript:redir('${pageContext.request.contextPath }/item/operatorListView');">机手管理</a>
                 <a href="#">订单管理</a>
                 <a href="javascript:redir('${pageContext.request.contextPath }/merchant/updateMerchantView');">个人中心</a>
             </li>
@@ -89,7 +98,7 @@
             <ul>
                 <li><a href="javascript:redir('${pageContext.request.contextPath }/item/addItemView');">添加服务</a> </li>
                 <li><a href="javascript:redir('${pageContext.request.contextPath }/item/itemListView');">服务列表</a></li>
-                <li><a href="">农户评论</a></li>
+                <li><a href="#">农户评论</a></li>
             </ul>
 
             <h3 class="am-icon-cart-plus"><em></em> <a href="#"> 订单管理</a></h3>
@@ -107,8 +116,8 @@
             <ul>
                 <li><a href="javascript:redir('${pageContext.request.contextPath }/merchant/certifyView');">商户认证</a></li>
                 <li><a href="javascript:redir('${pageContext.request.contextPath }/merchant/updateMerchantView');">商户信息</a></li>
-                <li><a href="">修改密码</a></li>
-                <li><a href="">修改手机号</a></li>
+                <li><a href="" data-toggle="modal" data-target="#updatePswModel" onclick="false">修改密码</a></li>
+                <li><a href="" data-toggle="modal" data-target="#updatePhoneModel" onclick="false">修改手机号</a></li>
             </ul>
         </div>
         <!-- sideMenu End -->
@@ -142,9 +151,150 @@
     </div>
 
 </div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="updatePswModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改密码
+                </h4>
+            </div>
+
+            <form method="post" onsubmit="return updatePsw();">
+                <div class="modal-body">
+                    <div style="text-align: center">
+                        <!--mid-->
+                        <input type="text" style="display: none;" name="mid" value="${mid}">
+
+                        <p>
+                            <label>原来密码: </label> <input type="password" name="originPsw"/>
+                        </p>
+
+                        <p>
+                            <label>新的密码: </label> <input type="password" name="psw"/>
+
+                        </p>
+
+                        <p>
+                            <label>确认密码: </label> <input type="password" name="againPsw"/>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="updatePhoneModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    修改手机号
+                </h4>
+            </div>
+
+            <form method="post" onsubmit="return updatePhone();">
+                <div class="modal-body">
+                    <div style="text-align: center">
+
+                        <p>
+                            <label>登录的密码: </label> <input type="password" name="pswForPhone" value=""/>
+                        </p>
+
+                        <p>
+                            <label>新的手机号: </label><input type="text" name="phone"/>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 
+<script>
+    function  updatePsw() {
+
+        var _originPsw = $("input[name='originPsw']").val();
+        var _newPsw = $("input[name='psw']").val();
+        var _againPsw = $("input[name='againPsw']").val();
+        var _mid = $("input[name='mid']").val();
+
+
+        var _update = false;
+        if (_againPsw != _newPsw) {
+            showDialog("两次密码输入不一样！");
+            return _update;
+        }
+
+        $.ajax({
+            type:"post",
+            url:"${pageContext.request.contextPath }/merchant/updatePsw",
+            async:false,
+            data:{originPsw:_originPsw, psw:_newPsw, mid:_mid},
+            success: function(data){
+                showDialog(data.tip);
+
+                if (data.code == 1) {
+                    $("input[name='originPsw']").val('');
+                    $("input[name='psw']").val('');
+                    $("input[name='againPsw']").val('');
+                }
+            }
+
+        });
+
+        return _update;
+    }
+    
+    function updatePhone() {
+        var _mid = $("input[name='mid']").val();
+        var _phone = $("input[name='phone']").val();
+        var _psw = $("input[name='pswForPhone']").val();
+
+        $.ajax({
+            type:"post",
+            url:"${pageContext.request.contextPath }/merchant/updatePhone",
+            async:false,
+            data:{phone:_phone, psw:_psw, mid:_mid},
+            success: function(data){
+                showDialog(data.tip);
+                if (data.code == 1) {
+                    $("input[name='phone']").val('');
+                    $("input[name='pswForPhone']").val('');
+                }
+            }
+
+        });
+
+        return false;
+    }
+</script>
 
 </html>

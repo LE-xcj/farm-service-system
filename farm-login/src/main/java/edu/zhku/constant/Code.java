@@ -1,7 +1,5 @@
 package edu.zhku.constant;
 
-import java.lang.annotation.Target;
-
 /**
  * @author chujian
  * @ClassName Code
@@ -13,6 +11,7 @@ public enum Code {
     //不存在
     PHONENOTEXIST(-1, "该手机号没有注册！"),
     MISMATCH(0, "手机号和密码不匹配！"),
+    WORONGPSW(504, "密码错误"),
     PHONEEXIST(502, "该手机号已经注册了！"),
     WRONGVERIFYCODE(503, "验证码错误！"),
     ATTRIBUTECANNOTNULL(500, "信息不能为空！"),

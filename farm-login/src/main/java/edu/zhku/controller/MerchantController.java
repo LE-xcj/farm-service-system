@@ -10,6 +10,7 @@ import edu.zhku.service.CertifyServiceFacade;
 import edu.zhku.service.MerchantService;
 import edu.zhku.util.*;
 import edu.zhku.vo.CodeVo;
+import edu.zhku.vo.MerchantVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -184,7 +185,9 @@ public class MerchantController {
     }
 
     @RequestMapping("/certify")
-    public int certify(String mid, MultipartFile file) throws IOException {
+    public int certify(HttpSession session, MultipartFile file) throws IOException {
+
+        String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
         int num = 0;
         if (null != file) {
 
@@ -198,6 +201,18 @@ public class MerchantController {
             certifyServiceFacade.certify(mid);
         }
         return num;
+    }
+
+    @RequestMapping("/updatePsw")
+    public CodeVo updatePsw(MerchantVo vo) throws Exception {
+        CodeVo flag = merchantService.updatePsw(vo);
+        return flag;
+    }
+
+    @RequestMapping("/updatePhone")
+    public CodeVo updatePhone(Merchant merchant) throws Exception {
+        CodeVo flag = merchantService.updatePhone(merchant);
+        return flag;
     }
 
 

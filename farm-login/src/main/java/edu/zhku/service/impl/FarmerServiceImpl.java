@@ -9,6 +9,7 @@ import edu.zhku.util.AMapUtil;
 import edu.zhku.util.CodeVoFactory;
 import edu.zhku.util.KeyFactory;
 import edu.zhku.vo.CodeVo;
+import edu.zhku.vo.FarmerVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -162,6 +163,90 @@ public class FarmerServiceImpl implements FarmerService{
         return CodeVoFactory.getVo(Code.FAIL);
     }
 
+    /**
+     * 更新密码
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public CodeVo updatePsw(FarmerVo vo) throws Exception {
+
+        if (null == vo) {
+            return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+        }
+
+        String fid = vo.getFid();
+        String newPsw = vo.getPsw();
+        String originPsw = vo.getOriginPsw();
+
+        if (isNull(fid, newPsw, originPsw)) {
+            return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+        }
+
+        Farmer farmer = selectById(fid);
+
+        //匹配密码是否正确
+        if (originPsw.equals(farmer.getPsw())) {
+
+            Farmer f = new Farmer();
+            f.setPsw(newPsw);
+            f.setFid(fid);
+
+            //更新密码
+            updateFarmer(f);
+            return CodeVoFactory.getVo(Code.SUCCESS);
+        }
+
+        return CodeVoFactory.getVo(Code.WORONGPSW);
+    }
+
+    /**
+     * 更新手机号
+     * @param farmer
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public CodeVo updatePhone(Farmer farmer) throws Exception {
+        if (null == farmer) {
+            return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+        }
+
+        String fid = farmer.getFid();
+        String psw = farmer.getPsw();
+        String phone = farmer.getPhone();
+
+        if (isNull(fid, psw, phone)) {
+            return CodeVoFactory.getVo(Code.ATTRIBUTECANNOTNULL);
+        }
+
+        Farmer f = selectById(fid);
+        Code code = null;
+        //判断密码是否正确
+        if (psw.equals(f.getPsw())) {
+
+            //判断新的手机号是否已经被注册了
+            if (exist(farmer)) {
+                code = Code.PHONEEXIST;
+            } else {
+                updateFarmer(farmer);
+                code = Code.SUCCESS;
+            }
+        }
+
+        return CodeVoFactory.getVo(code);
+    }
+
+
+    private boolean isNull(String... strs) {
+        for (String s : strs) {
+            if (null == s) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * 检验手机号是否存在
