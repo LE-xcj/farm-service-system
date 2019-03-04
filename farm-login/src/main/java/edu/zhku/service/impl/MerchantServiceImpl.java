@@ -240,7 +240,7 @@ public class MerchantServiceImpl implements MerchantService{
             updateMerchant(m);
             return CodeVoFactory.getVo(Code.SUCCESS);
         }
-        return CodeVoFactory.getVo(Code.WORONGPSW);
+        return CodeVoFactory.getVo(Code.WRONGPSW);
     }
 
     /**
@@ -281,7 +281,7 @@ public class MerchantServiceImpl implements MerchantService{
             }
 
         } else {
-            code = Code.WORONGPSW;
+            code = Code.WRONGPSW;
         }
 
         return CodeVoFactory.getVo(code);

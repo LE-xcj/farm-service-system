@@ -14,24 +14,26 @@
     <link class="TextFont" href="#" rel="stylesheet" type="text/css" />
     <link class="TitleFont" href="#" rel="stylesheet" type="text/css" />
     <link href='http://fonts.useso.com/css?family=Lato:300,400,700,400italic|Droid+Sans|PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow|Open+Sans:400,300' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="javascript/jquery-latest.js"></script>
-    <script type="text/javascript" src="javascript/red-sky-options.js"></script>
-    <script type="text/javascript" src="shortcodes/shortcodes.js"></script>
-    <script type="text/javascript" src="javascript/jquery.prettyPhoto.js"></script>
+
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/red-sky-options.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/shortcodes/shortcodes.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/jquery.prettyPhoto.js"></script>
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- CSS -->
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link href="css/responsive.css" rel="stylesheet" type="text/css">
-    <link href="shortcodes/shortcodes.css" rel="stylesheet" type="text/css">
-    <link href="css/prettyPhoto.css" rel="stylesheet" type="text/css">
+
+    <link href="http://106.14.139.8/farmer-index/index/css/style.css" rel="stylesheet" type="text/css">
+    <link href="http://106.14.139.8/farmer-index/index/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="http://106.14.139.8/farmer-index/index/shortcodes/shortcodes.css" rel="stylesheet" type="text/css">
+    <link href="http://106.14.139.8/farmer-index/index/css/prettyPhoto.css" rel="stylesheet" type="text/css">
 
     <!-- START SETTINGS BOX -->
-    <script type="text/javascript" src="settingsbox/farbtastic/farbtastic.js"></script>
-    <script type="text/javascript" src="settingsbox/settingsbox.js"></script>
-    <link href="settingsbox/settingsbox.css" rel="stylesheet" type="text/css">
-    <link href="settingsbox/farbtastic/farbtastic.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/settingsbox/farbtastic/farbtastic.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/settingsbox/settingsbox.js"></script>
+    <link href="http://106.14.139.8/farmer-index/index/settingsbox/settingsbox.css" rel="stylesheet" type="text/css">
+    <link href="http://106.14.139.8/farmer-index/index/settingsbox/farbtastic/farbtastic.css" rel="stylesheet" type="text/css">
     <!-- END SETTINGS BOX -->
 
     <title>Sky Walker</title>
@@ -129,6 +131,7 @@
     <div class="container">
 
 
+        <!--现在这里不改，到时从index一次性拷贝->
         <!-- START HEADER 导航栏-->
         <div id="header">
             <div class="one-third columns">
@@ -174,20 +177,15 @@
         <!-- START PATH -->
         <div class="path one columns"> 农田服务
             <span style="margin-top: 10px;">
-    		<select>
-    			<option>广东省</option>
-    		</select>
-    		<select>
-    			<option>广东省</option>
-    		</select>
-    		<select>
-    			<option>价格升序</option>
-    			<option>价格降序</option>
-    		</select>
-    		<span>
+                <select id="province" name="province"></select>
+                <select id="city" name="city"></select>
 
-    		</span>
-    	</span>
+                <select id="priceFirst" name="priceFirst">
+                    <option>价格升序</option>
+                    <option>价格降序</option>
+                </select>
+
+    	    </span>
         </div>
 
         <!-- END PATH -->
@@ -202,60 +200,69 @@
 
             <div class="columns four">
                 <div class="work">
-                    <a href="images/images/walker_9.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description">
+                    <a href="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description">
                         <span></span>
-                        <img src="images/images/walker_9.jpg" alt="cards" />
+                        <img src="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" alt="cards" />
                     </a>
-                    <h3><a href="single_project.html">Vestibulum fermentum</a></h3>
+                    <h3><a href="#">Vestibulum fermentum</a></h3>
                     <h4>Illustration, Design</h4>
                 </div>
             </div>
 
             <div class="columns four">
-                <div class="work"> <a href="images/images/walker_9.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span><img src="images/images/walker_9.jpg" alt="cards" /></a>
-                    <h3><a href="single_project.html">Lorem ipsum dolor</a></h3>
+                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
+                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" alt="cards" /></a>
+                    <h3><a href="#">Lorem ipsum dolor</a></h3>
                     <h4>Illustration, Design</h4>
                 </div>
             </div>
 
             <div class="columns four">
-                <div class="work"> <a href="images/images/walker_17.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span><img src="images/images/walker_17.jpg" alt="cards" /></a>
-                    <h3><a href="single_project.html">Duis convallis</a></h3>
+                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_17.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
+                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_17.jpg" alt="cards" /></a>
+                    <h3><a href="#">Duis convallis</a></h3>
                     <h4>Illustration, Design</h4>
                 </div>
             </div>
 
             <div class="columns four_last">
-                <div class="work"> <a href="images/images/walker_11.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span><img src="images/images/walker_11.jpg" alt="cards" /></a>
-                    <h3><a href="single_project.html">Vestibulum ante ipsum</a></h3>
+                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_11.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
+                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_11.jpg" alt="cards" /></a>
+                    <h3><a href="#">Vestibulum ante ipsum</a></h3>
                     <h4>Illustration, Design</h4>
                 </div>
             </div>
 
             <div class="columns four">
-                <div class="work"> <a href="images/images/walker_13.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span><img src="images/images/walker_13.jpg" alt="cards" /></a>
-                    <h3><a href="single_project.html">Vestibulum turpis</a></h3>
+                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_13.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
+                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_13.jpg" alt="cards" /></a>
+                    <h3><a href="#">Vestibulum turpis</a></h3>
                     <h4>Illustration, Design</h4>
                 </div>
             </div>
 
             <div class="columns four">
-                <div class="work"> <a href="images/images/walker_14.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span><img src="images/images/walker_14.jpg" alt="cards" /></a>
-                    <h3><a href="single_project.html">Etiam velit dolor</a></h3>
+                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_14.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
+                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_14.jpg" alt="cards" /></a>
+                    <h3><a href="#">Etiam velit dolor</a></h3>
                     <h4>Illustration, Design</h4>
                 </div>
             </div>
 
             <div class="columns four">
-                <div class="work"> <a href="images/images/walker_12.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span><img src="images/images/walker_12.jpg" alt="cards" /></a>
-                    <h3><a href="single_project.html">Phasellus et ipsum</a></h3>
+                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_12.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
+                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_12.jpg" alt="cards" /></a>
+                    <h3><a href="#">Phasellus et ipsum</a></h3>
                     <h4>Illustration, Design</h4>
                 </div>
             </div>
 
             <div class="columns four_last">
-                <div class="work"> <a href="images/images/walker_19.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span><img src="images/images/walker_19.jpg" alt="cards" /></a>
-                    <h3><a href="single_project.html">Aenean porttitor nibh</a></h3>
+                <div class="work">
+                    <a href="http://106.14.139.8/farmer-index/index/images/images/walker_19.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
+                        <img src="http://106.14.139.8/farmer-index/index/images/images/walker_19.jpg" alt="cards" />
+                    </a>
+                    <h3><a href="#">Aenean porttitor nibh</a></h3>
                     <h4>Illustration, Design</h4>
                 </div>
             </div>
@@ -277,4 +284,25 @@
 
 </body>
 
+<script src="http://106.14.139.8/normal/js/city.js"></script>
+<%--城市选择--%>
+<script>
+    (function(){
+        var pHtmlStr = '';
+        for(var name in pc){
+            pHtmlStr = pHtmlStr + '<option>'+name+'</option>';
+        }
+        $("#province").html(pHtmlStr);
+        $("#province").change(function(){
+            var pname = $("#province option:selected").text();
+            var pHtmlStr = '';
+            var cityList = pc[pname];
+            for(var index in cityList){
+                pHtmlStr = pHtmlStr + '<option>'+cityList[index]+'</option>';
+            }
+            $("#city").html(pHtmlStr);
+        });
+        $("#province").change();
+    })();
+</script>
 </html>

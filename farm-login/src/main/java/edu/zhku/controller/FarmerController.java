@@ -2,18 +2,17 @@ package edu.zhku.controller;
 
 import edu.zhku.constant.Code;
 import edu.zhku.constant.Literal;
+import edu.zhku.constant.Path;
 import edu.zhku.constant.Role;
 import edu.zhku.pojo.Farmer;
 import edu.zhku.service.FarmerService;
-import edu.zhku.util.CodeVoFactory;
-import edu.zhku.util.KeyFactory;
-import edu.zhku.util.RedisUtil;
-import edu.zhku.util.SMSUtil;
+import edu.zhku.util.*;
 import edu.zhku.vo.CodeVo;
 import edu.zhku.vo.FarmerVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -170,7 +169,11 @@ public class FarmerController {
      * @throws Exception
      */
     @RequestMapping("/updateFarmer")
-    public CodeVo updateFarmer(Farmer farmer) throws Exception {
+    public CodeVo updateFarmer(Farmer farmer, MultipartFile file) throws Exception {
+        if (null != file) {
+            String url = FileUtil.saveImg(file, Path.FARMER);
+            farmer.setPicture(url);
+        }
         CodeVo vo = farmerService.updateFarmer(farmer);
         return vo;
     }
@@ -231,6 +234,9 @@ public class FarmerController {
         CodeVo codeVo = farmerService.updatePsw(vo);
         return codeVo;
     }
+
+
+
 
 
 

@@ -132,34 +132,37 @@
         <!-- START HEADER 导航栏-->
         <div id="header">
             <div class="one-third columns">
-                <div class="logo"><a href="index-2.html"><span>farm</span>Service</a></div>
+                <div class="logo">
+                    <a href="${pageContext.request.contextPath }/farmer/index">
+                        <span>farm</span>Service
+                    </a>
+                </div>
             </div>
             <div class="two-thirds_last columns">
 
                 <ul class="topmenu">
-                    <li class="active"><a class="active" href="index-2.html">悬赏</a></li>
+                    <li class="active"><a class="active" href="#">悬赏</a></li>
 
                     <li><a href="#">农田服务</a>
                         <ul class="MenuDropdown">
-                            <li><a href="shortcodes.html">无人机喷药</a></li>
+                            <li><a href="${pageContext.request.contextPath }/item/queryItemByPageView" target="_blank">无人机喷药</a></li>
                         </ul>
                     </li>
 
                     </li>
 
-                    <li><a href="contact.html">购物车</a></li>
+                    <li><a href="${pageContext.request.contextPath }/item/shoppingCart" target="_blank">购物车</a></li>
 
                     <li><a href="blog.html">通知 <span style="color: red;">*</span></a>
                         <ul class="MenuDropdown">
-                            <li><a href="single_post.html">系统通知   <span style="color: red;">666</span></a></li>
-                            <li><a href="single_post.html">聊天列表   <span style="color: red;">666</span></a></li>
+                            <li><a href="#">系统通知   <span style="color: red; font-size: 11px">666</span></a></li>
+                            <li><a href="#">聊天列表   <span style="color: red; font-size: 11px">666</span></a></li>
                         </ul>
                     </li>
 
                     <li><a href="single_project.html">账户管理</a>
                         <ul class="MenuDropdown">
                             <li><a href="${pageContext.request.contextPath }/farmer/updateFarmerView" target="_blank">个人信息</a></li>
-                            <li><a href="" data-toggle="modal" data-target="#updatePswModel" onclick="false">修改密码</a></li>
                             <li><a href="#">订单查看</a></li>
                             <li><a href="#">注销</a></li>
                         </ul>

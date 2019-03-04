@@ -198,7 +198,7 @@ public class FarmerServiceImpl implements FarmerService{
             return CodeVoFactory.getVo(Code.SUCCESS);
         }
 
-        return CodeVoFactory.getVo(Code.WORONGPSW);
+        return CodeVoFactory.getVo(Code.WRONGPSW);
     }
 
     /**
@@ -233,6 +233,8 @@ public class FarmerServiceImpl implements FarmerService{
                 updateFarmer(farmer);
                 code = Code.SUCCESS;
             }
+        } else {
+            code = Code.WRONGPSW;
         }
 
         return CodeVoFactory.getVo(code);

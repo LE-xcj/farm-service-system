@@ -31,22 +31,48 @@
     <script src="http://106.14.139.8/normal/js/dialog.js"></script>
     <script type="text/javascript" src="http://106.14.139.8/farm-login/js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
+
+    <style>
+        .myclass {
+            background-color: #f1f2f7;
+            right: 0;
+            bottom: 0;
+            top: 85px;
+            left: 210px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    </style>
+
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
+    <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
+
+    <!--模态框的资源-->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 
 <%--重要--%>
-<div class="admin-biaogelist">
+
+<div class="myclass">
 
     <div class="listbiaoti am-cf">
         <ul class="am-icon-flag on"> 修改个人信息</ul>
-
         <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 >
             <a href="#">修改个人信息</a>
         </dl>
-
     </div>
 
+    <div class="listbiaoti am-cf">
+        <ul><a href="" data-toggle="modal" data-target="#updatePswModel" onclick="false">修改密码</a> </ul>
+        <ul> <a href="" data-toggle="modal" data-target="#updatePhoneModel" onclick="false">修改手机号</a> </ul>
+    </div>
+
+    <%--主体--%>
     <div class="fbneirong">
         <form class="am-form" method="post" onsubmit="return update();">
             <div class="am-form-group am-cf">
@@ -100,9 +126,91 @@
 
     </div>
 
-
 </div>
 
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="updatePswModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    修改密码
+                </h4>
+            </div>
+
+            <form method="post" onsubmit="return updatePsw();">
+                <div class="modal-body">
+                    <div style="text-align: center">
+                        <p>
+                            <label>原来密码: </label> <input type="password" name="originPsw"/>
+                        </p>
+
+                        <p>
+                            <label>新的密码: </label> <input type="password" name="psw"/>
+
+                        </p>
+
+                        <p>
+                            <label>确认密码: </label> <input type="password" name="againPsw"/>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="updatePhoneModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    修改手机号
+                </h4>
+            </div>
+
+            <form method="post" onsubmit="return updatePhone();">
+                <div class="modal-body">
+                    <div style="text-align: center">
+
+                        <p>
+                            <label>登录的密码: </label> <input type="password" name="pswForPhone" value=""/>
+                        </p>
+
+                        <p>
+                            <label>新的手机号: </label><input type="text" name="phone"/>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 </body>
 <script>
     /**
@@ -241,5 +349,58 @@
         return false;
     }
 
+    function updatePsw() {
+        var _originPsw = $("input[name='originPsw']").val();
+        var _newPsw = $("input[name='psw']").val();
+        var _againPsw = $("input[name='againPsw']").val();
+
+        var _fid = $("input[name='fid']").val();
+
+        if (_againPsw != _newPsw) {
+            showDialog("两次密码输入不一样！");
+        } else {
+            $.ajax({
+                type:"post",
+                url:"${pageContext.request.contextPath }/farmer/updatePsw",
+                async:false,
+                data:{originPsw:_originPsw, psw:_newPsw, fid:_fid},
+                success: function(data){
+                    showDialog(data.tip);
+
+                    if (data.code == 1) {
+                        $("input[name='originPsw']").val('');
+                        $("input[name='psw']").val('');
+                        $("input[name='againPsw']").val('');
+                    }
+                }
+
+            });
+        }
+        return false;
+
+    }
+    
+    function updatePhone() {
+        var _fid = $("input[name='fid']").val();
+        var _phone = $("input[name='phone']").val();
+        var _psw = $("input[name='pswForPhone']").val();
+
+        $.ajax({
+            type:"post",
+            url:"${pageContext.request.contextPath }/farmer/updatePhone",
+            async:false,
+            data:{phone:_phone, psw:_psw, fid:_fid},
+            success: function(data){
+                showDialog(data.tip);
+                if (data.code == 1) {
+                    $("input[name='phone']").val('');
+                    $("input[name='pswForPhone']").val('');
+                }
+            }
+
+        });
+
+        return false;
+    }
 </script>
 </html>
