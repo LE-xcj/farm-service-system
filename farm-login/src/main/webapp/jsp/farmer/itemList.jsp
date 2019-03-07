@@ -36,6 +36,11 @@
     <link href="http://106.14.139.8/farmer-index/index/settingsbox/farbtastic/farbtastic.css" rel="stylesheet" type="text/css">
     <!-- END SETTINGS BOX -->
 
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
+    <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
+
     <title>Sky Walker</title>
 </head>
 
@@ -177,12 +182,13 @@
         <!-- START PATH -->
         <div class="path one columns"> 农田服务
             <span style="margin-top: 10px;">
+                <input style="display: none" name="fid" value="${farmer.fid}"/>
                 <select id="province" name="province"></select>
-                <select id="city" name="city"></select>
+                <select id="city" name="city" onchange="refress()"></select>
 
-                <select id="priceFirst" name="priceFirst">
-                    <option>价格升序</option>
-                    <option>价格降序</option>
+                <select id="priceFirst" name="priceFirst" onchange="refress()">
+                    <option value="1">价格升序</option>
+                    <option value="0">价格降序</option>
                 </select>
 
     	    </span>
@@ -198,85 +204,19 @@
         <!-- START 商品列表 -->
         <div class="works">
 
-            <div class="columns four">
-                <div class="work">
-                    <a href="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description">
-                        <span></span>
-                        <img src="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" alt="cards" />
-                    </a>
-                    <h3><a href="#">Vestibulum fermentum</a></h3>
-                    <h4>Illustration, Design</h4>
-                </div>
-            </div>
-
-            <div class="columns four">
-                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
-                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" alt="cards" /></a>
-                    <h3><a href="#">Lorem ipsum dolor</a></h3>
-                    <h4>Illustration, Design</h4>
-                </div>
-            </div>
-
-            <div class="columns four">
-                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_17.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
-                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_17.jpg" alt="cards" /></a>
-                    <h3><a href="#">Duis convallis</a></h3>
-                    <h4>Illustration, Design</h4>
-                </div>
-            </div>
-
-            <div class="columns four_last">
-                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_11.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
-                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_11.jpg" alt="cards" /></a>
-                    <h3><a href="#">Vestibulum ante ipsum</a></h3>
-                    <h4>Illustration, Design</h4>
-                </div>
-            </div>
-
-            <div class="columns four">
-                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_13.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
-                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_13.jpg" alt="cards" /></a>
-                    <h3><a href="#">Vestibulum turpis</a></h3>
-                    <h4>Illustration, Design</h4>
-                </div>
-            </div>
-
-            <div class="columns four">
-                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_14.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
-                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_14.jpg" alt="cards" /></a>
-                    <h3><a href="#">Etiam velit dolor</a></h3>
-                    <h4>Illustration, Design</h4>
-                </div>
-            </div>
-
-            <div class="columns four">
-                <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_12.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
-                    <img src="http://106.14.139.8/farmer-index/index/images/images/walker_12.jpg" alt="cards" /></a>
-                    <h3><a href="#">Phasellus et ipsum</a></h3>
-                    <h4>Illustration, Design</h4>
-                </div>
-            </div>
-
-            <div class="columns four_last">
-                <div class="work">
-                    <a href="http://106.14.139.8/farmer-index/index/images/images/walker_19.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"> <span></span>
-                        <img src="http://106.14.139.8/farmer-index/index/images/images/walker_19.jpg" alt="cards" />
-                    </a>
-                    <h3><a href="#">Aenean porttitor nibh</a></h3>
-                    <h4>Illustration, Design</h4>
-                </div>
-            </div>
-
+            <div id="works"></div>
 
             <div class="clear"></div>
-
             <!--分页-->
             <div class="pagination">
-                <a href="#">&larr;</a>
-                <a href="#">1</a>
-                <a href="#">&rarr;</a>
+                <a href="javascript:check(-1);">&larr;</a>
+                <a href="#" id="currentPage">1</a>
+                <a href="javascript:check(1);">&rarr;</a>
+                共<label id="totalPage">0</label>页
             </div>
         </div>
+
+
         <!-- END WORKS -->
 
     </div>
@@ -304,5 +244,141 @@
         });
         $("#province").change();
     })();
+</script>
+
+<script>
+    $.ready = function(){
+        var _address = "${farmer.address}";
+        console.info(_address);
+        //遍历省的select
+        $("#province").each(
+            function(){
+                posit($(this), true);
+            }
+        );
+
+        //遍历城市的select
+        $("#city").each(
+            function(){
+                posit($(this), false);
+            }
+        );
+
+        function posit(_select, is_province) {
+            _select.children("option").each(function () {
+                var _option_value = $(this).text();
+                var _begin = _address.indexOf(_option_value);
+                if (-1 != _begin) {
+                    var _target = _address.substr(_begin, _option_value.length);
+                    $(this).attr("selected", true);
+                    if (is_province) {
+                        $("#province").change();
+                    } else {
+                        var _detail = _address.substr(_begin + _option_value.length);
+                        $("#detail").val(_detail);
+                    }
+                    return;
+                }
+            });
+        }
+
+        queryItem(1);
+    }
+
+</script>
+
+<script>
+
+    function check(_offset) {
+        var _begin = $("#currentPage").text();
+        _begin = parseInt(_begin);
+        _begin += _offset;
+
+        var _total = $("#totalPage").text();
+        _total = parseInt(_total);
+
+        console.info(_begin);
+        console.info("_total " + _total);
+        if(_begin == 0){
+            showDialog("已经是第一页了");
+            return;
+        }else if(_begin > _total){
+            showDialog("最后一页了");
+        }else{
+            queryItem(_begin);
+        }
+    }
+
+
+    function queryItem(_page){
+        var _proive = $("#province option:selected").text();
+        var _city = $("#city option:selected").text();
+        var _descFlag = $("#priceFirst option:selected").val();
+
+        var _fid = $("input[name='fid']").val();
+        var _address = _proive + _city;
+        var _desc;
+
+        if (1 == _descFlag) {
+            _desc = false;
+        } else {
+            _descFlag = true;
+        }
+
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/item/queryItemByPage",
+            async:false,
+            dataType:'json',  // 处理Ajax跨域问题
+            data:{fid: _fid, page: _page, address: _address, desc: _desc, pageSize:8},
+            success: function(data){
+                fill(data, _page);
+            }
+        });
+    }
+
+    function fill(data, _page) {
+        var _items = data.items;
+        var _totalPage = data.totalPage;
+
+        $("#currentPage").text(_page);
+        $("#totalPage").text(_totalPage);
+
+        var _works = $("#works");
+        _works.html("");
+
+        for (var i=0; i<_items.length; ++i) {
+            var _div = $("<div></div>");
+            if ((i + 1)%4 == 0 && i != 0) {
+                _div.attr("class", "columns four_last");
+            } else {
+                _div.attr("class", "columns four");
+            }
+            var _work = $("<div></div>");
+            _work.attr("class", "work");
+
+            var _a = $("<a></a>");
+            _a.attr("href", _items[i].media).attr("rel", "prettyPhoto[a]").attr("class", "pretty");
+            $("<span></span>").appendTo(_a);
+            $("<img />").attr("src", _items[i].media).attr("alt", "cards").appendTo(_a);
+            _a.appendTo(_work);
+
+            var _h3 = $("<h3></h3>");
+            $("<a></a>").attr("href", "#").text(_items[i].iname).appendTo(_h3);
+            _h3.appendTo(_work);
+
+            $("<h4></h4>").text(_items[i].price +"" + _items[i].unit).appendTo(_work);
+
+
+            _work.appendTo(_div);
+            _div.appendTo(_works);
+        }
+    }
+</script>
+
+<script>
+    function refress(){
+        queryItem(1);
+    }
 </script>
 </html>

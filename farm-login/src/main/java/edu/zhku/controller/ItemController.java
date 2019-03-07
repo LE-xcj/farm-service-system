@@ -2,6 +2,7 @@ package edu.zhku.controller;
 
 import edu.zhku.constant.Role;
 import edu.zhku.pojo.Farmer;
+import edu.zhku.pojo.Merchant;
 import edu.zhku.service.FarmerService;
 import edu.zhku.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class ItemController {
     @Autowired
     private MerchantService merchantService;
 
+    /**
+     * 添加item
+     * @param session
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/addItemView")
     public ModelAndView addItemView(HttpSession session) throws Exception {
 
@@ -59,6 +66,7 @@ public class ItemController {
 
     @Autowired
     private FarmerService farmerService;
+
     /**
      * 农户用的
      * @return
@@ -78,6 +86,12 @@ public class ItemController {
     }
 
 
+    /**
+     * 购物车
+     * @param session
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/shoppingCart")
     public ModelAndView shoppingCart(HttpSession session) throws Exception {
 
@@ -94,6 +108,25 @@ public class ItemController {
 
     }
 
+    /**
+     * 商品详情页面,get方式
+     * @param iid
+     * @return
+     */
+    //todo
+    @RequestMapping("/itemDetailView")
+    public ModelAndView itemDetailView(Integer iid, String mid) throws Exception {
+
+        Merchant merchant = merchantService.selectById(mid);
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("iid", iid);
+        mv.addObject("merchant", merchant);
+
+        mv.setViewName("farmer/itemDetail");
+
+        return mv;
+    }
 
 }
     
