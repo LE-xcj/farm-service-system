@@ -5,23 +5,18 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import edu.zhku.constant.ExceptionMessage;
 import edu.zhku.dao.ItemDao;
-import edu.zhku.pojo.Item;
-import edu.zhku.pojo.ItemCondition;
-import edu.zhku.pojo.ItemConditionForMerchant;
-import edu.zhku.pojo.MerchantConditon;
+import edu.zhku.pojo.*;
 import edu.zhku.service.FarmerServiceFacade;
 import edu.zhku.service.ItemService;
 import edu.zhku.service.MerchantServiceFacade;
 import edu.zhku.util.AMapUtil;
 import edu.zhku.util.PageUtil;
+import edu.zhku.vo.ItemExpandVo;
 import edu.zhku.vo.ItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author chujian
@@ -92,7 +87,7 @@ public class ItemServiceImpl implements ItemService{
      * @throws Exception
      */
     @Override
-    public List<Item> selectByCondition(ItemCondition condition) throws Exception {
+    public List<? extends Item> selectByCondition(ItemCondition condition) throws Exception {
 
         if (null == condition) {
             throw new Exception(ExceptionMessage.OBJNULL);
@@ -108,23 +103,117 @@ public class ItemServiceImpl implements ItemService{
 
         //根据address模糊查询该位置范围的商户
         String address = condition.getAddress();
-        List<MerchantConditon> merchantConditons = getMerchantCondition(address, destination);
+
+        //返回map，是为了能够方便后面对距离进行排序时，能够快速通过mid获取对应的查询条件
+        Map<String, MerchantConditon> mapTable = getMerchantCondition(address, destination);
 
         //如果该地区没有商户入驻
-        if (null == merchantConditons){
+        if (null == mapTable){
             return new ArrayList<>();
         }
 
-        //对merchantCondition按照距离进行升序排序
-        Collections.sort(merchantConditons);
+        //将查询条件，转成list
+        List<MerchantConditon> merchantConditons = new ArrayList<>(mapTable.values());
 
         //填充查询条件
         condition.setMerchantConditons(merchantConditons);
 
+        //初步查询的商品（先筛选地域里的商户，然后查询对应的商品，按照价格进行升序排序）
         List<Item> items = itemDao.selectByCondition(condition);
-        return items;
+
+        //类似中间人
+        List<? extends Item> result;
+
+        //位置优先排序
+        if (condition.getLocationFirst()){
+            //根据位置的远近对item进行排序
+            result = sortItem(mapTable, items, destination);
+        } else {
+            result = items;
+        }
+
+        return result;
     }
 
+    /**
+     * 前提条件是：如果价格相等，那么就按照距离的远近升序排序
+     * 对商品进行距离的排序
+     * @param mapTable
+     * @param items
+     */
+    private List<ItemExpandVo> sortItem(Map<String, MerchantConditon> mapTable, List<Item> items, String destination) {
+
+        int length = items.size();
+
+        List<ItemExpandVo> itemExpandVos = new ArrayList<>(length);
+
+        //设置origins，准备调用高德的查询两点之间距离的接口
+        String[] origins = new String[length];
+
+        for (int i=0; i<length; ++i) {
+
+            Item item = items.get(i);
+            String mid = item.getMid();
+
+            //获取容器
+            MerchantConditon merchantConditon = mapTable.get(mid);
+
+            //填充origins
+            origins[i] = merchantConditon.getLocation();
+
+            //包装
+            ItemExpandVo vo = new ItemExpandVo();
+            fill(vo, item);
+            vo.setMerchantConditon(merchantConditon);
+
+            //添加到集合中
+            itemExpandVos.add(vo);
+        }
+
+        //获得距离集合
+        List<Integer> distance = AMapUtil.distance(destination, origins);
+
+        //开始填充
+        for (int i=0; i<length; ++i) {
+
+            ItemExpandVo itemExpandVo = itemExpandVos.get(i);
+
+            //获取对应位置的merchant
+            MerchantConditon merchantConditon = itemExpandVo.getMerchantConditon();
+
+            //填充距离
+            merchantConditon.setDistance(distance.get(i));
+        }
+
+        //排序
+        Collections.sort(itemExpandVos);
+
+        return itemExpandVos;
+    }
+
+    /**
+     * 填充
+     * @param vo
+     * @param item
+     */
+    private void fill(ItemExpandVo vo, Item item) {
+        vo.setIid(item.getIid());
+        vo.setIname(item.getIname());
+        vo.setPrice(item.getPrice());
+        vo.setUnit(item.getUnit());
+        vo.setMedia(item.getMedia());
+        vo.setDescription(item.getDescription());
+        vo.setMid(item.getMid());
+        vo.setStatus(item.getStatus());
+    }
+
+
+    /**
+     * 计算总页数
+     * @param condition
+     * @return
+     * @throws Exception
+     */
     @Override
     public int countForFarmer(ItemCondition condition) throws Exception {
         int total = itemDao.countForFarmer(condition);
@@ -161,48 +250,59 @@ public class ItemServiceImpl implements ItemService{
     }
 
 
-    private List<MerchantConditon> getMerchantCondition(String address, String destination) {
+    /**
+     * 模糊搜索附近商户
+     * @param address
+     * @param destination
+     * @return
+     */
+    private Map<String, MerchantConditon> getMerchantCondition(String address, String destination) {
 
         //调用登录系统查询商户的接口，根据address模糊查询指定范围内的商户
         String merchantsStr = merchantServiceFacade.queryMerchantByAddress(address);
         JSONArray merchants = JSON.parseArray(merchantsStr);
 
-        //设置origins，准备调用高德的查询两点之间距离的接口
         int length = merchants.size();
         if (length == 0) {
             return null;
         }
-        String[] origins = new String[length];
 
-        List<MerchantConditon> merchantConditons = new ArrayList<>(length);
+        //设置origins，准备调用高德的查询两点之间距离的接口
+        //String[] origins = new String[length];
+
+        Map<String, MerchantConditon> merchantConditons = new HashMap<>(length);
 
         for (int i =0; i<length; ++i) {
 
             //获取商户结果集中商户的location
             JSONObject merchant = merchants.getJSONObject(i);
-            origins[i] = merchant.getString("location");
+
+            //origins[i] = merchant.getString("location");
 
             //设置商户id，用于对距离进行排序，以及dao层查询该商户对应的服务商品
             MerchantConditon conditon = new MerchantConditon();
             String mid = merchant.getString("mid");
+            String location = merchant.getString("location");
+
             conditon.setMid(mid);
+            conditon.setLocation(location);
 
             //添加到查询条件中
-            merchantConditons.add(conditon);
+            merchantConditons.put(mid, conditon);
         }
 
         //获得距离集合
-        List<Integer> distance = AMapUtil.distance(destination, origins);
+        //List<Integer> distance = AMapUtil.distance(destination, origins);
 
         //开始填充
-        for (int i=0; i<length; ++i) {
-
-            //获取对应位置的merchant
-            MerchantConditon merchantConditon = merchantConditons.get(i);
-
-            //填充距离
-            merchantConditon.setDistance(distance.get(i));
-        }
+//        for (int i=0; i<length; ++i) {
+//
+//            //获取对应位置的merchant
+//            MerchantConditon merchantConditon = merchantConditons.get(i);
+//
+//            //填充距离
+//            //merchantConditon.setDistance(distance.get(i));
+//        }
 
         return merchantConditons;
     }
@@ -293,6 +393,72 @@ public class ItemServiceImpl implements ItemService{
         int num = itemDao.deleteItemsById(ids);
 
         return num;
+    }
+
+
+
+    /**
+     *
+     * 插入评论
+     * @param evaluation
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int insertEvaluation(Evaluation evaluation) throws Exception {
+        if (null == evaluation) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+        int num = itemDao.insertEvaluation(evaluation);
+        return num;
+    }
+
+    /**
+     * 查询某个商品的评论
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Evaluation> queryEvaluation(EvaluationDTO condition) throws Exception {
+        if (null == condition) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+        List<Evaluation> result = itemDao.queryEvaluation(condition);
+        return result;
+    }
+
+    /**
+     * 计算总数
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countEvaluation(Evaluation condition) throws Exception {
+        if (null == condition) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+        int num = itemDao.countEvaluation(condition);
+        return num;
+    }
+
+    /**
+     * 计算一个商品的平均评分
+     * @param iid
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public float avgLevel(Integer iid) throws Exception {
+
+        if (null == iid) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+        float avg = itemDao.avgLevel(iid);
+
+        return avg;
     }
 
 

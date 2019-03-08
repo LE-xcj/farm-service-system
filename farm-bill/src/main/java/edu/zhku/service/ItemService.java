@@ -1,8 +1,6 @@
 package edu.zhku.service;
 
-import edu.zhku.pojo.Item;
-import edu.zhku.pojo.ItemCondition;
-import edu.zhku.pojo.ItemConditionForMerchant;
+import edu.zhku.pojo.*;
 import edu.zhku.vo.ItemVo;
 
 import java.util.List;
@@ -31,7 +29,7 @@ public interface ItemService {
      * @return
      * @throws Exception
      */
-    List<Item> selectByCondition(ItemCondition condition) throws Exception;
+    List<? extends Item> selectByCondition(ItemCondition condition) throws Exception;
     int countForFarmer(ItemCondition condition) throws Exception;
 
     /**
@@ -50,4 +48,37 @@ public interface ItemService {
 
     int deleteItemById(Integer iid) throws Exception;
     int deleteItemsById(List<Integer> ids) throws Exception;
+
+
+    /**
+     * 插入评论
+     * @param evaluation
+     * @return
+     * @throws Exception
+     */
+    int insertEvaluation(Evaluation evaluation) throws Exception;
+
+    /**
+     * 根据iid查询一系列的评论数据，分页
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    List<Evaluation> queryEvaluation(EvaluationDTO condition) throws Exception;
+
+    /**
+     * 计算页数
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    int countEvaluation(Evaluation condition) throws Exception;
+
+    /**
+     * 计算平均分
+     * @param iid
+     * @return
+     * @throws Exception
+     */
+    float avgLevel(Integer iid) throws Exception;
 }

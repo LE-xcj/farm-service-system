@@ -1,8 +1,6 @@
 package edu.zhku.dao;
 
-import edu.zhku.pojo.Item;
-import edu.zhku.pojo.ItemCondition;
-import edu.zhku.pojo.ItemConditionForMerchant;
+import edu.zhku.pojo.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -79,5 +77,34 @@ public interface ItemDao {
      * @throws Exception
      */
     int updateItemStatus(List<Integer> ids, int status) throws Exception;
+
+    /**
+     * 插入评论
+     * @param evaluation
+     * @return
+     */
+    int insertEvaluation(Evaluation evaluation) throws Exception;
+
+    /**
+     * 查询评论
+     * @param condition
+     * @return
+     */
+    List<Evaluation> queryEvaluation(EvaluationDTO condition) throws Exception;
+
+    /**
+     * 计算总数
+     * @param condition
+     * @return
+     */
+    int countEvaluation(Evaluation condition) throws Exception;
+
+    /**
+     * 计算平均评分
+     * @param iid
+     * @return
+     * @throws Exception
+     */
+    float avgLevel(Integer iid) throws Exception;
 }
     

@@ -2,10 +2,9 @@ package edu.zhku.dao.impl;
 
 import edu.zhku.constant.Table;
 import edu.zhku.dao.ItemDao;
+import edu.zhku.mapper.EvaluationMapper;
 import edu.zhku.mapper.ItemMapper;
-import edu.zhku.pojo.Item;
-import edu.zhku.pojo.ItemCondition;
-import edu.zhku.pojo.ItemConditionForMerchant;
+import edu.zhku.pojo.*;
 import edu.zhku.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +24,7 @@ public class ItemDaoImpl implements ItemDao {
 
     @Autowired
     private ItemMapper itemMapper;
+
 
     @Autowired
     private RedisUtil redisUtil;
@@ -103,6 +103,58 @@ public class ItemDaoImpl implements ItemDao {
     public int countForMerchant(ItemConditionForMerchant condition) throws Exception {
         int count = itemMapper.countForMerchant(condition);
         return count;
+    }
+
+
+    @Autowired
+    private EvaluationMapper evaluationMapper;
+    /**
+     * 评论那块
+     * @param evaluation
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int insertEvaluation(Evaluation evaluation) throws Exception {
+        int num = evaluationMapper.insertSelective(evaluation);
+        return num;
+    }
+
+    /**
+     * 查询评论
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Evaluation> queryEvaluation(EvaluationDTO condition) throws Exception {
+        List<Evaluation> evaluations = evaluationMapper.selectByCondition(condition);
+        return evaluations;
+    }
+
+    /**
+     * 计算总数
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countEvaluation(Evaluation condition) throws Exception {
+
+        int total = evaluationMapper.countEvaluation(condition);
+        return total;
+    }
+
+    /**
+     * 计算平均评分
+     * @param iid
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public float avgLevel(Integer iid) throws Exception {
+        float avg = evaluationMapper.avgLevel(iid);
+        return avg;
     }
 }
     

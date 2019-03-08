@@ -364,7 +364,8 @@
             _a.appendTo(_work);
 
             var _h3 = $("<h3></h3>");
-            $("<a></a>").attr("href", "#").text(_items[i].iname).appendTo(_h3);
+            var _href = "http://127.0.0.1:10086/farmService/item/itemDetailView?iid="+ _items[i].iid + "&mid=" + _items[i].mid;
+            $("<a></a>").attr("target", "_blank").attr("href", _href).text(_items[i].iname).appendTo(_h3);
             _h3.appendTo(_work);
 
             $("<h4></h4>").text(_items[i].price +"" + _items[i].unit).appendTo(_work);

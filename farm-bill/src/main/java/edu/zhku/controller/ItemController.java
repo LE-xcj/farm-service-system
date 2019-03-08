@@ -1,12 +1,11 @@
 package edu.zhku.controller;
 
 import edu.zhku.constant.Path;
-import edu.zhku.pojo.Item;
-import edu.zhku.pojo.ItemCondition;
-import edu.zhku.pojo.ItemConditionForMerchant;
-import edu.zhku.pojo.ItemUpdateDTO;
+import edu.zhku.pojo.*;
 import edu.zhku.service.ItemService;
 import edu.zhku.util.FileUtil;
+import edu.zhku.util.PageUtil;
+import edu.zhku.vo.EvaluationVo;
 import edu.zhku.vo.ItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +54,7 @@ public class ItemController {
      */
     @RequestMapping("/queryItemByPage")
     public ItemVo queryItemByPage(ItemCondition condition) throws Exception{
-        List<Item> items = itemService.selectByCondition(condition);
+        List<? extends Item> items = itemService.selectByCondition(condition);
 
         int totalPage = 0;
         if (null != items && !items.isEmpty()) {
@@ -79,8 +78,8 @@ public class ItemController {
      */
     @RequestMapping("/queryItemForMerchant")
     public ItemVo queryItemForMerchant(ItemConditionForMerchant condition) throws Exception {
-        ItemVo itemVo = itemService.selectByItem(condition);
 
+        ItemVo itemVo = itemService.selectByItem(condition);
 
         return itemVo;
 
@@ -128,6 +127,52 @@ public class ItemController {
         return num;
     }
 
+
+    /**
+     * 插入评论
+     * @param evaluation
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/evaluate")
+    public int evaluate(Evaluation evaluation) throws Exception {
+        int num = itemService.insertEvaluation(evaluation);
+        return num;
+    }
+
+    /**
+     * 查询商品的评价
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryEvaluation")
+    public EvaluationVo queryEvaluation(EvaluationDTO condition) throws Exception {
+
+        //vo
+        EvaluationVo vo = new EvaluationVo();
+
+        //评论集合
+        List<Evaluation> evaluations = itemService.queryEvaluation(condition);
+
+        //计算总页数
+        int total = itemService.countEvaluation(condition);
+        int totalPage = PageUtil.count(total, condition.getPageSize());
+
+        //平均评分
+        float avgLevel = itemService.avgLevel(condition.getIid());
+
+        //填充
+        vo.setEvaluations(evaluations);
+        vo.setTotalPage(totalPage);
+        vo.setTotal(total);
+        vo.setAvgLevel(avgLevel);
+
+        return vo;
+    }
+
+
+
     /**
      * 设置图片资源
      * @param item
@@ -140,6 +185,9 @@ public class ItemController {
             item.setMedia(url);
         }
     }
+
+
+
 
 }
     

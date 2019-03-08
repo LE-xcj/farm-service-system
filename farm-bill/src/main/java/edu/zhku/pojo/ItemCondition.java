@@ -23,6 +23,8 @@ public class ItemCondition{
 
     private boolean desc;
 
+    private boolean locationFirst = true;
+
     private List<MerchantConditon> merchantConditons;
 
     public int begin;
@@ -84,5 +86,12 @@ public class ItemCondition{
         this.begin = begin;
     }
 
+    public boolean getLocationFirst() {
+        return locationFirst;
+    }
+
+    public void setLocationFirst(boolean locationFirst) {
+        this.locationFirst = locationFirst;
+    }
 }
     

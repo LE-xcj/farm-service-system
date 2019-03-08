@@ -6,9 +6,10 @@ package edu.zhku.pojo;
  * @Description 功能描述
  * @date 2019/2/18 20:13
  */
-public class MerchantConditon implements Comparable<MerchantConditon>{
+public class MerchantConditon {
     private String mid;
     private int distance;
+    private String location;
 
     public String getMid() {
         return mid;
@@ -26,17 +27,12 @@ public class MerchantConditon implements Comparable<MerchantConditon>{
         this.distance = distance;
     }
 
+    public String getLocation() {
+        return location;
+    }
 
-    @Override
-    public int compareTo(MerchantConditon o) {
-
-        if (this.distance > o.getDistance()) {
-            return 1;
-        } else if (this.distance < o.getDistance()){
-            return -1;
-        }
-
-        return 0;
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
     

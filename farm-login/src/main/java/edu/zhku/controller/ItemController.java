@@ -88,6 +88,7 @@ public class ItemController {
 
     /**
      * 购物车
+     * 从redis那边获取农户的购物车信息，交由订单系统负责
      * @param session
      * @return
      * @throws Exception
@@ -100,9 +101,6 @@ public class ItemController {
         Farmer farmer = farmerService.selectById(fid);
         mv.addObject("farmer", farmer);
 
-        //这里还需从redis那边获取农户的购物车信息
-        //todo
-
         mv.setViewName("farmer/shoppingCart");
         return mv;
 
@@ -113,15 +111,19 @@ public class ItemController {
      * @param iid
      * @return
      */
-    //todo
     @RequestMapping("/itemDetailView")
-    public ModelAndView itemDetailView(Integer iid, String mid) throws Exception {
+    public ModelAndView itemDetailView(HttpSession session, Integer iid, String mid) throws Exception {
 
-        Merchant merchant = merchantService.selectById(mid);
+        String fid = (String) session.getAttribute(Role.FARMER.getPref());
 
         ModelAndView mv = new ModelAndView();
+
+        Merchant merchant = merchantService.selectById(mid);
+        Farmer farmer = farmerService.selectById(fid);
+
         mv.addObject("iid", iid);
         mv.addObject("merchant", merchant);
+        mv.addObject("farmer", farmer);
 
         mv.setViewName("farmer/itemDetail");
 

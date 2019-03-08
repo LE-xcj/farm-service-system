@@ -12,5 +12,7 @@ public class Size {
     public static final int ITEMPAGESIZE = 5;
 
     public static final int BILLPAGESIZE = 5;
+
+    public static final int EVALUATIONSIZE = 10;
 }
     

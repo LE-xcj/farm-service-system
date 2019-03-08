@@ -12,15 +12,15 @@ import java.util.List;
  */
 public class ItemVo {
 
-    private List<Item> items;
+    private List<? extends Item> items;
 
     private int totalPage;
 
-    public List<Item> getItems() {
+    public List<? extends Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<? extends Item> items) {
         this.items = items;
     }
 
