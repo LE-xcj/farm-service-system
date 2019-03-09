@@ -2,8 +2,10 @@ package edu.zhku.service;
 
 import edu.zhku.pojo.*;
 import edu.zhku.vo.ItemVo;
+import edu.zhku.vo.ShoppingCartItemVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chujian
@@ -81,4 +83,29 @@ public interface ItemService {
      * @throws Exception
      */
     float avgLevel(Integer iid) throws Exception;
+
+
+    //购物车那块
+    /**
+     * 添加
+     * @param item
+     * @return
+     */
+    int addItemToshoppingCard(ShoppingCartItemDTO item) throws Exception;
+
+    /**
+     * 移除
+     * @param item
+     * @return
+     */
+    int removeItemFromShoppingCard(ShoppingCartItemDTO item) throws Exception;
+
+
+    /**
+     *
+     * @param fid
+     * @return
+     * @throws Exception
+     */
+    Map<String, ShoppingCartItemVo> shoppingCardList(String fid) throws Exception;
 }

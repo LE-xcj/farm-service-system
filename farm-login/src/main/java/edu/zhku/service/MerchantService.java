@@ -32,4 +32,6 @@ public interface MerchantService {
 
     CodeVo updatePhone(Merchant merchant) throws Exception;
 
+    List<Merchant> queryMerchantByIds(List<String> mids) throws Exception;
+
 }

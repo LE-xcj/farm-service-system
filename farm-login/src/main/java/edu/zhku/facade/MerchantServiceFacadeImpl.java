@@ -61,5 +61,27 @@ public class MerchantServiceFacadeImpl implements MerchantServiceFacade {
         }
         return data;
     }
+
+    /**
+     * 批量查询merchant
+     *
+     * @param ids
+     * @return
+     */
+    @Override
+    public String queryMerchantByIds(String ids) {
+
+        List<String> mids = JSON.parseArray(ids, String.class);
+
+        String data = null;
+        try {
+            List<Merchant> merchants = merchantService.queryMerchantByIds(mids);
+            data = JSON.toJSONString(merchants);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
 }
     

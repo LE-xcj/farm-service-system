@@ -1,6 +1,7 @@
 package edu.zhku.mapper;
 
 import edu.zhku.pojo.Merchant;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,12 @@ public interface MerchantMapper {
 
     //delete
     int deleteByPrimaryKey(String mid) throws Exception;
+
+    /**
+     * 批量查询
+     * @param mids
+     * @return
+     * @throws Exception
+     */
+    List<Merchant> queryMerchantByIds(@Param("mids") List<String> mids) throws Exception;
 }

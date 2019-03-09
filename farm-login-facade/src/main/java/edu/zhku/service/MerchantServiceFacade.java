@@ -20,4 +20,11 @@ public interface MerchantServiceFacade {
 
     String queryMerchantById(String mid);
 
+    /**
+     * 根据id集合查询
+     * @param mids
+     * @return
+     */
+    String queryMerchantByIds(String mids);
+
 }

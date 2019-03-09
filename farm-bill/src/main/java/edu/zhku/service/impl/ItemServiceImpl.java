@@ -13,6 +13,7 @@ import edu.zhku.util.AMapUtil;
 import edu.zhku.util.PageUtil;
 import edu.zhku.vo.ItemExpandVo;
 import edu.zhku.vo.ItemVo;
+import edu.zhku.vo.ShoppingCartItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -459,6 +460,263 @@ public class ItemServiceImpl implements ItemService{
         float avg = itemDao.avgLevel(iid);
 
         return avg;
+    }
+
+
+    /**
+     * 添加或者更新数量
+     * @param item
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int addItemToshoppingCard(ShoppingCartItemDTO item) throws Exception {
+        if (item == null) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+        String fid = item.getFid();
+        List<ItemBrief> briefs = addOrUpage(item);
+
+        int num = itemDao.updateItemFromShoppingCard(fid, briefs);
+        return num;
+    }
+
+
+    @Override
+    public int removeItemFromShoppingCard(ShoppingCartItemDTO item) throws Exception {
+        if (item == null) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+        //获取购物车的信息
+        List<ItemBrief> briefs = getItemBrief(item);
+
+        //需要删除的item
+        List<Integer> ids = item.getIds();
+
+        //遍历移除
+        Iterator<ItemBrief> iterator = briefs.iterator();
+        while (iterator.hasNext()) {
+            ItemBrief brief = iterator.next();
+
+            Integer iid = brief.getIid();
+
+            //如果ids有，就删除
+            if (ids.contains(iid)) {
+                iterator.remove();
+            }
+        }
+
+        //更新信息
+        String fid = item.getFid();
+        int num = itemDao.updateItemFromShoppingCard(fid, briefs);
+
+        return num;
+    }
+
+
+    /**
+     * 获取某个农户的购物车信息
+     * @param fid
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map<String, ShoppingCartItemVo> shoppingCardList(String fid) throws Exception {
+
+        //从redis那边获取购物车的简要信息
+        List<ItemBrief> briefs = getItemBrief(fid);
+
+
+        int length = briefs.size();
+
+        //准备返回的vo, mid —> item视图
+        Map<String, ShoppingCartItemVo> result = new HashMap<>(length);
+
+        //购物车有东西
+        if (length != 0) {
+
+            //iid ->  num
+            Map<Integer, Integer> nums = new HashMap<>(length);
+
+            //进行初始化
+            for (ItemBrief brief : briefs) {
+
+                //初始化nums
+                Integer iid = brief.getIid();
+                Integer num = brief.getNum();
+                nums.put(iid, num);
+
+                //初始化返回的vo
+                String mid = brief.getMid();
+                ShoppingCartItemVo vo = new ShoppingCartItemVo();
+                result.put(mid, vo);
+
+            }
+
+            //批量查询商品
+            List<Integer> ids = new ArrayList<>(nums.keySet());
+            List<Item> items = itemDao.selectItemByIds(ids);
+
+            //包装
+            packItemVo(result, items, nums);
+
+        }
+
+        return result;
+    }
+
+    /**
+     * 包装
+     * @param result
+     * @param items
+     * @param nums
+     */
+    private void packItemVo(Map<String, ShoppingCartItemVo> result, List<Item> items, Map<Integer, Integer> nums) {
+
+        //对item进行包装
+        packItem(result, items, nums);
+
+        //对商户信息进行包装
+        packMerchant(result);
+
+    }
+
+    /**
+     * 填充item信息
+     * @param result
+     * @param items
+     * @param nums
+     */
+    private void packItem(Map<String, ShoppingCartItemVo> result, List<Item> items, Map<Integer, Integer> nums) {
+
+        //再次遍历itemss结果集
+        for (Item item : items) {
+
+            //通过item的mid定位对应的vo
+            String mid = item.getMid();
+            ShoppingCartItemVo vo = result.get(mid);
+
+            if (vo == null) {
+                vo = new ShoppingCartItemVo();
+            }
+
+            //根据item的id获取对应的数量
+            Integer iid = item.getIid();
+            int num = nums.get(iid);
+
+            //填充itemNum，填充item信息和数量
+            ItemNum itemNum = new ItemNum();
+            itemNum.setItem(item);
+            itemNum.setNum(num);
+
+            //添加
+            List<ItemNum> itemNums = vo.getItemNums();
+            if (null == itemNums) {
+                itemNums = new ArrayList<>();
+            }
+            itemNums.add(itemNum);
+
+
+        }
+    }
+
+    /**
+     * 填充merchant信息
+     * @param result
+     */
+    private void packMerchant(Map<String, ShoppingCartItemVo> result) {
+
+        //将mid集合转为list
+        List<String> lmids = new ArrayList<>(result.keySet());
+
+        //转为json字符串
+        String mids = JSON.toJSONString(lmids);
+
+        //获取merchant集合
+        String merchants = merchantServiceFacade.queryMerchantByIds(mids);
+
+        JSONArray array = JSON.parseArray(merchants);
+        int length = array.size();
+
+        //遍历填充merchant
+        for (int i=0; i<length; ++i) {
+            //获取mid属性
+            JSONObject merchant = array.getJSONObject(i);
+            String mid = merchant.getString("mid");
+
+            //填充merchant信息
+            ShoppingCartItemVo vo = result.get(mid);
+            vo.setMerchant(array.get(i));
+        }
+
+    }
+
+
+    /**
+     * 添加或者更新数量
+     * @param item
+     * @return
+     */
+    private List<ItemBrief> addOrUpage(ShoppingCartItemDTO item) throws Exception {
+
+        //定位是哪个农户的购物车, 购物车中所有商品信息简要
+        List<ItemBrief> briefs = getItemBrief(item);
+
+        //获取目标商品id
+        ItemBrief source = item.getBrief();
+        int iid = source.getIid();
+
+        boolean add = true;
+        //有可能添加，也有可能是数量更新
+        for (ItemBrief brief : briefs) {
+
+            if (iid == brief.getIid()) {
+
+                //数量叠加，这里对于减少就是加负数
+                int num = source.getNum() + brief.getNum();
+                brief.setNum(num);
+                add = false;
+                break;
+            }
+
+        }
+
+        //添加到购物车
+        if (add) {
+            briefs.add(source);
+        }
+
+        return briefs;
+    }
+
+
+    /**
+     * 从redis那边获取
+     * @param fid
+     * @return
+     * @throws Exception
+     */
+    private List<ItemBrief> getItemBrief(String fid) throws Exception {
+        List<ItemBrief> briefs = itemDao.getItemBrief(fid);
+        return briefs;
+    }
+
+    /**
+     * 从redis那边获取
+     * @param item
+     * @return
+     */
+    private List<ItemBrief> getItemBrief(ShoppingCartItemDTO item) throws Exception {
+        String fid = item.getFid();
+        List<ItemBrief> briefs = getItemBrief(fid);
+
+        if (briefs == null) {
+            briefs = new ArrayList<>();
+        }
+
+        return briefs;
     }
 
 

@@ -21,4 +21,5 @@ public interface MerchantDao {
     //update
     int updateByPrimaryKeySelective(Merchant merchant) throws Exception;
 
+    List<Merchant> queryMerchantByIds(List<String> mids) throws Exception;
 }

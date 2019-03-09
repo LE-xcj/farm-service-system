@@ -1,5 +1,6 @@
 package edu.zhku.dao.impl;
 
+import com.alibaba.fastjson.JSON;
 import edu.zhku.constant.Table;
 import edu.zhku.dao.ItemDao;
 import edu.zhku.mapper.EvaluationMapper;
@@ -155,6 +156,42 @@ public class ItemDaoImpl implements ItemDao {
     public float avgLevel(Integer iid) throws Exception {
         float avg = evaluationMapper.avgLevel(iid);
         return avg;
+    }
+
+
+    /**
+     * 从redis那边获取
+     * @param fid
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ItemBrief> getItemBrief(String fid) throws Exception {
+
+        //强转为String
+        String value = (String) redisUtil.hmGet(Table.SHOPPINGCART, fid);
+
+        //转为list
+        List<ItemBrief> briefs = JSON.parseArray(value, ItemBrief.class);
+
+        return briefs;
+    }
+
+    /**
+     * 从redis那边操作
+     * @param fid
+     * @param items
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int updateItemFromShoppingCard(String fid, List<ItemBrief> items) throws Exception {
+
+        //以防万一，还是转为string
+        String value = JSON.toJSONString(items);
+        redisUtil.hmSet(Table.SHOPPINGCART, fid, value);
+
+        return 1;
     }
 }
     

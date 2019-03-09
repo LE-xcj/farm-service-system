@@ -241,4 +241,11 @@
   </sql>
 
 
+  <select id="queryMerchantByIds" parameterType="java.util.List" resultMap="resultMap">
+    select * from t_merchant where mid IN 
+    <foreach collection="mids" open="(" separator="," close=")" item="item">
+      #{item}
+    </foreach>
+  </select>
+
 </mapper>

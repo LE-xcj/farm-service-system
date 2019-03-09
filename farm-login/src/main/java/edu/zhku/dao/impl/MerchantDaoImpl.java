@@ -69,6 +69,12 @@ public class MerchantDaoImpl implements MerchantDao{
         return flag;
     }
 
+    @Override
+    public List<Merchant> queryMerchantByIds(List<String> mids) throws Exception {
+        List<Merchant> data = merchantMapper.queryMerchantByIds(mids);
+        return data;
+    }
+
 
     public Merchant getMerchant(String mid)  {
         Merchant merchant = (Merchant) redisUtil.hmGet(Table.MERCHANTTABLE.name(), mid);

@@ -10,4 +10,6 @@ public class Table {
 
     public static final String ITEMTABLE = "ItemTable";
 
+    public static final String SHOPPINGCART = "ShoppingCartTable";
+
 }

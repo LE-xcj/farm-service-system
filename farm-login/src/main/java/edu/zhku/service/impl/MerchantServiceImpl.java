@@ -287,6 +287,15 @@ public class MerchantServiceImpl implements MerchantService{
         return CodeVoFactory.getVo(code);
     }
 
+    @Override
+    public List<Merchant> queryMerchantByIds(List<String> mids) throws Exception {
+        if (null == mids || mids.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<Merchant> result = merchantDao.queryMerchantByIds(mids);
+        return result;
+    }
+
 
     /**
      * 判断是否为null

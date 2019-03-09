@@ -106,5 +106,22 @@ public interface ItemDao {
      * @throws Exception
      */
     float avgLevel(Integer iid) throws Exception;
+
+
+    /**
+     * 获取redis那边的数据
+     * @param fid
+     * @return
+     */
+    List<ItemBrief> getItemBrief(String fid) throws Exception;
+
+    /**
+     * 更新数据
+     * @param fid
+     * @param items
+     * @return
+     * @throws Exception
+     */
+    int updateItemFromShoppingCard(String fid, List<ItemBrief> items) throws Exception;
 }
     

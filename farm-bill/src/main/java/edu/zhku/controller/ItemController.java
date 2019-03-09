@@ -7,13 +7,16 @@ import edu.zhku.util.FileUtil;
 import edu.zhku.util.PageUtil;
 import edu.zhku.vo.EvaluationVo;
 import edu.zhku.vo.ItemVo;
+import edu.zhku.vo.ShoppingCartItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chujian
@@ -169,6 +172,44 @@ public class ItemController {
         vo.setAvgLevel(avgLevel);
 
         return vo;
+    }
+
+
+    /**
+     * 给某个农户的购物车添加一个商品
+     * @param item
+     * @return
+     */
+    @RequestMapping("/addItemToshoppingCard")
+    public int addItemToshoppingCard(ShoppingCartItemDTO item) throws Exception {
+        int num = itemService.addItemToshoppingCard(item);
+        return num;
+    }
+
+    /**
+     * 删除某个农户购物车的商品信息
+     * @param item
+     * @return
+     */
+    @RequestMapping("/removeItemFromShoppingCard")
+    public int removeItemFromShoppingCard(ShoppingCartItemDTO item) throws Exception {
+        int num = itemService.removeItemFromShoppingCard(item);
+        return num;
+    }
+
+
+    /**
+     * 获取某个农户的购物车信息
+     * @param fid
+     * @throws Exception
+     */
+    @RequestMapping("/shoppingCardList")
+    public List<ShoppingCartItemVo> shoppingCardList(String fid) throws Exception {
+
+        Map<String, ShoppingCartItemVo> shoppingCard = itemService.shoppingCardList(fid);
+        List<ShoppingCartItemVo> result = new ArrayList<>(shoppingCard.values());
+        return result;
+
     }
 
 
