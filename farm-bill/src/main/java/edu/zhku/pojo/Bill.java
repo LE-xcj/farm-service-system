@@ -19,6 +19,10 @@ public class Bill {
 
     private String remark;
 
+    private String address;
+
+    private String location;
+
     public String getBid() {
         return bid;
     }
@@ -81,5 +85,21 @@ public class Bill {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

@@ -10,9 +10,12 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="deadline" jdbcType="TIMESTAMP" property="deadline" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
   </resultMap>
+
   <sql id="Base_Column_List">
-    bid, fid, mid, money, status, createTime, deadline, remark
+    bid, fid, mid, money, status, createTime, deadline, remark, address, location
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
@@ -20,18 +23,23 @@
     from t_bill
     where bid = #{bid,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from t_bill
     where bid = #{bid,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insert" parameterType="edu.zhku.pojo.Bill">
     insert into t_bill (bid, fid, mid,
-    money, status, createTime,
-    deadline, remark)
+      money, status, createTime,
+      deadline, remark, address,
+      location)
     values (#{bid,jdbcType=VARCHAR}, #{fid,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR},
-    #{money,jdbcType=REAL}, #{status,jdbcType=INTEGER}, now(),
-    #{deadline,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+      #{money,jdbcType=REAL}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP},
+      #{deadline,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+      #{location,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="edu.zhku.pojo.Bill">
     insert into t_bill
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -56,6 +64,12 @@
       <if test="remark != null">
         remark,
       </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
       createTime
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -79,6 +93,12 @@
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
       </if>
       now()
     </trim>
@@ -107,9 +127,16 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
     </set>
     where bid = #{bid,jdbcType=VARCHAR}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="edu.zhku.pojo.Bill">
     update t_bill
     set fid = #{fid,jdbcType=VARCHAR},
@@ -118,7 +145,9 @@
       status = #{status,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       deadline = #{deadline,jdbcType=TIMESTAMP},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR}
     where bid = #{bid,jdbcType=VARCHAR}
   </update>
 
@@ -144,6 +173,8 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="deadline" jdbcType="TIMESTAMP" property="deadline" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
 
     <!--与 “订单-商品表” 进行一对多的映射-->
     <collection property="billItems" ofType="edu.zhku.pojo.BillItem">

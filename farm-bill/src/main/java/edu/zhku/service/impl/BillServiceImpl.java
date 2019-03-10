@@ -10,6 +10,7 @@ import edu.zhku.service.BillService;
 import edu.zhku.service.FarmerServiceFacade;
 import edu.zhku.service.MerchantServiceFacade;
 import edu.zhku.service.NotifyServiceFacade;
+import edu.zhku.util.AMapUtil;
 import edu.zhku.util.KeyFactory;
 import edu.zhku.util.MessageFactory;
 import edu.zhku.util.PageUtil;
@@ -50,6 +51,9 @@ public class BillServiceImpl implements BillService {
             throw new Exception(ExceptionMessage.PARAMETORERRO);
         }
 
+        //设置location
+        setLocation(bill);
+
         //填充订单必要信息，同时返回第三方表需要插入的记录
         List<BillItem> billItems = buildBill(bill, itemIds, nums);
 
@@ -83,6 +87,9 @@ public class BillServiceImpl implements BillService {
         if (null == bill || bill.getBid() == null) {
             throw new Exception(ExceptionMessage.OBJNULL);
         }
+
+        //设置location,有可能更新
+        setLocation(bill);
 
         int num = billDao.updateBillById(bill);
 
@@ -340,6 +347,8 @@ public class BillServiceImpl implements BillService {
         bill.setCreatetime(dto.getCreatetime());
         bill.setDeadline(dto.getDeadline());
         bill.setRemark(dto.getRemark());
+        bill.setAddress(dto.getAddress());
+        bill.setLocation(dto.getLocation());
 
         vo.setBill(bill);
 
@@ -408,5 +417,18 @@ public class BillServiceImpl implements BillService {
         vo.setOperators(operators);
     }
 
+    /**
+     * 设置订单的目的地址坐标
+     * @param bill
+     */
+    private void setLocation(Bill bill) {
+        String address = bill.getAddress();
+        if (null == address || "".equals(address.trim())) {
+            return;
+        }
+
+        String location = AMapUtil.geoCode(address);
+        bill.setLocation(location);
+    }
 }
     

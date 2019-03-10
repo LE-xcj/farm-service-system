@@ -108,7 +108,7 @@
             <input id="add" name="" type="button" value="+" style="margin-top: 17px;"/>
         </div>
         <div class="nobdr-btns">
-            <button class="addcart hu"><img src="http://106.14.139.8/farmer-index/itemDetail/images/shop.png" width="25" height="25"/>加入购物车</button>
+            <button class="addcart hu" onclick="add()"><img src="http://106.14.139.8/farmer-index/itemDetail/images/shop.png" width="25" height="25"/>加入购物车</button>
             <button class="addcart yh"><img src="http://106.14.139.8/farmer-index/itemDetail/images/ht.png" width="25" height="25"/>立即购买</button>
         </div>
         <div class="guarantee">
@@ -302,7 +302,7 @@
             var _parameter = "";
 
             if (_farmer != '') {
-                _parameter = _parameter + _farmer + ",您的位置" + + "|";
+                _parameter = _parameter + _farmer + ",您的位置" + "|";
             }
             _parameter = _parameter  + '${merchant.location}' + ",商家地址";
 
@@ -416,4 +416,24 @@
     });
 </script>
 
+
+<script>
+    function add(){
+        var _num = $("#text_box").val();
+        var _fid = '${farmer.fid}';
+        var _mid = '${merchant.mid}';
+        var _iid =  '${iid}';
+        console.info(_num + " " + _fid + " " + _mid);
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/item/addItemToshoppingCard",
+            async:false,
+            dataType:'json',
+            data:{fid: _fid, 'brief.mid': _mid, 'brief.iid': _iid, 'brief.num': _num},
+            success: function(data){
+                showDialog("添加成功!");
+            }
+        });
+    }
+</script>
 </html>

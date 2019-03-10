@@ -27,6 +27,7 @@ public class BillCondition {
 
     public void setPage(int page) {
         this.page = page;
+        this.begin = (this.page - 1) * pageSize;
     }
 
     public int getPageSize() {

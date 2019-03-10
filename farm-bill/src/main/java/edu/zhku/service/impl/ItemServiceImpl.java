@@ -495,6 +495,24 @@ public class ItemServiceImpl implements ItemService{
         //需要删除的item
         List<Integer> ids = item.getIds();
 
+        //对briefs进行删除
+        removeItemFromShoppingCard(briefs, ids);
+
+        //更新信息
+        String fid = item.getFid();
+        int num = itemDao.updateItemFromShoppingCard(fid, briefs);
+
+        return num;
+    }
+
+    /**
+     * 对briefs进行删除操作
+     * @param briefs
+     * @param ids
+     * @return
+     */
+    private void removeItemFromShoppingCard (List<ItemBrief> briefs, List<Integer> ids) {
+
         //遍历移除
         Iterator<ItemBrief> iterator = briefs.iterator();
         while (iterator.hasNext()) {
@@ -508,11 +526,6 @@ public class ItemServiceImpl implements ItemService{
             }
         }
 
-        //更新信息
-        String fid = item.getFid();
-        int num = itemDao.updateItemFromShoppingCard(fid, briefs);
-
-        return num;
     }
 
 
@@ -527,7 +540,6 @@ public class ItemServiceImpl implements ItemService{
 
         //从redis那边获取购物车的简要信息
         List<ItemBrief> briefs = getItemBrief(fid);
-
 
         int length = briefs.size();
 
@@ -669,22 +681,30 @@ public class ItemServiceImpl implements ItemService{
         int iid = source.getIid();
 
         boolean add = true;
-        //有可能添加，也有可能是数量更新
-        for (ItemBrief brief : briefs) {
 
+        Iterator<ItemBrief> iterator = briefs.iterator();
+
+        //有可能添加，也有可能是数量更新，也有可能是删除
+        while (iterator.hasNext()) {
+            ItemBrief brief = iterator.next();
             if (iid == brief.getIid()) {
 
                 //数量叠加，这里对于减少就是加负数
                 int num = source.getNum() + brief.getNum();
-                brief.setNum(num);
+
+                //数量小于=0，那么就需要移除
+                if (num <= 0) {
+                    iterator.remove();
+                } else {
+                    brief.setNum(num);
+                }
                 add = false;
                 break;
             }
-
         }
 
         //添加到购物车
-        if (add) {
+        if (add && source.getNum() > 0) {
             briefs.add(source);
         }
 
@@ -700,6 +720,11 @@ public class ItemServiceImpl implements ItemService{
      */
     private List<ItemBrief> getItemBrief(String fid) throws Exception {
         List<ItemBrief> briefs = itemDao.getItemBrief(fid);
+
+        if (briefs == null) {
+            briefs = new ArrayList<>();
+        }
+
         return briefs;
     }
 
@@ -711,11 +736,6 @@ public class ItemServiceImpl implements ItemService{
     private List<ItemBrief> getItemBrief(ShoppingCartItemDTO item) throws Exception {
         String fid = item.getFid();
         List<ItemBrief> briefs = getItemBrief(fid);
-
-        if (briefs == null) {
-            briefs = new ArrayList<>();
-        }
-
         return briefs;
     }
 
