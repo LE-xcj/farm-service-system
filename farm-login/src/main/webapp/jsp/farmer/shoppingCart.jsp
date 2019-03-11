@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <!-- saved from url=(0064)http://www.17sucai.com/preview/1528155/2018-12-27/gwc/index.html -->
-<html>
+<html id="myHtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=0">
@@ -17,6 +17,11 @@
     <link rel="stylesheet" type="text/css" href="http://106.14.139.8/farmer-index/shoppingcart/css/shoppingcart.css">
     <script src="http://106.14.139.8/farmer-index/shoppingcart/js/jquery.min.js"></script>
     <script src="http://106.14.139.8/farmer-index/shoppingcart/js/shoppingcart.js" type="text/javascript" charset="utf-8"></script>
+
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
+    <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
 
 </head>
 <body style="">
@@ -38,7 +43,14 @@
                 <div class="all-sl" style="display: none;">(<span class="product-all-sl">0</span>)</div>
             </div>
         </div>
-        <a href="#" class="product-sett product-sett-a">结算</a>
+
+        <form
+                style="display: none"
+                id="myForm" method="post"
+                enctype="multipart/form-data"
+                action="${pageContext.request.contextPath }/bill/createBillView">
+        </form>
+        <a href="javascript:submitBill();" class="product-sett product-sett-a">结算</a>
         <div class="all-product"><span class="all-product-a">¥ <span class="all-price">0.00</span></span></div>
 
     </div>
@@ -64,6 +76,8 @@
 
 
 <script>
+    var _golobalItem = new Map();
+
     $.ready = function() {
 
         var _fid = '${farmer.fid}';
@@ -76,10 +90,25 @@
             data:{fid: _fid},
             success: function(data){
                 fill(data);
+                setGolobalItem(data);
             }
         });
 
         myInit();
+    }
+
+    function setGolobalItem(data) {
+        var _shoppingCartItemVos_length = data.length;
+        for (var i=0; i<_shoppingCartItemVos_length; ++i) {
+            var _itemNums = data[i].itemNums;
+            var items_length = _itemNums.length;
+            for (var j=0; j<items_length; ++j) {
+                var _item = _itemNums[j].item;
+                var _iid = _item.iid;
+                _golobalItem.set(_iid, _item);
+            }
+        }
+        console.info(_golobalItem);
     }
 
     function myInit() {
@@ -305,6 +334,83 @@
             }
         });
     }
+
+    function submitBill() {
+        var _fid = $("input[name='fid']").val();
+
+        var pre = null;
+        var _list = [];
+
+        var canSubmit = true;
+        $(".product-em").each(function(){
+
+            if($(this).is(".product-xz")){
+
+                var price = parseInt($(this).parents(".product-ckb").siblings().find(".price").text());//得到产品单价
+                var slproice = parseInt($(this).parents(".product-ckb").siblings().find(".product-num").val());//得到产品数量
+                var _mid = $(this).parents(".product-ckb").siblings().find(".product-num").attr("id"); //得到mid
+                var _iid = $(this).parents(".product-ckb").siblings().find(".product_gw").attr("id"); //得到iid
+                var _item = _golobalItem.get(parseInt(_iid));
+
+                if(pre == null) {
+                    pre = _mid;
+                } else if (_mid != pre) {
+                    showDialog("商品必须同一个卖家才行!");
+                    canSubmit = false;
+                    return;
+                }
+
+                _item.num = slproice;
+                _list.push(_item);
+            }
+
+        });
+
+        if (canSubmit) {
+            redirCreateBillView(_list);
+        }
+    }
+
+    function redirCreateBillView(_list) {
+
+        console.info(_list);
+
+        var _form = $("#myForm");
+        var length = _list.length;
+
+        for (var i=0; i<length; ++i) {
+
+            var pre = "items[" + i +"].";
+
+            var _input1 = $("<input type='text'/>");
+            var _input2 = $("<input type='text'/>");
+            var _input3 = $("<input type='text'/>");
+            var _input4 = $("<input type='text'/>");
+            var _input5 = $("<input type='text'/>");
+            var _input6 = $("<input type='text'/>");
+            var _input7 = $("<input type='text'/>");
+            var _input8 = $("<input type='text'/>");
+            var _input9 = $("<input type='text'/>");
+
+            _input1.attr("name", pre + "description").attr("value", _list[i].description);
+            _input2.attr("name", pre + "iid").attr("value", _list[i].iid);
+            _input3.attr("name", pre + "iname").attr("value", _list[i].iname);
+            _input4.attr("name", pre + "media").attr("value", _list[i].media);
+            _input5.attr("name", pre + "mid").attr("value", _list[i].mid);
+            _input6.attr("name", pre + "price").attr("value", _list[i].price);
+            _input7.attr("name", pre + "status").attr("value", _list[i].status);
+            _input8.attr("name", pre + "unit").attr("value", _list[i].unit);
+            _input9.attr("name", pre + "num").attr("value", _list[i].num);
+
+            _form.append(_input1).append(_input2).append(_input3)
+                .append(_input4).append(_input5).append(_input6)
+                .append(_input7).append(_input8).append(_input9);
+        }
+
+        _form.submit();
+
+    }
+
 </script>
 
 </html>
