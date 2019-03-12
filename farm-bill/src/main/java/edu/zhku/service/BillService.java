@@ -3,6 +3,7 @@ package edu.zhku.service;
 import edu.zhku.pojo.Bill;
 import edu.zhku.pojo.BillCondition;
 import edu.zhku.pojo.BillDO;
+import edu.zhku.vo.BillStatusVo;
 import edu.zhku.vo.BillVo;
 
 import java.util.List;
@@ -26,6 +27,12 @@ public interface BillService {
     int count(BillCondition condition) throws Exception;
 
 
-
+    /**
+     * 批量更新订单状态
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    int updateBillStatusForList(BillStatusVo vo) throws Exception;
 }
     

@@ -5,6 +5,7 @@ import edu.zhku.pojo.BillCondition;
 import edu.zhku.pojo.BillDO;
 import edu.zhku.service.BillService;
 import edu.zhku.vo.BillPageVo;
+import edu.zhku.vo.BillStatusVo;
 import edu.zhku.vo.BillVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,18 @@ public class BillController {
         return num;
     }
 
+    /**
+     * 批量更新订单状态
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/updateBillStatusForList")
+    public int updateBillStatusForList(BillStatusVo vo) throws Exception {
+
+        int num = billService.updateBillStatusForList(vo);
+        return num;
+    }
 
 
 

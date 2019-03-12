@@ -2,6 +2,7 @@ package edu.zhku.dao;
 
 import edu.zhku.pojo.*;
 import edu.zhku.vo.BillDTO;
+import edu.zhku.vo.BillStatusVo;
 import edu.zhku.vo.ItemDTO;
 
 import java.util.List; /**
@@ -92,4 +93,12 @@ public interface BillDao {
      * @throws Exception
      */
     int count(BillCondition condition) throws Exception;
+
+    /**
+     *
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    int updateBillStatusForList(BillStatusVo vo) throws Exception;
 }

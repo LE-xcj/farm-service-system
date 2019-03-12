@@ -123,5 +123,6 @@ public interface ItemDao {
      * @throws Exception
      */
     int updateItemFromShoppingCard(String fid, List<ItemBrief> items) throws Exception;
+
 }
     

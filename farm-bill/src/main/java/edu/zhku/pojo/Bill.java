@@ -1,5 +1,7 @@
 package edu.zhku.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Bill {
@@ -15,6 +17,7 @@ public class Bill {
 
     private Date createtime;
 
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date deadline;
 
     private String remark;

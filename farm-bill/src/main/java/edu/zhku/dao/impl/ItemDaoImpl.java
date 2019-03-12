@@ -7,6 +7,7 @@ import edu.zhku.mapper.EvaluationMapper;
 import edu.zhku.mapper.ItemMapper;
 import edu.zhku.pojo.*;
 import edu.zhku.util.RedisUtil;
+import edu.zhku.vo.BillStatusVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -193,5 +194,6 @@ public class ItemDaoImpl implements ItemDao {
 
         return 1;
     }
+
 }
     

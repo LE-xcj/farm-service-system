@@ -80,6 +80,12 @@
     <script src="http://106.14.139.8/merchant-index/assets/js/jquery.min.js"></script>
     <script src="http://106.14.139.8/normal/js/city.js"></script>
 
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
+    <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
+
+
     <!--时间选择组件样式-->
     <style>
         .myTime {
@@ -144,7 +150,7 @@
 
 
         <%--主体--%>
-        <form action="http://127.0.0.1:10087/farmService/bill/createBill" method="post">
+        <form id="myForm" action="http://127.0.0.1:10087/farmService/bill/createBill" method="post">
             <div>
                 <h3 class="dib">确认订单信息</h3>
                 <table cellspacing="0" cellpadding="0" class="order-table" id="J_OrderTable" summary="统一下单订单信息区域">
@@ -193,7 +199,7 @@
                     <%--tb--%>
                     <tbody id="tb" data-spm="3" class="J_Shop" data-tbcbid="0" data-outorderid="47285539868" data-isb2c="false" data-postmode="2" data-sellerid="1704508670">
 
-                        <c:forEach var="item" items="${items }" varStatus="i">
+                        <c:forEach var="item" items="${items }" varStatus="i" step="1">
                             <tr class="item" data-lineid="19614514619:31175333266:35612993875" data-pointrate="0">
                                 <td class="s-title">
                                     <a href="http://127.0.0.1:10086/farmService/item/itemDetailView?iid=${item.iid}&mid=${item.mid}" target="_blank" class="J_MakePoint">
@@ -214,8 +220,8 @@
 
                                 <%--数量--%>
                                 <td class="s-amount" data-point-url="">
-                                    <input type="hidden" class=".myClass" value="${item.num}" name="itemIds[${i}]"/>
-                                    <input type="hidden" class="J_Quantity" value="${item.num}" name="nums[${i}]">
+                                    <input type="hidden" class="myClass" value="${item.iid}" name="itemIds[${i.index}]"/>
+                                    <input type="hidden" value="${item.num}" name="nums[${i.index}]">
                                     ${item.num}
                                 </td>
 
@@ -225,8 +231,8 @@
                                     </div>
                                 </td>
                                 <td class="s-total">
-                                    <span class="price ">
-                                        <em class="style-normal-bold-red J_ItemTotal ">${item.price * item.num}</em>
+                                    <span class="price">
+                                        <em class="style-normal-bold-red J_ItemTotal">${item.price * item.num}</em>
                                     </span>
                                 </td>
                             </tr>
@@ -289,7 +295,7 @@
                             <td colspan="5">
                                 <span class="price g_price ">
                                     <span>店铺合计(不含运费)：¥</span>
-                                    <em class="style-middle-bold-red J_ShopTotal">630.00</em>
+                                    <em class="style-middle-bold-red J_ShopTotal" id="totalPrice">630.00</em>
                                 </span>
                             </td>
                         </tr>
@@ -305,7 +311,7 @@
                                                         <em class="t">实付款：</em>
                                                             <span class="price g_price ">
                                                                 <span>¥</span>
-                                                                <em class="style-large-bold-red" id="J_ActualFee">630.00</em>
+                                                                <em class="style-large-bold-red" id="realTotal">630.00</em>
                                                             </span>
                                                     </div>
                                                     <ul>
@@ -326,7 +332,7 @@
                                             <a href="${pageContext.request.contextPath }/item/shoppingCart" class="back J_MakePoint" target="_top" data-point-url="">
                                                 返回购物车
                                             </a>
-                                            <a id="J_Go" class=" btn-go" data-point-url="" tabindex="0" title="点击此按钮，提交订单。">
+                                            <a id="createBill" href="javascript:createBill();" class=" btn-go" title="点击此按钮，提交订单。">
                                                 提交订单<b class="dpl-button"></b>
                                             </a>
                                         </div>
@@ -378,6 +384,14 @@
 
 <script>
 
+    var _total = 0;
+    $(".style-normal-bold-red").each(function () {
+        var _money = parseInt($(this).text());
+        _total = _total + _money;
+    });
+
+    $("#realTotal").text(_total);
+    $("#totalPrice").text(_total);
 
     $('input:radio[name="source_address"]').click(function(){
         var checkValue = $('input:radio[name="source_address"]:checked').val();
@@ -401,6 +415,9 @@
         change();
     });
 
+
+
+
     function change() {
         var _detail = $("#detail").val();
         var _province = $("#province option:selected").text();
@@ -414,5 +431,82 @@
         $("#address").val(_address);
     }
 
+    function createBill() {
+
+        var _dealLine = $("#deadline").val();
+        console.info(_dealLine);
+
+        var formobj =  document.getElementById("myForm");
+        var _formData = new FormData(formobj);
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/bill/createBill",
+            async:false,
+            dataType:'json',
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            data:_formData,
+            success: function(data){
+                if (data == 1) {
+                    removeAndLocation();
+                } else {
+                    showDialog("订单提交失败！");
+                }
+            }
+        });
+
+
+    }
+
+    function removeAndLocation(){
+        var _fid = $("input[name='fid']").val();
+        var ids = [];
+
+        $(".myClass").each(function () {
+            var iid = $(this).val();
+            ids.push(iid);
+
+        });
+
+        console.info(ids);
+
+
+        var formData = new FormData();
+        formData.append("fid", _fid);
+        formData.append("ids", ids);
+
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/item/removeItemFromShoppingCard",
+            async:false,
+            dataType:'json',
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            data:formData,
+            success: function(data){
+                showDialog("提交成功!");
+                setTimeout(locate, 1500);
+            }
+        });
+
+    }
+
+    function locate() {
+        window.location.href="http://127.0.0.1:10086/farmService/farmer/index";
+    }
 </script>
 </html>

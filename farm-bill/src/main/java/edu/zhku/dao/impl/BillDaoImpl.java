@@ -8,6 +8,7 @@ import edu.zhku.mapper.BillMapper;
 import edu.zhku.mapper.BillOperatorMapper;
 import edu.zhku.pojo.*;
 import edu.zhku.vo.BillDTO;
+import edu.zhku.vo.BillStatusVo;
 import edu.zhku.vo.ItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -156,10 +157,11 @@ public class BillDaoImpl implements BillDao {
         return total;
     }
 
-
-
-
-
+    @Override
+    public int updateBillStatusForList(BillStatusVo vo) throws Exception {
+        int num = billMapper.updateBillStatusForList(vo);
+        return num;
+    }
 
 
     //////////////////////////////////////////////////////////////////////

@@ -3,6 +3,7 @@ package edu.zhku.mapper;
 import edu.zhku.pojo.Bill;
 import edu.zhku.pojo.BillCondition;
 import edu.zhku.vo.BillDTO;
+import edu.zhku.vo.BillStatusVo;
 
 import java.util.List;
 
@@ -26,4 +27,13 @@ public interface BillMapper {
 
     //计算页数
     int count(BillCondition condition) throws Exception;
+
+
+    /**
+     * 批量更新订单的状态
+     * @param billStatusVo
+     * @return
+     * @throws Exception
+     */
+    int updateBillStatusForList(BillStatusVo billStatusVo) throws Exception;
 }

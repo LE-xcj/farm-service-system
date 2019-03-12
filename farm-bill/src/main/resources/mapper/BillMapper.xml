@@ -250,4 +250,11 @@
     limit #{begin}, #{pageSize}
   </sql>
 
+  
+  <update id="updateBillStatusForList" parameterType="edu.zhku.vo.BillStatusVo">
+    update t_bill set status = #{status} where bid in 
+    <foreach collection="bids" open="(" separator="," close=")" item="item">
+        #{item}
+    </foreach>
+  </update>
 </mapper>

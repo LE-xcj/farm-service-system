@@ -15,6 +15,7 @@ import edu.zhku.util.KeyFactory;
 import edu.zhku.util.MessageFactory;
 import edu.zhku.util.PageUtil;
 import edu.zhku.vo.BillDTO;
+import edu.zhku.vo.BillStatusVo;
 import edu.zhku.vo.BillVo;
 import edu.zhku.vo.ItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,6 +226,23 @@ public class BillServiceImpl implements BillService {
         int total = billDao.count(condition);
         int totalPage = PageUtil.count(total, condition.getPageSize());
         return totalPage;
+    }
+
+    @Override
+    public int updateBillStatusForList(BillStatusVo vo) throws Exception {
+
+        if (vo == null) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+        List<String> bids = vo.getBids();
+        if (null == bids || bids.isEmpty()) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+        int num = billDao.updateBillStatusForList(vo);
+
+        return num;
     }
 
     @Autowired
