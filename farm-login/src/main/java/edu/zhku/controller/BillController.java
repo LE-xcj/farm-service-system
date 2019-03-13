@@ -56,6 +56,27 @@ public class BillController {
         return mv;
     }
 
+    @RequestMapping("/merchantBillList")
+    public ModelAndView merchantBillList(HttpSession session) {
+
+        ModelAndView mv = new ModelAndView();
+        String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
+
+        mv.addObject("mid", mid);
+        mv.setViewName("merchant/billManager");
+        return mv;
+    }
+
+    @RequestMapping("/merchantProcessingBill")
+    public ModelAndView merchantProcessingBill(HttpSession session) {
+
+        ModelAndView mv = new ModelAndView();
+        String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
+
+        mv.addObject("mid", mid);
+        mv.setViewName("merchant/processBill");
+        return mv;
+    }
 
     /**
      * 获取mid

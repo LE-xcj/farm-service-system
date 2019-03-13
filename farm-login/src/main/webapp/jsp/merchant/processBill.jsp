@@ -11,21 +11,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>订单跟进</title>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
 
     <!--css-->
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="icon" type="image/png" href="http://106.14.139.8/merchant-index/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="http://106.14.139.8/merchant-index/assets/i/app-icon72x72@2x.png">
+    <link rel="stylesheet" href="http://106.14.139.8/merchant-index/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="http://106.14.139.8/merchant-index/assets/css/admin.css">
 
     <!--js-->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/amazeui.min.js"></script>
+    <script src="http://106.14.139.8/merchant-index/assets/js/jquery.min.js"></script>
+    <script src="http://106.14.139.8/merchant-index/assets/js/app.js"></script>
+    <script src="http://106.14.139.8/merchant-index/assets/js/amazeui.min.js"></script>
+
     <!--myjs-->
     <script src="http://106.14.139.8/normal/js/iframeJS.js"></script>
+
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
+    <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
 
 </head>
 
@@ -41,60 +48,24 @@
         <table class="am-table">
             <thead>
                 <tr>
-                <th>团队统计</th>
-                <th>全部会员</th>
-                <th>全部未激活</th>
-                <th>今日新增</th>
-                <th>今日未激活</th>
+                    <tb>
+                        <input type="checkbox" onchange="selectAll(this)" id="all"/>
+                    </tb>
+                    <th>订单号</th>
+                    <th>客户姓名</th>
+                    <th>地址</th>
+                    <th>联系方式</th>
+                    <th>金额</th>
 
-                <th>团队统计</th>
-                <th>全部会员</th>
-                <th>全部未激活</th>
-                <th>今日新增</th>
-                <th>今日未激活</th>
-
-            </tr>
+                    <th>预约日期</th>
+                    <th>倒计时</th>
+                    <th>备注</th>
+                    <th>服务信息</th>
+                    <th>机手信息</th>
+                    <th>安排机手</th>
+                </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>普卡</td>
-                    <td>普卡</td>
-                    <td>
-                        <a href="#">4534</a>
-                    </td>
-                    <td>+20</td>
-                    <td> 4534 </td>
-                    <td>普卡</td>
-                    <td>普卡</td>
-                    <td>
-                        <a href="#">4534</a>
-                    </td>
-                    <td>+20</td>
-                    <td> 4534 </td>
-                </tr>
-                <tr>
-                    <td>普卡</td>
-                    <td>普卡</td>
-                    <td>
-                        <a href="#">4534</a>
-                    </td>
-                    <td>+20</td>
-                    <td> 4534 </td>
-                    <td>普卡</td>
-                    <td>普<br />卡</td>
-                    <td>
-                        <a href="#">4534</a>
-                    </td>
-                    <td>+20</td>
-                    <td>
-
-                        <a data-am-modal="{target: '#my-popups'}" title="添加子栏目" href="javascript:void(0);">
-                            2018
-                        </a>
-                    </td>
-                </tr>
-
-            </tbody>
+            <tbody></tbody>
         </table>
 
         <div>
@@ -209,4 +180,12 @@
 
 </body>
 
+<script>
+    function selectAll(_this) {
+        var _check = $(_this).prop("checked");
+        $("#table :checkbox").each(function(key, value){
+            $(value).prop("checked", _check);
+        });
+    }
+</script>
 </html>

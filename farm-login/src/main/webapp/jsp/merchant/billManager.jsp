@@ -25,8 +25,6 @@
     <script src="http://106.14.139.8/merchant-index/assets/js/app.js"></script>
     <script src="http://106.14.139.8/merchant-index/assets/js/amazeui.min.js"></script>
 
-    <!--myjs-->
-    <script src="http://106.14.139.8/normal/js/iframeJS.js"></script>
 
     <!--提示框-->
     <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
@@ -34,6 +32,15 @@
     <script type="text/javascript" src="http://106.14.139.8/farm-login/js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
 
+    <style>
+        #itemtable td,th {
+            padding: 10px;
+        }
+
+        #operatortable td,th {
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -49,7 +56,7 @@
                 <option value="1">进行中</option>
                 <option value="2">完成</option>
                 <option value="-1">拒绝</option>
-                <option value="2">取消</option>
+                <option value="-2">取消</option>
 
             </select>
         </div>
@@ -82,6 +89,17 @@
                     <span class="am-icon-save"></span> 信息导出
                 </button>
             </div>
+            <div class="am-btn-group am-btn-group-xs">
+                <button type="button" class="am-btn am-btn-default" onclick="updateBillStatus(1)">
+                    <span class="am-icon-save"></span> 确认
+                </button>
+            </div>
+            <div class="am-btn-group am-btn-group-xs">
+                <button type="button" class="am-btn am-btn-default" onclick="updateBillStatus(-1)">
+                    <span class="am-icon-save"></span> 拒绝
+                </button>
+            </div>
+
             <!--下一页-->
             <ul class="am-pagination am-fr">
                 <li>
@@ -121,67 +139,19 @@
 
     <div class="am-popup-bd">
 
-        <form class="am-form tjlanmu" method="post" onsubmit="return updateItem();">
-            <div class="am-form-group am-cf">
-                <div class="you" style="text-align: center;">
-                    <img id="item_img" src="" style="width: 80px; height: 80px;" />
-                </div>
-            </div>
-            <!--mid-->
-            <div style="display: none;">
-                <input name="mid" type="text" value="${mid}" />
-            </div>
-            <!--iid-->
-            <div style="display: none">
+        <div class="am-form-group am-cf">
+            <table id="itemtable">
+                <thead>
+                    <tr>
+                        <th>服务名</th>
+                        <th>数量</th>
+                        <th>单位</th>
+                    </tr>
+                </thead>
 
-                <input name="iid" type="text" />
-            </div>
-            <div class="am-form-group">
-                <div class="zuo">名称：</div>
-                <div class="you">
-                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="" required="" name="iname">
-                </div>
-            </div>
-            <div class="am-form-group">
-                <div class="zuo"></div>
-                <div class="you"></div>
-            </div>
-            <div class="am-form-group am-cf">
-                <div class="zuo">商品简介：</div>
-                <div class="you">
-                    <textarea class="" rows="2" id="doc-ta-1" name="description"></textarea>
-                </div>
-            </div>
-            <div class="am-form-group am-cf">
-                <div class="zuo">商品图片：</div>
-                <div class="you" style="height: 45px;">
-                    <input type="file" id="doc-ipt-file-1" name="file" onchange="previewFile()">
-                    <p class="am-form-help">请选择要上传的图片...</p>
-                </div>
-            </div>
-
-            <div class="am-form-group am-cf">
-                <div class="zuo">价格：</div>
-                <div class="you">
-                    <input type="number" name="price" required="">
-                </div>
-            </div>
-
-            <div class="am-form-group am-cf">
-                <div class="zuo">单位：</div>
-                <div class="you">
-                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="" name="unit">
-                </div>
-            </div>
-
-            <div class="am-form-group am-cf">
-                <div class="you">
-                    <p>
-                        <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
-                    </p>
-                </div>
-            </div>
-        </form>
+                <tbody id="itemsTb"></tbody>
+            </table>
+        </div>
 
     </div>
 
@@ -197,69 +167,16 @@
     </div>
 
     <div class="am-popup-bd">
-
-        <form class="am-form tjlanmu" method="post" onsubmit="return updateItem();">
-            <div class="am-form-group am-cf">
-                <div class="you" style="text-align: center;">
-                    <img id="item_img" src="" style="width: 80px; height: 80px;" />
-                </div>
-            </div>
-            <!--mid-->
-            <div style="display: none;">
-                <input name="mid" type="text" value="${mid}" />
-            </div>
-            <!--iid-->
-            <div style="display: none">
-
-                <input name="iid" type="text" />
-            </div>
-            <div class="am-form-group">
-                <div class="zuo">名称：</div>
-                <div class="you">
-                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="" required="" name="iname">
-                </div>
-            </div>
-            <div class="am-form-group">
-                <div class="zuo"></div>
-                <div class="you"></div>
-            </div>
-            <div class="am-form-group am-cf">
-                <div class="zuo">商品简介：</div>
-                <div class="you">
-                    <textarea class="" rows="2" id="doc-ta-1" name="description"></textarea>
-                </div>
-            </div>
-            <div class="am-form-group am-cf">
-                <div class="zuo">商品图片：</div>
-                <div class="you" style="height: 45px;">
-                    <input type="file" id="doc-ipt-file-1" name="file" onchange="previewFile()">
-                    <p class="am-form-help">请选择要上传的图片...</p>
-                </div>
-            </div>
-
-            <div class="am-form-group am-cf">
-                <div class="zuo">价格：</div>
-                <div class="you">
-                    <input type="number" name="price" required="">
-                </div>
-            </div>
-
-            <div class="am-form-group am-cf">
-                <div class="zuo">单位：</div>
-                <div class="you">
-                    <input type="text" class="am-input-sm" id="doc-ipt-email-1" placeholder="" name="unit">
-                </div>
-            </div>
-
-            <div class="am-form-group am-cf">
-                <div class="you">
-                    <p>
-                        <button type="submit" class="am-btn am-btn-success am-radius">提交</button>
-                    </p>
-                </div>
-            </div>
-        </form>
-
+        <table id="operatortable">
+            <thead>
+                <tr>
+                    <th>机手号</th>
+                    <th>机手名</th>
+                    <th>手机号</th>
+                </tr>
+            </thead>
+            <tbody id="operatorTb"></tbody>
+        </table>
     </div>
 
 </div>
@@ -271,6 +188,12 @@
 
     var _globalItems = new Map();
     var _gloablOperator = new Map();
+    var _gloableStatus = new Map();
+    _gloableStatus.set(0, "未处理");
+    _gloableStatus.set(1, "进行中");
+    _gloableStatus.set(2, "完成");
+    _gloableStatus.set(-1, "拒绝");
+    _gloableStatus.set(-2, "取消");
 
     $.ready = function(){
         getBills(1);
@@ -284,15 +207,13 @@
         var _total = $("#totalPage").text();
         _total = parseInt(_total);
 
-        console.info(_begin);
-        console.info("_total " + _total);
         if(_begin == 0){
             showDialog("已经是第一页了");
             return;
         }else if(_begin > _total){
             showDialog("最后一页了");
         }else{
-            getItemss(_begin);
+            getBills(_begin);
         }
     }
 
@@ -330,16 +251,17 @@
 
         for (var i=0; i<bills.length; ++i) {
 
-            _globalItems.set(bill.bid, bill.items);
-            _gloablOperator.set(bill.bid, bill.operators);
 
             var bill = bills[i].bill;
-            var farmer = bills[i].farmer;
+            var farmer = $.parseJSON(bills[i].farmer);
+
+            _globalItems.set(bill.bid, bills[i].items);
+            _gloablOperator.set(bill.bid, bills[i].operators);
 
             var _tr = $("<tr></tr>");
 
             var _td = $("<td></td>");
-            $("<input />").attr("type", "checkbox").attr("value", bills[i].iid).appendTo(_td);
+            $("<input />").attr("type", "checkbox").attr("id", bill.bid).attr("value", bill.status).appendTo(_td);
             _td.appendTo(_tr);
 
             $("<td></td>").text(bill.bid).appendTo(_tr);
@@ -356,7 +278,7 @@
                 .attr("onclick", "displayItems(this)")
                 .attr("id", bill.bid);
 
-            var _texta = getItemText(bill.items);
+            var _texta = getItemText(bills[i].items);
             _sa.text(_texta);
             var _td2 = $("<td></td>");
             _sa.appendTo(_td2);
@@ -368,50 +290,155 @@
                 .attr("onclick", "displayOperators(this)")
                 .attr("id", bill.bid);
 
-            var _texto = getOperatorsText(bill.operators);
+            var _texto = getOperatorsText(bills[i].operators);
             _oa.text(_texto);
             var _td3 = $("<td></td>");
             _oa.appendTo(_td3);
             _td3.appendTo(_tr);
 
-            $("<td></td>").text(bill.status).appendTo(_tr);
+            $("<td></td>").text(_gloableStatus.get(bill.status)).appendTo(_tr);
+            _tr.appendTo(_tb);
         }
 
 
     }
     
     function displayItems(_this) {
-        
+        var _bid = $(_this).attr("id");
+        var _items = _globalItems.get(_bid);
+
+        var _itemsTb = $("#itemsTb");
+        _itemsTb.html("");
+        var length = _items.length;
+        for (var i=0; i<length; ++i) {
+            var _item = _items[i].item;
+            var _num = _items[i].num;
+
+            var _tr = $("<tr></tr>");
+
+            $("<td></td>").text(_item.iname).appendTo(_tr);
+            $("<td></td>").text(_num).appendTo(_tr);
+            $("<td></td>").text(_item.unit).appendTo(_tr);
+
+            _tr.appendTo(_itemsTb);
+        }
     }
     
     function displayOperators(_this) {
-        
+        var _bid = $(_this).attr("id");
+        var _operators = _gloablOperator.get(_bid);
+
+
+        var _tb = $("#operatorTb");
+        _tb.html("");
+
+        if (null == _operators) {
+            return;
+        }
+
+        for (var i=0; i<_operators.length; ++i) {
+
+            var _tr = $("<tr></tr>");
+
+            $("<td></td>").text(_operators[i].oid).appendTo(_tr);
+            $("<td></td>").text(_operators[i].oname).appendTo(_tr);
+            $("<td></td>").text(_operators[i].phone).appendTo(_tr);
+
+            _tr.appendTo(_tb);
+        }
     }
 
     function getItemText(_items) {
         var length = _items.length;
         var text = '';
         for(var i=0; i<length; ++i) {
+            var _item = _items[i].item;
             if (i == 0) {
-                text = _items[i].iname;
+                text = _item.iname;
             } else {
-                text = text + "," + _items[i].iname;
+                text = text + "，" + _item.iname;
             }
         }
-        return _text;
+        return text;
     }
 
     function getOperatorsText(_operators) {
+        if (null == _operators) {
+            return "没有安排机手";
+        }
+
         var length = _operators.length;
         var text = '';
+
         for(var i=0; i<length; ++i) {
             if (i == 0) {
                 text = _operators[i].oname;
             } else {
-                text = text + "," + _operators[i].oname;
+                text = text + "，" + _operators[i].oname;
             }
         }
-        return _text;
+        return text;
+    }
+
+    function selectAll(_this) {
+        var _check = $(_this).prop("checked");
+        $("#tb :checkbox").each(function(key, value){
+            $(value).prop("checked", _check);
+        });
+    }
+    
+    function updateBillStatus(_status) {
+        var bids = [];
+        var canUpdate = true;
+
+        $("#tb :checkbox").each(function (key, value) {
+            var _checked = $(value).prop("checked");
+            if (_checked && $(value).attr("id") != "all") {
+                var bid = $(value).attr("id");
+                var status = $(value).val();
+                if (status != 0) {
+                    canUpdate = false;
+                    showDialog("订单" + bid + " 状态有误！");
+                    return;
+                }
+                bids.push(bid);
+            }
+        });
+
+        if (canUpdate) {
+            if(bids.length == 0) {
+                showDialog("请选择更新的订单!");
+            } else {
+
+                var formData = new FormData();
+                formData.append("bids", bids);
+                formData.append("status", _status);
+
+                $.ajax({
+                    type:"post",
+                    url:"http://127.0.0.1:10087/farmService/bill/updateBillStatusForList",
+                    async:false,
+                    dataType:'json',
+                    data:formData,
+                    /**
+                     *必须false才会自动加上正确的Content-Type
+                     */
+                    contentType: false,
+                    /**
+                     * 必须false才会避开jQuery对 formdata 的默认处理
+                     * XMLHttpRequest会对 formdata 进行正确的处理
+                     */
+                    processData: false,
+                    success: function(data){
+                        showDialog("更新成功！");
+                        refress();
+                    },error: function (data) {
+                        showDialog("更新失败！");
+                    }
+                });
+
+            }
+        }
     }
 
 
