@@ -78,6 +78,16 @@ public class BillController {
         return mv;
     }
 
+    @RequestMapping("/farmerBillList")
+    public ModelAndView farmerBillList(HttpSession session) {
+        ModelAndView mv = new ModelAndView();
+        String fid = (String) session.getAttribute(Role.FARMER.getPref());
+
+        mv.addObject("fid", fid);
+        mv.setViewName("farmer/billManager");
+        return mv;
+    }
+
     /**
      * 获取mid
      * @param items

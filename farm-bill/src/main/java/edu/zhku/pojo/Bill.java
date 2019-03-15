@@ -17,7 +17,7 @@ public class Bill {
 
     private Date createtime;
 
-    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date deadline;
 
     private String remark;

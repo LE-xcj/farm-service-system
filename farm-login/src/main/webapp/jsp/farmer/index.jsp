@@ -164,7 +164,7 @@
                     <li><a href="single_project.html">账户管理</a>
                         <ul class="MenuDropdown">
                             <li><a href="${pageContext.request.contextPath }/farmer/updateFarmerView" target="_blank">个人信息</a></li>
-                            <li><a href="#">订单查看</a></li>
+                            <li><a href="${pageContext.request.contextPath }/bill/farmerBillList" target="_blank">订单查看</a></li>
                             <li><a href="#">注销</a></li>
                         </ul>
                     </li>
