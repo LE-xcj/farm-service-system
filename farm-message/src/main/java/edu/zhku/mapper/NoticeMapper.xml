@@ -118,11 +118,19 @@
       <include refid="query_sql"/>
     </where>
 
-    order by sendTime DESC
-
+    <include refid="order_sql" />
     <include refid="page_sql"/>
+
   </select>
-  
+
+
+  <sql id="order_sql">
+    order by sendTime
+    <if test="desc">
+      DESC
+    </if>
+  </sql>
+
   <sql id="query_sql">
 
     <if test="notice.destination != null">
@@ -144,4 +152,11 @@
         <include refid="query_sql"/>
       </where>
   </select>
+
+  <update id="updateNoticeStatusForList" parameterType="edu.zhku.pojo.NoticeDTO">
+    update t_notice set status = #{status} where id in
+      <foreach collection="ids" open="(" separator="," close=")" item="item">
+         #{item}
+      </foreach>
+  </update>
 </mapper>

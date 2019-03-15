@@ -36,4 +36,12 @@ public interface BillMapper {
      * @throws Exception
      */
     int updateBillStatusForList(BillStatusVo billStatusVo) throws Exception;
+
+    /**
+     * 批量查询订单
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    List<Bill> selectBillForList(BillStatusVo vo) throws Exception;
 }

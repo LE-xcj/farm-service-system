@@ -2,6 +2,7 @@ package edu.zhku.mapper;
 
 import edu.zhku.pojo.Notice;
 import edu.zhku.pojo.NoticeCondition;
+import edu.zhku.pojo.NoticeDTO;
 
 import java.util.List;
 
@@ -13,13 +14,15 @@ public interface NoticeMapper {
 
     Notice selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Notice record);
 
-    int updateByPrimaryKey(Notice record);
+    int updateByPrimaryKey(Notice record) throws Exception;
 
 
+    int updateByPrimaryKeySelective(Notice record) throws Exception;
 
     int insertSelective(Notice record);
     List<Notice> selectByCondition(NoticeCondition condition) throws Exception;
     int count(NoticeCondition notice) throws Exception;
+
+    int updateNoticeStatusForList(NoticeDTO dto) throws Exception;
 }

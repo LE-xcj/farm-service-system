@@ -298,4 +298,61 @@
     }
 </script>
 
+
+<script>
+    var socket;
+
+    $.ready = function () {
+        initSocket();
+    }
+
+    function initSocket(){
+        // 新建WebSocket对象，最后的/websocket对应服务器端的@ServerEndpoint("/websocket")
+        socket = new WebSocket(
+            'ws://106.14.139.8:10088/farm-message/notice/' + ${merchant.mid}
+        );
+
+        //打开socket连接
+        socket.onopen=function () {
+            console.log("socket has been opened");
+
+        };
+
+        // 处理服务器端发送的数据
+        socket.onmessage = function(event) {
+            addMessage(event.data);
+        };
+
+        socket.onerror = function(){
+            alert("WebSocket连接发生错误");
+        }
+
+
+    }
+
+    function closeWebSocket() {
+        //关闭socket连接
+        socket.close();
+        alert("WebSocket连接关闭");
+
+    }
+
+    function sendMsg(){
+        if(null == socket){
+            alert("socket为空");
+        }else{
+            // 发送消息
+            //socket.send(JSON.stringify(data));
+        }
+
+    }
+
+    // 把消息添加到聊天内容中
+    function addMessage(message) {
+        message = JSON.parse(message);
+        alert(message);
+        console.info(message);
+    }
+</script>
+
 </html>

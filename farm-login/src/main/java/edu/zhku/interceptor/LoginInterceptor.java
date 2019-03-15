@@ -42,6 +42,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
             //获取redis那边的信息
             Object value = redisUtil.get(key);
+            //Object value = redisUtil.hmGet(Literal.ONLINE, key);
 
             //再从redis获取，判断session是否已经过期了
             if(value != null) {

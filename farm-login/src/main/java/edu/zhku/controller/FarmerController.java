@@ -284,7 +284,7 @@ public class FarmerController {
 
             //redis那边也是
             redisUtil.set(fid, sessionId);
-
+            //redisUtil.hmSet(Literal.ONLINE, fid, sessionId);
         }
     }
 

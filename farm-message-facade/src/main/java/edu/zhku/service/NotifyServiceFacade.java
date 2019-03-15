@@ -8,6 +8,13 @@ package edu.zhku.service;
  */
 public interface NotifyServiceFacade {
 
+    /**
+     * 这里只能单个通知
+     * @param role
+     * @param destination
+     * @param content
+     * @return
+     */
     boolean notify(String role, String destination, String content);
 
 }

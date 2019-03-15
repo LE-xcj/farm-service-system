@@ -11,5 +11,7 @@ public class Literal {
     public static final String FARMERREALCODE = "farmerRealCode";
 
     public static final String MERCHANTREALCODE = "merchantRealCode";
+
+    public static final String ONLINE = "Online";
 }
     

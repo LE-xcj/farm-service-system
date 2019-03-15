@@ -2,6 +2,7 @@ package edu.zhku.service;
 
 import edu.zhku.pojo.Notice;
 import edu.zhku.pojo.NoticeCondition;
+import edu.zhku.pojo.NoticeDTO;
 import edu.zhku.vo.NoticeVo;
 
 /**
@@ -17,4 +18,10 @@ public interface NoticeService {
     int insertNotice(Notice notice) throws Exception;
 
     NoticeVo selectNoticeByCondition(NoticeCondition notice) throws Exception;
+
+    int updateNotice(Notice notice) throws Exception;
+
+    int updateNoticeStatusForList(NoticeDTO dto) throws Exception;
+
+    int count(Notice condition) throws Exception;
 }

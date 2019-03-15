@@ -12,6 +12,7 @@ public class NoticeCondition {
     private int page;
     private int pageSize = 10;
     private int begin;
+    private boolean desc = true;
 
     public Notice getNotice() {
         return notice;
@@ -46,5 +47,13 @@ public class NoticeCondition {
         this.begin = begin;
     }
 
+
+    public boolean isDesc() {
+        return desc;
+    }
+
+    public void setDesc(boolean desc) {
+        this.desc = desc;
+    }
 }
     

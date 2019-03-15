@@ -257,4 +257,11 @@
         #{item}
     </foreach>
   </update>
+
+  <select id="selectBillForList" parameterType="edu.zhku.vo.BillStatusVo" resultMap="BaseResultMap">
+    select * from bill where bid IN
+    <foreach collection="bids" open="(" separator="," close=")" item="item">
+      #{item}
+    </foreach>
+  </select>
 </mapper>

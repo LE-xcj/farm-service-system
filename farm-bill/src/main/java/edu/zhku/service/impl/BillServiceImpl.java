@@ -94,7 +94,6 @@ public class BillServiceImpl implements BillService {
 
         int num = billDao.updateBillById(bill);
 
-
         //根据订单状态是否为null来判断是否更新状态
         Integer status = bill.getStatus();
 
@@ -106,26 +105,8 @@ public class BillServiceImpl implements BillService {
             //获取订单信息
             bill = billDao.queryBillById(bid);
 
-            //获取订单状态
-            int flag = status;
-            String role = null;
-            String destination = null;
+            tryNotice(bill, status);
 
-            //更新的状态是-1或1，那么就是商户操作的，所以通知对象是农户
-            if (flag == BillStatus.OK || flag == BillStatus.REJECT) {
-                role = Role.FARMER.getPref();
-                destination = bill.getFid();
-            } else {
-                role = Role.MERCHANT.getPref();
-                destination = bill.getMid();
-            }
-
-
-            //获取模板消息
-            String content = MessageFactory.getContent(bid, flag);
-
-            //通知
-            notice(role, destination, content);
         }
 
         return num;
@@ -242,6 +223,10 @@ public class BillServiceImpl implements BillService {
 
         int num = billDao.updateBillStatusForList(vo);
 
+        //通知
+        List<Bill> bills = billDao.selectBillForList(vo);
+        tryNotice(bills, vo.getStatus());
+
         return num;
     }
 
@@ -257,6 +242,53 @@ public class BillServiceImpl implements BillService {
     private boolean notice(String role, String destination, String content) {
         boolean notify = notifyServiceFacade.notify(role, destination, content);
         return notify;
+    }
+
+    /**
+     * 单个通知
+     * @param bill
+     * @param status
+     */
+    private void tryNotice(Bill bill, int status) {
+        if (null == bill)
+            return;
+        List<Bill> bills = new ArrayList<>();
+        tryNotice(bills, status);
+    }
+
+    /**
+     * 批量通知
+     * @param bills
+     * @param status
+     */
+    private void tryNotice(List<Bill> bills, int status) {
+
+        if (null == bills)
+            return;
+
+        for(Bill bill : bills) {
+            //获取订单状态
+            int flag = status;
+            String role = null;
+            String destination = null;
+
+            //更新的状态是-1或1，那么就是商户操作的，所以通知对象是农户
+            if (flag == BillStatus.OK || flag == BillStatus.REJECT) {
+                role = Role.FARMER.getPref();
+                destination = bill.getFid();
+            } else {
+                role = Role.MERCHANT.getPref();
+                destination = bill.getMid();
+            }
+
+
+            //获取模板消息
+            String bid = bill.getBid();
+            String content = MessageFactory.getContent(bid, flag);
+
+            //通知
+            notice(role, destination, content);
+        }
     }
 
 

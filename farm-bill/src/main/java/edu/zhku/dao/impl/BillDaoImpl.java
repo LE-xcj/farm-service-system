@@ -163,6 +163,12 @@ public class BillDaoImpl implements BillDao {
         return num;
     }
 
+    @Override
+    public List<Bill> selectBillForList(BillStatusVo vo) throws Exception {
+        List<Bill> bills = billMapper.selectBillForList(vo);
+        return bills;
+    }
+
 
     //////////////////////////////////////////////////////////////////////
     /////////////////////////其他Dao层////////////////////////////////////////

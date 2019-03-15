@@ -147,7 +147,7 @@
 
 
                         }
-                        
+
                         function closeWebSocket() {
                             //关闭socket连接
                             socket.close();

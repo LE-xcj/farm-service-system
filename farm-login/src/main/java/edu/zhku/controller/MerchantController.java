@@ -259,6 +259,7 @@ public class MerchantController {
 
             //redis那边
             redisUtil.set(mid, sessionId);
+            //redisUtil.hmSet(Literal.ONLINE, mid, sessionId);
 
         }
     }
