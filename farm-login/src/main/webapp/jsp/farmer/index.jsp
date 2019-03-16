@@ -1,14 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE HTML>
+<!doctype html>
 <html lang="en">
 <!--<![endif]-->
 <head>
     <title>farmService</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link class="TopmenuFont" href="#" rel="stylesheet" type="text/css" />
-    <link class="TextFont" href="#" rel="stylesheet" type="text/css" />
-    <link class="TitleFont" href="#" rel="stylesheet" type="text/css" />
-    <link href='http://fonts.useso.com/css?family=Lato:300,400,700,400italic|Droid+Sans|PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
     <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/jquery-latest.js"></script>
     <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/red-sky-options.js"></script>
@@ -29,6 +25,7 @@
     <link href="http://106.14.139.8/farmer-index/index/settingsbox/settingsbox.css" rel="stylesheet" type="text/css">
     <link href="http://106.14.139.8/farmer-index/index/settingsbox/farbtastic/farbtastic.css" rel="stylesheet" type="text/css">
     <!-- END SETTINGS BOX -->
+
 
 </head>
 
@@ -142,7 +139,7 @@
             <div class="two-thirds_last columns">
 
                 <ul class="topmenu">
-                    <li class="active"><a class="active" href="#">悬赏</a></li>
+                    <%--<li class="active"><a class="active" href="#">悬赏</a></li>--%>
 
                     <li><a href="#">农田服务</a>
                         <ul class="MenuDropdown">
@@ -154,10 +151,14 @@
 
                     <li><a href="${pageContext.request.contextPath }/item/shoppingCart" target="_blank">购物车</a></li>
 
-                    <li><a href="blog.html">通知 <span style="color: red;">*</span></a>
+                    <li>
+                        <a href="blog.html">通知 <span style="color: red;" id="star"></span></a>
                         <ul class="MenuDropdown">
-                            <li><a href="#">系统通知   <span style="color: red; font-size: 11px">666</span></a></li>
-                            <li><a href="#">聊天列表   <span style="color: red; font-size: 11px">666</span></a></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath }/notice/farmerNoticeList" target="_blank">系统通知
+                                    <span id="noticeNum" style="color: red; font-size: 11px"></span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -515,4 +516,95 @@
 
 </body>
 
+
+<script>
+    var socket;
+
+    $.ready = function () {
+        //initSocket();
+        queryUnReadNoticeNum();
+    }
+
+    function initSocket(){
+        // 新建WebSocket对象，最后的/websocket对应服务器端的@ServerEndpoint("/websocket")
+        socket = new WebSocket(
+            'ws://106.14.139.8:10088/farm-message/notice/' + '${self.fid}'
+        );
+
+        //打开socket连接
+        socket.onopen=function () {
+            console.log("socket has been opened");
+
+        };
+
+        // 处理服务器端发送的数据
+        socket.onmessage = function(event) {
+            addMessage(event.data);
+        };
+
+        socket.onerror = function(){
+            alert("WebSocket连接发生错误");
+        }
+
+
+    }
+
+    function closeWebSocket() {
+        //关闭socket连接
+        socket.close();
+        alert("WebSocket连接关闭");
+
+    }
+
+    function sendMsg(){
+        if(null == socket){
+            alert("socket为空");
+        }else{
+            // 发送消息
+            //socket.send(JSON.stringify(data));
+        }
+
+    }
+
+    // 把消息添加到聊天内容中
+    function addMessage(message) {
+        message = JSON.parse(message);
+        changeNoticeNum(1);
+        alert(message);
+        console.info(message);
+    }
+
+    function queryUnReadNoticeNum() {
+        var _currentNum = $("#noticeNum").text();
+
+        $.ajax({
+            type:"post",
+            url:"http://106.14.139.8:10088/farm-message/notice/count.action",
+            async:false,
+            data:{status: 0, destination:'${self.fid}'},
+            success: function(data){
+                changeNoticeNum(data);
+            }
+
+        });
+    }
+
+    function changeNoticeNum(_offset) {
+        var _text = $("#noticeNum").text();
+
+        var _num = 0;
+        if (_text != null && _text != ''){
+            _num = parseInt(_text);
+        }
+
+        var _total = _num + _offset;
+
+        if (_total != 0) {
+            $("#noticeNum").text(_total);
+            $("#star").text("*");
+        }
+    }
+
+
+</script>
 </html>

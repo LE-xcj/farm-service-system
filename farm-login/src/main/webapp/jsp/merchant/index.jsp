@@ -45,21 +45,11 @@
     <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
         <ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
 
-            <li class="am-dropdown tognzhi" data-am-dropdown>
-                <button class="am-btn am-btn-primary am-dropdown-toggle am-btn-xs am-radius am-icon-bell-o" data-am-dropdown-toggle>
-                    消息管理<span class="am-badge am-badge-danger am-round">6</span>
-                </button>
-                <ul class="am-dropdown-content">
-
-                    <li class="am-dropdown-header">所有消息都在这里</li>
-                    <li>
-                        <a href="#">通知 <span class="am-badge am-badge-danger am-round">556</span></a>
-                    </li>
-                    <li>
-                        <a href="#">聊天咨询 <span class="am-badge am-badge-danger am-round">69</span></a>
-                        </a>
-                    </li>
-                </ul>
+            <li class="kuanjie">
+                <a href="${pageContext.request.contextPath }/notice/merchantNoticeList" target="_blank">
+                    消息管理
+                    <span id="noticeNum" class="am-badge am-badge-danger am-round"></span>
+                </a>
             </li>
 
             <li class="kuanjie">
@@ -152,6 +142,7 @@
     </div>
 
 </div>
+
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="updatePswModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -198,7 +189,6 @@
     </div><!-- /.modal -->
 </div>
 
-
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="updatePhoneModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -237,6 +227,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+
 </body>
 
 <script>
@@ -304,6 +295,7 @@
 
     $.ready = function () {
         initSocket();
+        queryUnReadNoticeNum();
     }
 
     function initSocket(){
@@ -350,9 +342,41 @@
     // 把消息添加到聊天内容中
     function addMessage(message) {
         message = JSON.parse(message);
+        changeNoticeNum(1);
         alert(message);
         console.info(message);
     }
+    
+    function queryUnReadNoticeNum() {
+        var _currentNum = $("#noticeNum").text();
+
+        $.ajax({
+            type:"post",
+            url:"http://106.14.139.8:10088/farm-message/notice/count.action",
+            async:false,
+            data:{status: 0, destination:${merchant.mid}},
+            success: function(data){
+                changeNoticeNum(data);
+            }
+
+        });
+    }
+
+    function changeNoticeNum(_offset) {
+        var _text = $("#noticeNum").text();
+
+        var _num = 0;
+        if (_text != null && _text != ''){
+            _num = parseInt(_text);
+        }
+
+        var _total = _num + _offset;
+
+        if (_total != 0) {
+            $("#noticeNum").text(_total);
+        }
+    }
+
 </script>
 
 </html>

@@ -129,6 +129,13 @@
     function refress() {
         getNotice(1);
     }
+
+    function selectAll(_this) {
+        var _check = $(_this).prop("checked");
+        $("#tb :checkbox").each(function(key, value){
+            $(value).prop("checked", _check);
+        });
+    }
     
     function getNotice(_begin) {
         var _status = $("#status option:selected").attr("value");
@@ -142,6 +149,7 @@
             success: function(data){
                 fill(data, _begin);
             },error: function (data) {
+                console.info(data);
                 console.info("erro");
             }
         });

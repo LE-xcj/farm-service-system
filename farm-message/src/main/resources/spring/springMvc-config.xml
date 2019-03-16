@@ -8,7 +8,7 @@
                         http://www.springframework.org/schema/context
                         http://www.springframework.org/schema/context/spring-context-3.1.xsd
                         http://www.springframework.org/schema/mvc
-                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
     <!-- 配置handler -->
     <!-- <bean class="com.xc.controller.ItemsController3"></bean> -->
@@ -53,5 +53,13 @@
         </property>
     </bean>
 
+    <!-- 接口跨域配置 -->
+    <mvc:cors>
+        <mvc:mapping path="/**"
+                     allowed-origins="*"
+                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                     allow-credentials="true" />
+    </mvc:cors>
 
 </beans>
