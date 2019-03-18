@@ -7,12 +7,13 @@
     <result column="evaluation" jdbcType="VARCHAR" property="evaluation" />
     <result column="time" jdbcType="DATE" property="time" />
     <result column="iid" jdbcType="INTEGER" property="iid" />
+    <result column="bid" jdbcType="VARCHAR" property="bid" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, level, evaluation, time, iid
+    id, level, evaluation, time, iid, bid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_item_evaluation
     where id = #{id,jdbcType=INTEGER}
@@ -22,10 +23,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="edu.zhku.pojo.Evaluation">
-    insert into t_item_evaluation (id, level, evaluation, 
-      time, iid)
-    values (#{id,jdbcType=INTEGER}, #{level,jdbcType=REAL}, #{evaluation,jdbcType=VARCHAR}, 
-      #{time,jdbcType=DATE}, #{iid,jdbcType=INTEGER})
+    insert into t_item_evaluation (id, level, evaluation,
+    time, iid, bid)
+    values (#{id,jdbcType=INTEGER}, #{level,jdbcType=REAL}, #{evaluation,jdbcType=VARCHAR},
+    #{time,jdbcType=DATE}, #{iid,jdbcType=INTEGER}, #{bid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="edu.zhku.pojo.Evaluation">
     insert into t_item_evaluation
@@ -39,10 +40,15 @@
       <if test="evaluation != null">
         evaluation,
       </if>
+      <if test="time != null">
+        time,
+      </if>
       <if test="iid != null">
         iid,
       </if>
-        time
+      <if test="bid != null">
+        bid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -54,10 +60,15 @@
       <if test="evaluation != null">
         #{evaluation,jdbcType=VARCHAR},
       </if>
+      <if test="time != null">
+        #{time,jdbcType=DATE},
+      </if>
       <if test="iid != null">
         #{iid,jdbcType=INTEGER},
       </if>
-        now()
+      <if test="bid != null">
+        #{bid,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="edu.zhku.pojo.Evaluation">
@@ -75,6 +86,9 @@
       <if test="iid != null">
         iid = #{iid,jdbcType=INTEGER},
       </if>
+      <if test="bid != null">
+        bid = #{bid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -83,7 +97,8 @@
     set level = #{level,jdbcType=REAL},
       evaluation = #{evaluation,jdbcType=VARCHAR},
       time = #{time,jdbcType=DATE},
-      iid = #{iid,jdbcType=INTEGER}
+      iid = #{iid,jdbcType=INTEGER},
+      bid = #{bid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -105,6 +120,7 @@
     <result column="evaluation" jdbcType="VARCHAR" property="evaluation" />
     <result column="time" jdbcType="DATE" property="time" />
     <result column="iid" jdbcType="INTEGER" property="iid" />
+    <result column="bid" jdbcType="VARCHAR" property="bid" />
   </resultMap>
 
 
@@ -141,6 +157,9 @@
     <if test="iid != null">
       and iid = #{iid}
     </if>
+    <if test="bid != null">
+      and bid = #{bid}
+    </if>
   </sql>
 
 
@@ -159,4 +178,19 @@
   <select id="avgLevel" parameterType="java.lang.Integer" resultType="java.lang.Float">
     select AVG(level) from t_item_evaluation where iid = #{iid}
   </select>
+
+  <insert id="evaluateForList" parameterType="java.util.List">
+     insert into t_item_evaluation (id, level, evaluation,time, iid, bid) values
+     <foreach collection="evaluations" separator="," item="item">
+       (
+          #{item.id,jdbcType=INTEGER},
+          #{item.level,jdbcType=REAL},
+          #{item.evaluation,jdbcType=VARCHAR},
+          now(),
+          #{item.iid,jdbcType=INTEGER},
+          #{bid,jdbcType=VARCHAR}
+       )
+     </foreach>
+
+  </insert>
 </mapper>

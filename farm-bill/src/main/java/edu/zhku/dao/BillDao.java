@@ -109,4 +109,12 @@ public interface BillDao {
      * @throws Exception
      */
     List<Bill> selectBillForList(BillStatusVo vo) throws Exception;
+
+    /**
+     * 查询
+     * @param billItem
+     * @return
+     * @throws Exception
+     */
+    List<BillItem> queryBillItemByBid(BillItem billItem) throws Exception;
 }

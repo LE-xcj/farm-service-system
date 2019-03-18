@@ -71,6 +71,12 @@ public class BillDaoImpl implements BillDao {
         return num;
     }
 
+    @Override
+    public List<BillItem> queryBillItemByBid(BillItem billItem) throws Exception {
+
+        List<BillItem> result = billItemMapper.queryBillItemByBid(billItem);
+        return result;
+    }
 
 
     /**
@@ -170,6 +176,7 @@ public class BillDaoImpl implements BillDao {
     }
 
 
+
     //////////////////////////////////////////////////////////////////////
     /////////////////////////其他Dao层////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
@@ -263,8 +270,6 @@ public class BillDaoImpl implements BillDao {
 
         return itemDTOS;
     }
-
-
 
 }
     

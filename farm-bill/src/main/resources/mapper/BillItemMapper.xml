@@ -98,4 +98,23 @@
     </foreach>
 
   </insert>
+
+  <select id="queryBillItemByBid" parameterType="edu.zhku.pojo.BillItem" resultMap="BaseResultMap">
+    select * from t_bill_item
+    <where>
+      <include refid="query_sql"/>
+    </where>
+  </select>
+  
+  <sql id="query_sql">
+    <if test="id != null">
+      and id = #{id}
+    </if>
+    <if test="iid != null">
+      and iid = #{iid}
+    </if>
+    <if test="bid != null">
+      and bid = #{bid}
+    </if>
+  </sql>
 </mapper>

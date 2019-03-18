@@ -20,4 +20,6 @@ public interface BillItemMapper {
 
 
     int insertBillItemForList(@Param("billItems") List<BillItem> billItems) throws Exception;
+
+    List<BillItem> queryBillItemByBid(BillItem billItem) throws Exception;
 }

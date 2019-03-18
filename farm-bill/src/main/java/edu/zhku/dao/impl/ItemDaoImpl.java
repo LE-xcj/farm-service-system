@@ -123,6 +123,19 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     /**
+     * 批量插入评论
+     * @param evaluations
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int evaluateForList(List<Evaluation> evaluations) throws Exception {
+        int num = evaluationMapper.evaluateForList(evaluations);
+        return num;
+    }
+
+
+    /**
      * 查询评论
      * @param condition
      * @return
@@ -194,6 +207,7 @@ public class ItemDaoImpl implements ItemDao {
 
         return 1;
     }
+
 
 }
     

@@ -130,5 +130,20 @@ public class ItemController {
         return mv;
     }
 
+
+    /**
+     * 评论某一订单关联商品
+     * @param bid
+     * @return
+     */
+    @RequestMapping("/evaluateView")
+    public ModelAndView evaluateView(String bid) {
+        ModelAndView mv = new ModelAndView();
+
+        mv.addObject("bid", bid);
+        mv.setViewName("farmer/evalutation");
+
+        return mv;
+    }
 }
     

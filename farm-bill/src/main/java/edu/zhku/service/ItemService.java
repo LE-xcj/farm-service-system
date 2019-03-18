@@ -108,4 +108,21 @@ public interface ItemService {
      * @throws Exception
      */
     Map<String, ShoppingCartItemVo> shoppingCardList(String fid) throws Exception;
+
+    /**
+     * 批量插入评论
+     * @param evaluations
+     * @return
+     * @throws Exception
+     */
+    int evaluateForList(List<Evaluation> evaluations) throws Exception;
+
+
+    /**
+     * 获取某一定的订单关联的评论
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    Map<Integer,ItemEva> queryEvaluationByBid(EvaluationDTO condition) throws Exception;
 }

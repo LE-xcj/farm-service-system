@@ -1,8 +1,6 @@
 package edu.zhku.controller;
 
-import edu.zhku.pojo.Bill;
-import edu.zhku.pojo.BillCondition;
-import edu.zhku.pojo.BillDO;
+import edu.zhku.pojo.*;
 import edu.zhku.service.BillService;
 import edu.zhku.vo.BillPageVo;
 import edu.zhku.vo.BillStatusVo;
@@ -103,6 +101,19 @@ public class BillController {
 
         int num = billService.arragenOperator(bill);
         return num;
+    }
+
+
+    /**
+     * 用户显示评价时，某一订单关联的商品信息
+     * @param billItem
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryBillItemByBid")
+    public List<Item> queryBillItemByBid(BillItem billItem) throws Exception {
+        List<Item> items = billService.queryBillItemByBid(billItem);
+        return items;
     }
 }
     

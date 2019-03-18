@@ -143,8 +143,22 @@ public class ItemController {
         return num;
     }
 
+
     /**
-     * 查询商品的评价
+     * 批量插入评论
+     * @param evaluations
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/evaluateForList")
+    public int evaluateForList(List<Evaluation> evaluations) throws Exception {
+
+        int num = itemService.evaluateForList(evaluations);
+        return num;
+    }
+
+    /**
+     * 分页查询商品的评价
      * @param condition
      * @return
      * @throws Exception
@@ -173,6 +187,28 @@ public class ItemController {
 
         return vo;
     }
+
+
+    /**
+     * 查询某一订单关联关联的评价
+     * 注意
+     *  评价与item要对应
+     *  pageSize要设置超大值，以及page设置为1, bid
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/queryEvaluationByBid")
+    public List<ItemEva> queryEvaluationByBid(EvaluationDTO condition) throws Exception {
+
+        Map<Integer, ItemEva> data = itemService.queryEvaluationByBid(condition);
+
+        List<ItemEva> result = new ArrayList<>(data.values());
+
+        return result;
+    }
+
+
 
 
     /**

@@ -13,6 +13,8 @@ public class Evaluation {
 
     private Integer iid;
 
+    private String bid;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class Evaluation {
 
     public void setIid(Integer iid) {
         this.iid = iid;
+    }
+
+    public String getBid() {
+        return bid;
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid == null ? null : bid.trim();
     }
 }

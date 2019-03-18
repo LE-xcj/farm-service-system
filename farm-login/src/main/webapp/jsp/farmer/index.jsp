@@ -26,7 +26,10 @@
     <link href="http://106.14.139.8/farmer-index/index/settingsbox/farbtastic/farbtastic.css" rel="stylesheet" type="text/css">
     <!-- END SETTINGS BOX -->
 
-
+    <!--提示框-->
+    <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
+    <script src="http://106.14.139.8/normal/js/dialog.js"></script>
+    <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
 </head>
 
 <body>
@@ -521,7 +524,7 @@
     var socket;
 
     $.ready = function () {
-        //initSocket();
+        initSocket();
         queryUnReadNoticeNum();
     }
 
@@ -570,7 +573,7 @@
     function addMessage(message) {
         message = JSON.parse(message);
         changeNoticeNum(1);
-        alert(message);
+        showDialog("您有新的消息");
         console.info(message);
     }
 

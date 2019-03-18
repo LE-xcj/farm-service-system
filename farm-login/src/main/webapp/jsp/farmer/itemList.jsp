@@ -9,11 +9,8 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <title>服务列表</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link class="TopmenuFont" href="#" rel="stylesheet" type="text/css" />
-    <link class="TextFont" href="#" rel="stylesheet" type="text/css" />
-    <link class="TitleFont" href="#" rel="stylesheet" type="text/css" />
-    <link href='http://fonts.useso.com/css?family=Lato:300,400,700,400italic|Droid+Sans|PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 
     <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/jquery-latest.js"></script>
     <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/red-sky-options.js"></script>
@@ -21,8 +18,7 @@
     <script type="text/javascript" src="http://106.14.139.8/farmer-index/index/javascript/jquery.prettyPhoto.js"></script>
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- CSS -->
-    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
 
     <link href="http://106.14.139.8/farmer-index/index/css/style.css" rel="stylesheet" type="text/css">
     <link href="http://106.14.139.8/farmer-index/index/css/responsive.css" rel="stylesheet" type="text/css">
@@ -40,8 +36,6 @@
     <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
     <script src="http://106.14.139.8/normal/js/dialog.js"></script>
     <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
-
-    <title>Sky Walker</title>
 </head>
 
 <body>
@@ -140,37 +134,43 @@
         <!-- START HEADER 导航栏-->
         <div id="header">
             <div class="one-third columns">
-                <div class="logo"><a href="index-2.html"><span>farm</span>Service</a></div>
+                <div class="logo">
+                    <a href="${pageContext.request.contextPath }/farmer/index">
+                        <span>farm</span>Service
+                    </a>
+                </div>
             </div>
             <div class="two-thirds_last columns">
+
                 <ul class="topmenu">
-                    <li class="active"><a class="active" href="index-2.html">悬赏</a></li>
+                    <%--<li class="active"><a class="active" href="#">悬赏</a></li>--%>
 
                     <li><a href="#">农田服务</a>
                         <ul class="MenuDropdown">
-                            <li><a href="shortcodes.html">无人机喷药</a></li>
+                            <li><a href="${pageContext.request.contextPath }/item/queryItemByPageView" target="_blank">无人机喷药</a></li>
                         </ul>
                     </li>
 
                     </li>
 
-                    <li><a href="contact.html">购物车</a></li>
+                    <li><a href="${pageContext.request.contextPath }/item/shoppingCart" target="_blank">购物车</a></li>
 
-                    <li><a href="blog.html">通知 <span style="color: red;">*</span></a>
+                    <li>
+                        <a href="blog.html">通知 <span style="color: red;" id="star"></span></a>
                         <ul class="MenuDropdown">
-                            <li><a href="single_post.html">系统通知   <span style="color: red;">666</span></a></li>
-                            <li><a href="single_post.html">聊天列表   <span style="color: red;">666</span></a></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath }/notice/farmerNoticeList" target="_blank">系统通知
+                                    <span id="noticeNum" style="color: red; font-size: 11px"></span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
                     <li><a href="single_project.html">账户管理</a>
                         <ul class="MenuDropdown">
-                            <li><a href="portfolio_2col.html">个人信息</a></li>
-                            <li><a href="portfolio_3col.html">订单查看</a></li>
-
-                            <li><a href="portfolio_3col.html">修改密码</a></li>
-                            <li><a href="portfolio_3col.html">修改手机号</a></li>
-                            <li><a href="portfolio_3col.html">注销</a></li>
+                            <li><a href="${pageContext.request.contextPath }/farmer/updateFarmerView" target="_blank">个人信息</a></li>
+                            <li><a href="${pageContext.request.contextPath }/bill/farmerBillList" target="_blank">订单查看</a></li>
+                            <li><a href="#">注销</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -178,6 +178,7 @@
             <div class="clear"></div>
         </div>
         <!-- END HEADER 导航结束-->
+
 
         <!-- START PATH -->
         <div class="path one columns"> 农田服务
@@ -283,6 +284,11 @@
         }
 
         queryItem(1);
+
+
+        //通知那块
+        initSocket();
+        queryUnReadNoticeNum();
     }
 
 </script>
@@ -381,5 +387,91 @@
     function refress(){
         queryItem(1);
     }
+</script>
+
+<script>
+    var socket;
+
+    function initSocket(){
+        // 新建WebSocket对象，最后的/websocket对应服务器端的@ServerEndpoint("/websocket")
+        socket = new WebSocket(
+            'ws://106.14.139.8:10088/farm-message/notice/' + '${farmer.fid}'
+        );
+
+        //打开socket连接
+        socket.onopen=function () {
+            console.log("socket has been opened");
+
+        };
+
+        // 处理服务器端发送的数据
+        socket.onmessage = function(event) {
+            addMessage(event.data);
+        };
+
+        socket.onerror = function(){
+            alert("WebSocket连接发生错误");
+        }
+
+
+    }
+
+    function closeWebSocket() {
+        //关闭socket连接
+        socket.close();
+        alert("WebSocket连接关闭");
+
+    }
+
+    function sendMsg(){
+        if(null == socket){
+            alert("socket为空");
+        }else{
+            // 发送消息
+            //socket.send(JSON.stringify(data));
+        }
+
+    }
+
+    // 把消息添加到聊天内容中
+    function addMessage(message) {
+        message = JSON.parse(message);
+        changeNoticeNum(1);
+        showDialog("您有新的消息");
+        console.info(message);
+    }
+
+    function queryUnReadNoticeNum() {
+        var _currentNum = $("#noticeNum").text();
+
+        $.ajax({
+            type:"post",
+            url:"http://106.14.139.8:10088/farm-message/notice/count.action",
+            async:false,
+            data:{status: 0, destination:'${farmer.fid}'},
+            success: function(data){
+                changeNoticeNum(data);
+            }
+
+        });
+    }
+
+    function changeNoticeNum(_offset) {
+        var _text = $("#noticeNum").text();
+
+        var _num = 0;
+        if (_text != null && _text != ''){
+            _num = parseInt(_text);
+        }
+
+        var _total = _num + _offset;
+
+        if (_total != 0) {
+            $("#noticeNum").text(_total);
+            $("#star").text("*");
+        }
+    }
+
+
 </script>
 </html>

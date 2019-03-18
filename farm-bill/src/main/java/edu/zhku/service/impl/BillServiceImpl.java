@@ -230,6 +230,31 @@ public class BillServiceImpl implements BillService {
         return num;
     }
 
+    @Override
+    public List<Item> queryBillItemByBid(BillItem billItem) throws Exception {
+        if (billItem == null || billItem.getBid() == null) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+        List<BillItem> data = billDao.queryBillItemByBid(billItem);
+
+        //如果没有
+        if (data == null || data.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        //获取item的id集合
+        List<Integer> iids = new ArrayList<>(data.size());
+        for (BillItem bi : data) {
+            iids.add(bi.getIid());
+        }
+
+        //批量查询item
+        List<Item> items = itemDao.selectItemByIds(iids);
+
+        return items;
+    }
+
     @Autowired
     private NotifyServiceFacade notifyServiceFacade;
     /**
@@ -288,7 +313,32 @@ public class BillServiceImpl implements BillService {
 
             //通知
             notice(role, destination, content);
+
+            //发送评价链接
+            sendEvaluation(flag, bill);
         }
+    }
+
+    /**
+     * 根据订单的状态判断是否需要发送评价链接
+     * @param flag
+     * @param bill
+     */
+    private void sendEvaluation(int flag, Bill bill) {
+        //发送评价消息
+        if (flag == BillStatus.OK) {
+
+            String bid = bill.getBid();
+
+            //农户
+            String role = Role.FARMER.getPref();
+            String destination = bill.getFid();
+            String content = MessageFactory.getEvaluationUrl(bid);
+
+            //通知
+            notice(role, destination, content);
+        }
+
     }
 
 

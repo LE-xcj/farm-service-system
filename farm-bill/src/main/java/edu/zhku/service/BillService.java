@@ -1,8 +1,6 @@
 package edu.zhku.service;
 
-import edu.zhku.pojo.Bill;
-import edu.zhku.pojo.BillCondition;
-import edu.zhku.pojo.BillDO;
+import edu.zhku.pojo.*;
 import edu.zhku.vo.BillStatusVo;
 import edu.zhku.vo.BillVo;
 
@@ -34,5 +32,13 @@ public interface BillService {
      * @throws Exception
      */
     int updateBillStatusForList(BillStatusVo vo) throws Exception;
+
+    /**
+     * 根据bid查询第三方表，获取item的ids
+     * @param billItem
+     * @return
+     * @throws Exception
+     */
+    List<Item> queryBillItemByBid(BillItem billItem) throws Exception;
 }
     

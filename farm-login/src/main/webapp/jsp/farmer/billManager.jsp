@@ -40,6 +40,10 @@
         #operatortable td,th {
             padding: 10px;
         }
+
+        #evaluationTable td,th {
+            padding: 10px;
+        }
     </style>
 </head>
 
@@ -77,6 +81,7 @@
                 <th>服务信息</th>
                 <th>机手信息</th>
                 <th>订单状态</th>
+                <th>评论</th>
             </tr>
             </thead>
 
@@ -167,6 +172,32 @@
 
 </div>
 <!--模态框end-->
+
+<!--评论的模态框-->
+<div class="am-popup am-popup-inner" id="evationList" style="max-height: 520px">
+
+    <div class="am-popup-hd">
+        <h4 class="am-popup-title">评论</h4>
+        <span data-am-modal-close class="am-close">&times;</span>
+    </div>
+
+    <div class="am-popup-bd" id="evaluationList">
+        <table id="evaluationTable">
+            <thead>
+            <tr>
+                <th>商品名</th>
+                <th>评价</th>
+                <th>评分</th>
+                <th>评价时间</th>
+            </tr>
+            </thead>
+            <tbody id="evaluationTb"></tbody>
+        </table>
+    </div>
+
+</div>
+<!--模态框end-->
+
 </body>
 
 
@@ -283,10 +314,85 @@
             _td3.appendTo(_tr);
 
             $("<td></td>").text(_gloableStatus.get(bill.status)).appendTo(_tr);
+
+            //设置评论td
+            var _status = bill.status;
+            var _evao = $("<a></a>");
+            setEvaluationA(_status, _evao, bill.bid);
+            _evao.appendTo(_tr);
+
             _tr.appendTo(_tb);
         }
 
 
+    }
+    
+    function setEvaluationA(_status, _evao, _bid) {
+
+        _evao.attr("href", "javascript:void(0);");
+
+        if (_status == 2) {
+            _evao.attr("data-am-modal", "{target: '#evationList'}")
+                .attr("onclick", "displayEvaluation(this)")
+                .attr("id", _bid);
+            _evao.text("评论");
+        } else {
+            _evao.attr("onclick", "showDialog('该状态下没有评论')");
+            _evao.text("不能评论");
+
+        }
+    }
+    
+    function displayEvaluation(_this) {
+        var _bid = $(_this).attr("id");
+
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/item/queryEvaluationByBid",
+            dataType:'json',  // 处理Ajax跨域问题
+            data: {bid: _bid, page:1, pageSize: 45},
+            async:true,
+            success: function(data){
+                fillEvaTB(data, _bid);
+            },error: function (data) {
+                console.info("erro");
+            }
+        });
+    }
+    
+    function fillEvaTB(data, _bid) {
+        var _tb = $("#evaluationTb");
+        _tb.html("");
+
+
+
+        if (data == null || data.length == 0) {
+            var _tr = $("<tr></tr>");
+
+            var _a = $("<a></a>");
+            var _href = "${pageContext.request.contextPath }/item/evaluateView?bid=" + _bid;
+            _a.attr("href", _href)
+                .attr("target", "_blank");
+            _a.text("还没有评论，去评论!");
+
+            _a.appendTo(_tr);
+            _tr.appendTo(_tb);
+
+        } else {
+            for (var i=0; i<data.length; ++i) {
+                var _tr = $("<tr></tr>");
+                var item = data[i].item;
+                var _evaluation = data[i].evaluation;
+
+                $("<td></td>").text(item.iname).appendTo(_tr);
+
+                $("<td></td>").text(_evaluation.evaluation).appendTo(_tr);
+                $("<td></td>").text(_evaluation.level).appendTo(_tr);
+                $("<td></td>").text(_evaluation.time).appendTo(_tr);
+
+                _tr.appendTo(_tb);
+            }
+        }
     }
 
     function displayItems(_this) {

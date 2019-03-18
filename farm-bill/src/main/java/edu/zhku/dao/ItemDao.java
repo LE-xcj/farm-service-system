@@ -124,5 +124,12 @@ public interface ItemDao {
      */
     int updateItemFromShoppingCard(String fid, List<ItemBrief> items) throws Exception;
 
+    /**
+     *
+     * @param evaluations
+     * @return
+     * @throws Exception
+     */
+    int evaluateForList(List<Evaluation> evaluations) throws Exception;
 }
     

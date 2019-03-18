@@ -42,4 +42,12 @@ public interface EvaluationMapper {
      * @throws Exception
      */
     float avgLevel(Integer iid) throws Exception;
+
+    /**
+     * 批量插入评论
+     * @param evaluations
+     * @return
+     * @throws Exception
+     */
+    int evaluateForList(List<Evaluation> evaluations) throws Exception;
 }

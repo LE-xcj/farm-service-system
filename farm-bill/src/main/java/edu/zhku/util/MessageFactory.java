@@ -81,5 +81,16 @@ public class MessageFactory {
 
         return msg;
     }
+
+
+    //todo 到时还需根据ip改动
+    public static final String EVAURL = "127.0.0.1:10086/farmService/item/evaluateView?bid=";
+    public static String getEvaluationUrl(String bid) {
+
+        String url = EVAURL + bid;
+
+        return url;
+
+    }
 }
     

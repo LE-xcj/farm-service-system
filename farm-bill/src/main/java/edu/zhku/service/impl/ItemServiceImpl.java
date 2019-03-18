@@ -415,6 +415,69 @@ public class ItemServiceImpl implements ItemService{
     }
 
     /**
+     * 批量插入评论
+     * @param evaluations
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int evaluateForList(List<Evaluation> evaluations) throws Exception {
+        if (null == evaluations || evaluations.isEmpty()) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+        int num = itemDao.evaluateForList(evaluations);
+        return num;
+    }
+
+
+    /**
+     * 根据bid查询关联的评论
+     * @param condition
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map<Integer, ItemEva> queryEvaluationByBid(EvaluationDTO condition) throws Exception {
+
+        if (condition == null || condition.getBid() == null) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+
+        //关联的评论
+        List<Evaluation> evaluations = itemDao.queryEvaluation(condition);
+        int size = evaluations.size();
+        if (size == 0){
+            return new HashMap<>();
+        }
+        Map<Integer, ItemEva> result = new HashMap<>(size);
+
+        //第一步初始化,用商品id作为key
+        //对于某一订单，商品和评论就是一对一的关系
+        for (Evaluation evaluation : evaluations) {
+
+            Integer iid = evaluation.getIid();
+            ItemEva itemEva = new ItemEva();
+            itemEva.setEvaluation(evaluation);
+
+            result.put(iid, itemEva);
+        }
+
+        //批量查询item
+        List<Integer> ids = new ArrayList<>(result.keySet());
+        List<Item> items = itemDao.selectItemByIds(ids);
+
+        //包装
+        for (Item item : items) {
+            Integer iid = item.getIid();
+            ItemEva itemEva = result.get(iid);
+            itemEva.setItem(item);
+        }
+
+        return result;
+    }
+
+    /**
      * 查询某个商品的评论
      * @param condition
      * @return
@@ -578,6 +641,7 @@ public class ItemServiceImpl implements ItemService{
 
         return result;
     }
+
 
     /**
      * 包装

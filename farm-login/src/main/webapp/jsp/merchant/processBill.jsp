@@ -174,40 +174,86 @@
 </div>
 <!--模态框end-->
 
-<!--安排机手的模态框-->
+
+<!--机手信息的模态框-->
 <div class="am-popup am-popup-inner" id="operatorList" style="max-height: 520px">
 
     <div class="am-popup-hd">
-        <h4 class="am-popup-title">修改预约时间</h4>
+        <h4 class="am-popup-title">机手信息</h4>
         <span data-am-modal-close class="am-close">&times;</span>
     </div>
 
-    <form id="arrangeForm" onsubmit="return changeDeadLine();">
-        <div class="am-popup-bd">
-            <div>
-                <table id="operatortable">
-                    <thead>
-                        <tr>
-                            <td>编号</td>
-                            <td>头像</td>
-                            <td>姓名</td>
-                            <td>手机号</td>
-                        </tr>
-                    </thead>
-                    <tbody id="operatorTb">
+    <div class="am-popup-bd">
+        <div>
+            <table id="operatortable">
+                <thead>
+                <tr>
+                    <td>编号</td>
+                    <td>头像</td>
+                    <td>姓名</td>
+                    <td>手机号</td>
+                </tr>
+                </thead>
+                <tbody id="operatorTb">
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
-
-        <button type="submit">安排</button>
-    </form>
-
+    </div>
 
 </div>
 <!--模态框end-->
 
+<!--安排机手的模态框-->
+<div class="am-popup am-popup-inner" id="arrangeOperatorList" style="max-height: 570px">
+
+    <div class="am-popup-hd">
+        <h4 class="am-popup-title">安排机手</h4>
+        <span data-am-modal-close class="am-close">&times;</span>
+    </div>
+
+    <div class="am-popup-bd">
+        <div>
+            <form>
+                <table id="arrangeOperatortable">
+                    <thead>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>头像</td>
+                        <td>姓名</td>
+                        <td>手机号</td>
+                    </tr>
+                    </thead>
+                    <tbody id="arrangeOperatorTb">
+
+                    </tbody>
+                </table>
+
+            </form>
+            <!--下一页-->
+            <ul class="am-pagination am-fr">
+                <li>
+                    <button onclick="arrange()">安排</button>
+                </li>
+                <li>
+                    <a href="javascript:ocheck(-1);">«</a>
+                </li>
+                <li>
+                    <a href="#" id="ocurrentPage">1</a>
+                </li>
+                <li>
+                    <a href="javascript:ocheck(1);">»</a>
+                </li>
+                共<label id="ototalPage">0</label>页
+            </ul>
+            <hr />
+        </div>
+    </div>
+
+</div>
+<!--模态框end-->
 </body>
 
 <script>
@@ -328,13 +374,9 @@
             _td2.appendTo(_tr);
 
             var _oa = $("<a></a>");
-            _oa.attr("data-am-modal", "{target: '#operatorList'}")
-                .attr("href", "javascript:void(0);")
-                .attr("onclick", "displayOperators(this)")
-                .attr("id", bill.bid);
+            _oa.attr("id", bill.bid);
+            setAttr(_oa);
 
-            var _texto = getOperatorsText(bills[i].operators);
-            _oa.text(_texto);
             var _td3 = $("<td></td>");
             _oa.appendTo(_td3);
             _td3.appendTo(_tr);
@@ -491,5 +533,195 @@
         $("#showFrame").attr("src", _src);
     }
 
+
+
+</script>
+
+<script>
+
+    var _record = new Map();
+    var _arrangeOperator = new Map();
+    var _currenta;
+
+    function setAttr(_oa) {
+        var _bid = _oa.attr("id");
+        var _texto = getOperatorsText(_gloablOperator.get(_bid));
+        _oa.text(_texto);
+        if (_texto == "安排机手") {
+            _oa.attr("data-am-modal", "{target: '#arrangeOperatorList'}")
+                .attr("href", "javascript:void(0);")
+                .attr("onclick", "arrangeOperator(this)");
+        } else {
+            _oa.attr("data-am-modal", "{target: '#operatorList'}")
+                .attr("href", "javascript:void(0);")
+                .attr("onclick", "displayOperators(this)");
+        }
+
+    }
+
+
+    function arrangeOperator(_this){
+        _record.clear();
+        _currenta = $(_this);
+        getOperatorList(1);
+    }
+
+    function ocheck(_offset) {
+        var _begin = $("#ocurrentPage").text();
+        _begin = parseInt(_begin);
+
+        //page
+        var _source = _begin;
+        _begin += _offset;
+
+        var _total = $("#ototalPage").text();
+        _total = parseInt(_total);
+
+        if(_begin == 0){
+            showDialog("已经是第一页了");
+            return;
+        }else if(_begin > _total){
+            showDialog("最后一页了");
+        }else{
+            save(_source);
+            getOperatorList(_begin);
+            showPre(_begin);
+        }
+    }
+
+    function getOperatorList(_begin) {
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/operator/queryOperatorByPage",
+            dataType:'json',  // 处理Ajax跨域问题
+            data: {'operator.mid': ${mid}, page: _begin},
+            async:false,
+            success: function(data){
+                ofill(data, _begin);
+            },error: function (data) {
+                console.info("erro");
+            }
+        });
+    }
+
+    function ofill(data, _begin) {
+        var _operators = data.operators;
+        var _totalPage = data.totalPage;
+
+        $("#ocurrentPage").text(_begin);
+        $("#ototalPage").text(_totalPage);
+
+        var _tb = $("#arrangeOperatorTb");
+        _tb.html("");
+
+        for(var i=0; i<_operators.length; ++i){
+            var _tr = $("<tr></tr>");
+
+            var _td = $("<td></td>");
+            $("<input />").attr("type", "checkbox")
+                .attr("value", _operators[i].oid)
+                .appendTo(_td);
+            _td.appendTo(_tr);
+
+            _td = $("<td></td>");
+            $("<img />").attr("src", _operators[i].picture).attr("width", "80").attr("height", "80").appendTo(_td);
+            _td.appendTo(_tr);
+
+            $("<td></td>").text(_operators[i].oname).appendTo(_tr);
+            $("<td></td>").text(_operators[i].phone).appendTo(_tr);
+
+            _tr.appendTo(_tb);
+
+            _arrangeOperator.set(_operators[i].oid, _operators[i]);
+        }
+    }
+
+    function save(_page){
+
+        var _list = [];
+        $("#arrangeOperatorTb :checkbox").each(function(key, value){
+            if($(value).prop('checked')){
+                var _oid = $(value).val();
+                _list.push(_arrangeOperator.get(_oid));
+            }
+        });
+
+        _record.set(_page, _list);
+    }
+
+    function arrange(){
+        var _page = parseInt($("#ocurrentPage").text());
+        save(_page);
+
+        var _bid = _currenta.attr("id");
+        var operators = [];
+        _record.forEach(function(element, index, array) {
+
+            console.info(element);
+
+            if (element.length != 0) {
+                for (var i=0; i<element.length; ++i) {
+                    operators.push(element[i].oid);
+                }
+            }
+        });
+
+        var _formData = new FormData();
+        _formData.append("bid", _bid);
+        _formData.append("operators", operators);
+
+
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/bill/arragenOperator",
+            dataType:'json',  // 处理Ajax跨域问题
+            async:false,
+            dataType:'json',
+            data:_formData,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            success: function(data){
+                showDialog("安排成功！");
+                setOperators(_bid, operators);
+            },error: function (data) {
+                showDialog("安排失败！");
+            }
+        });
+
+    }
+    
+    function setOperators(_bid, operatorIds) {
+        var operators = [];
+        for (var i=0; i<operatorIds.length; ++i) {
+            var operator = _arrangeOperator.get(operatorIds[i]);
+            operators.push(operator);
+        }
+        _gloablOperator.set(_bid, operators);
+        setAttr(_currenta);
+    }
+
+    function showPre(_page) {
+        var _list = _record.get(_page);
+        if (_list == null){
+            return;
+        }
+        for (var i=0; i<_list.length; ++i) {
+
+            $("#arrangeOperatorTb :checkbox").each(function(key, value){
+                var _oid = $(value).val();
+
+                if(_list[i].oid == _oid) {
+                    $(value).attr("checked", true);
+                }
+            });
+        }
+    }
 </script>
 </html>
