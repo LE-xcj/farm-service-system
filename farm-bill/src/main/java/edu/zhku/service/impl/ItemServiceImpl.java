@@ -11,9 +11,7 @@ import edu.zhku.service.ItemService;
 import edu.zhku.service.MerchantServiceFacade;
 import edu.zhku.util.AMapUtil;
 import edu.zhku.util.PageUtil;
-import edu.zhku.vo.ItemExpandVo;
-import edu.zhku.vo.ItemVo;
-import edu.zhku.vo.ShoppingCartItemVo;
+import edu.zhku.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -478,6 +476,91 @@ public class ItemServiceImpl implements ItemService{
     }
 
     /**
+     * 统计某个商品的销量
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public int countItemComplete(BillItemVo vo) throws Exception {
+
+        isNull(vo);
+
+        List<ItemMerchantVo> itemMerchantVos = itemDao.countItemComplete(vo);
+
+       if (isNull(itemMerchantVos)) {
+           return 0;
+       }
+
+        ItemMerchantVo itemMerchantVo = itemMerchantVos.get(0);
+        int num = itemMerchantVo.getTotal();
+
+        return num;
+    }
+
+    /**
+     * 查询销量比比较好的item
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ItemNum> topItem(BillItemVo vo) throws Exception {
+
+        isNull(vo);
+
+        List<ItemMerchantVo> vos = itemDao.countItemComplete(vo);
+
+        if (isNull(vos)) {
+            return new ArrayList<>();
+        }
+
+        //进行包装
+        Map<Integer, ItemNum> result = new LinkedHashMap<>();
+        for (ItemMerchantVo v : vos) {
+
+            ItemNum itemNum = new ItemNum();
+            itemNum.setNum(v.getTotal());
+
+            Integer iid = v.getIid();
+            result.put(iid, itemNum);
+        }
+
+
+        //批量查询item
+        List<Integer> iids = new ArrayList<>(result.keySet());
+        List<Item> items = itemDao.selectItemByIds(iids);
+
+        //重新组装
+        for (Item item : items) {
+            Integer iid = item.getIid();
+
+            ItemNum itemNum = result.get(iid);
+            itemNum.setItem(item);
+        }
+
+        List<ItemNum> data = new ArrayList<>(result.values());
+
+        return data;
+    }
+
+    /**
+     * 查询销量不错的商户
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ItemMerchantVo> topMerchant(BillItemVo vo) throws Exception {
+
+        isNull(vo);
+
+        List<ItemMerchantVo> data = itemDao.countItemComplete(vo);
+
+        return data;
+    }
+
+    /**
      * 查询某个商品的评论
      * @param condition
      * @return
@@ -878,6 +961,22 @@ public class ItemServiceImpl implements ItemService{
 
         return false;
 
+    }
+
+
+
+    private boolean isNull(List<ItemMerchantVo> itemMerchantVos) {
+        if (itemMerchantVos == null || itemMerchantVos.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isNull(BillItemVo vo) throws Exception {
+        if (null == vo) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+        return false;
     }
 }
     

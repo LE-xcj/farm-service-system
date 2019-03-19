@@ -326,7 +326,7 @@ public class BillServiceImpl implements BillService {
      */
     private void sendEvaluation(int flag, Bill bill) {
         //发送评价消息
-        if (flag == BillStatus.OK) {
+        if (flag == BillStatus.COMPLETE) {
 
             String bid = bill.getBid();
 

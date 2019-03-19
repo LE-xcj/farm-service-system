@@ -3,6 +3,8 @@ package edu.zhku.mapper;
 import edu.zhku.pojo.Item;
 import edu.zhku.pojo.ItemCondition;
 import edu.zhku.pojo.ItemConditionForMerchant;
+import edu.zhku.vo.BillItemVo;
+import edu.zhku.vo.ItemMerchantVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -77,4 +79,12 @@ public interface ItemMapper {
      * @throws Exception
      */
     int updateItemStatus(@Param("ids") List<Integer> ids, @Param("status") int status) throws Exception;
+
+    /**
+     * 计算某个商品的交易量
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    List<ItemMerchantVo> countItemComplete(BillItemVo vo) throws Exception;
 }

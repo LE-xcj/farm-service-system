@@ -1,6 +1,8 @@
 package edu.zhku.service;
 
 import edu.zhku.pojo.*;
+import edu.zhku.vo.BillItemVo;
+import edu.zhku.vo.ItemMerchantVo;
 import edu.zhku.vo.ItemVo;
 import edu.zhku.vo.ShoppingCartItemVo;
 
@@ -125,4 +127,16 @@ public interface ItemService {
      * @throws Exception
      */
     Map<Integer,ItemEva> queryEvaluationByBid(EvaluationDTO condition) throws Exception;
+
+    /**
+     * 用于统计某一商品累计销售的数量
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    int countItemComplete(BillItemVo vo) throws Exception;
+
+    List<ItemNum> topItem(BillItemVo vo) throws Exception;
+
+    List<ItemMerchantVo> topMerchant(BillItemVo vo) throws Exception;
 }

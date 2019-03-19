@@ -188,7 +188,7 @@
           #{item.evaluation,jdbcType=VARCHAR},
           now(),
           #{item.iid,jdbcType=INTEGER},
-          #{bid,jdbcType=VARCHAR}
+          #{item.bid,jdbcType=VARCHAR}
        )
      </foreach>
 

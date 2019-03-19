@@ -1,6 +1,8 @@
 package edu.zhku.dao;
 
 import edu.zhku.pojo.*;
+import edu.zhku.vo.BillItemVo;
+import edu.zhku.vo.ItemMerchantVo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -131,5 +133,13 @@ public interface ItemDao {
      * @throws Exception
      */
     int evaluateForList(List<Evaluation> evaluations) throws Exception;
+
+    /**
+     * 计算某个商品交易量
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    List<ItemMerchantVo> countItemComplete(BillItemVo vo) throws Exception;
 }
     

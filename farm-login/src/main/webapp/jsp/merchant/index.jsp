@@ -53,9 +53,9 @@
             </li>
 
             <li class="kuanjie">
-                <a href="javascript:redir('${pageContext.request.contextPath }/bill/merchantBillList');">主页</a>
+                <a href="javascript:redir('${pageContext.request.contextPath }/bill/merchantProcessingBill');">主页</a>
                 <a href="javascript:redir('${pageContext.request.contextPath }/item/itemListView');">商品管理</a>
-                <a href="javascript:redir('${pageContext.request.contextPath }/item/operatorListView');">机手管理</a>
+                <a href="javascript:redir('${pageContext.request.contextPath }/operator/operatorListView');">机手管理</a>
                 <a href="javascript:redir('${pageContext.request.contextPath }/bill/merchantBillList');">订单管理</a>
                 <a href="javascript:redir('${pageContext.request.contextPath }/merchant/updateMerchantView');">个人中心</a>
             </li>
@@ -135,7 +135,7 @@
             <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;">欢迎登陆: ${merchant.mname}</div>
         </div>
 
-        <iframe id="showFrame" src="${pageContext.request.contextPath }/bill/merchantBillList"
+        <iframe id="showFrame" src="${pageContext.request.contextPath }/bill/merchantProcessingBill"
                 class="main-page" scrolling="no" frameborder="0"
                 onload="changeFrameHeight()">
         </iframe>
@@ -343,8 +343,7 @@
     function addMessage(message) {
         message = JSON.parse(message);
         changeNoticeNum(1);
-        alert(message);
-        console.info(message);
+        showDialog("您有新的消息了!");
     }
     
     function queryUnReadNoticeNum() {

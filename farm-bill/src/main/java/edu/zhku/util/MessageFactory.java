@@ -84,10 +84,10 @@ public class MessageFactory {
 
 
     //todo 到时还需根据ip改动
-    public static final String EVAURL = "127.0.0.1:10086/farmService/item/evaluateView?bid=";
+    public static final String EVAURL = "http://127.0.0.1:10086/farmService/item/evaluateView?bid=";
     public static String getEvaluationUrl(String bid) {
 
-        String url = EVAURL + bid;
+        String url = "订单: " + bid + "已经完成，" + "评价地址：" + EVAURL + bid;
 
         return url;
 

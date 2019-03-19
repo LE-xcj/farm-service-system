@@ -242,4 +242,63 @@
     </foreach>
   </update>
 
+
+
+
+
+
+
+
+
+
+
+
+  <resultMap id="itemMerchantResultMap" type="edu.zhku.vo.ItemMerchantVo">
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+    <result column="iid" jdbcType="INTEGER" property="iid" />
+  </resultMap>
+
+  <select id="countItemComplete" parameterType="edu.zhku.vo.BillItemVo" resultMap="itemMerchantResultMap">
+    select count(*) total
+    <if test="iid != null">
+      iid
+    </if>
+    <if test="mid != null">
+      mid
+    </if>
+    from t_bill tb left join t_bill_item tbi on (tb.bid = tbi.bid)
+    <where>
+      <include refid="count_condition_sql"/>
+    </where>
+
+    <include refid="groupby_sql"/>
+    <include refid="new_order_by_sql"/>
+    <include refid="page_sql"/>
+  </select>
+  
+  <sql id="count_condition_sql">
+    status = #{status}
+    <if test="iid != null">
+      and iid = #{iid}
+    </if>
+  </sql>
+  
+  <sql id="groupby_sql">
+    GROUP  BY
+    <if test="iid != null">
+      iid
+    </if>
+    <if test="mid != null">
+      mid
+    </if>
+  </sql>
+
+  <sql id="new_order_by_sql">
+    ORDER BY total
+    <if test="desc">
+      DESC 
+    </if>
+  </sql>
+  
 </mapper>

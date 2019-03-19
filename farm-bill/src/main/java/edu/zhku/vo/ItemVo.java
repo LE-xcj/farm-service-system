@@ -16,6 +16,8 @@ public class ItemVo {
 
     private int totalPage;
 
+    private int total;
+
     public List<? extends Item> getItems() {
         return items;
     }
@@ -30,6 +32,14 @@ public class ItemVo {
 
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }
     

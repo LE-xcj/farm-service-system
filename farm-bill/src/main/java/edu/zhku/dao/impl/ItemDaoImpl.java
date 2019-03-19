@@ -7,7 +7,8 @@ import edu.zhku.mapper.EvaluationMapper;
 import edu.zhku.mapper.ItemMapper;
 import edu.zhku.pojo.*;
 import edu.zhku.util.RedisUtil;
-import edu.zhku.vo.BillStatusVo;
+import edu.zhku.vo.BillItemVo;
+import edu.zhku.vo.ItemMerchantVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -106,6 +107,13 @@ public class ItemDaoImpl implements ItemDao {
         int count = itemMapper.countForMerchant(condition);
         return count;
     }
+
+    @Override
+    public List<ItemMerchantVo> countItemComplete(BillItemVo vo) throws Exception {
+        List<ItemMerchantVo> result = itemMapper.countItemComplete(vo);
+        return result;
+    }
+
 
 
     @Autowired

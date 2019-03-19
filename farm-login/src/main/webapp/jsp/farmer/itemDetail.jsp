@@ -96,8 +96,9 @@
         <div class="txt">
             <span class="nowprice">￥<a id="price"></a></span>
             <div class="cumulative">
-                <span class="number ty1">累计售出<br /><em id="">370</em></span>
-                <span class="number tyu">累计评价<br /><em id="eva_nums">25</em></span>
+                <span class="number ty1">累计售出<br /><em id="">0</em></span>
+                <span class="number ty1">累计评分<br /><em id="eva_avelevel">0</em></span>
+                <span class="number tyu">累计评价<br /><em id="eva_nums">0</em></span>
             </div>
         </div>
 
@@ -359,6 +360,7 @@
 
         console.info(total);
         $("#eva_nums").text(total);
+        $("#eva_avelevel").text(data.avgLevel);
 
         var _tb = $("#tb");
         _tb.html("");

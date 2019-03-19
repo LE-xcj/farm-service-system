@@ -1,13 +1,12 @@
 package edu.zhku.controller;
 
+import edu.zhku.constant.ExceptionMessage;
 import edu.zhku.constant.Path;
 import edu.zhku.pojo.*;
 import edu.zhku.service.ItemService;
 import edu.zhku.util.FileUtil;
 import edu.zhku.util.PageUtil;
-import edu.zhku.vo.EvaluationVo;
-import edu.zhku.vo.ItemVo;
-import edu.zhku.vo.ShoppingCartItemVo;
+import edu.zhku.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -146,13 +145,18 @@ public class ItemController {
 
     /**
      * 批量插入评论
-     * @param evaluations
+     * @param vo
      * @return
      * @throws Exception
      */
     @RequestMapping("/evaluateForList")
-    public int evaluateForList(List<Evaluation> evaluations) throws Exception {
+    public int evaluateForList(EvaluationVo vo) throws Exception {
 
+        if (null == vo) {
+            throw new Exception(ExceptionMessage.OBJNULL);
+        }
+
+        List<Evaluation> evaluations = vo.getEvaluations();
         int num = itemService.evaluateForList(evaluations);
         return num;
     }
@@ -186,6 +190,34 @@ public class ItemController {
         vo.setAvgLevel(avgLevel);
 
         return vo;
+    }
+
+
+    /**
+     * 计算某一个商品的交易量
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/countItemComplete")
+    public int countItemComplete(BillItemVo vo) throws Exception {
+
+        int num = itemService.countItemComplete(vo);
+        return num;
+    }
+
+    @RequestMapping("/topItem")
+    public List<ItemNum> topItem(BillItemVo vo) throws Exception {
+
+        List<ItemNum> result = itemService.topItem(vo);
+        return result;
+    }
+
+    @RequestMapping("/topMerchant")
+    public List<ItemMerchantVo> topMerchant(BillItemVo vo) throws Exception {
+
+        List<ItemMerchantVo> result = itemService.topMerchant(vo);
+        return result;
     }
 
 

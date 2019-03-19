@@ -2,6 +2,7 @@ package edu.zhku.mapper;
 
 import edu.zhku.pojo.Evaluation;
 import edu.zhku.pojo.EvaluationDTO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -49,5 +50,5 @@ public interface EvaluationMapper {
      * @return
      * @throws Exception
      */
-    int evaluateForList(List<Evaluation> evaluations) throws Exception;
+    int evaluateForList(@Param("evaluations") List<Evaluation> evaluations) throws Exception;
 }

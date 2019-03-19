@@ -14,5 +14,7 @@ public class Size {
     public static final int BILLPAGESIZE = 5;
 
     public static final int EVALUATIONSIZE = 10;
+
+    public static final int NORMALPAGESIZE = 5;
 }
     
