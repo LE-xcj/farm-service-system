@@ -551,13 +551,47 @@ public class ItemServiceImpl implements ItemService{
      * @throws Exception
      */
     @Override
-    public List<ItemMerchantVo> topMerchant(BillItemVo vo) throws Exception {
+    public List<MerchantVo> topMerchant(BillItemVo vo) throws Exception {
 
         isNull(vo);
 
         List<ItemMerchantVo> data = itemDao.countItemComplete(vo);
 
-        return data;
+        if (isNull(data)) {
+            return new ArrayList<>();
+        }
+
+        Map<String, MerchantVo> result = new LinkedHashMap<>();
+        for (ItemMerchantVo d : data) {
+            MerchantVo merchantVo = new MerchantVo();
+
+            String mid = d.getMid();
+            merchantVo.setTotal(d.getTotal());
+            result.put(mid, merchantVo);
+        }
+
+        //批量查询merchant
+        List<String> mids = new ArrayList<>(result.keySet());
+        String ids = JSON.toJSONString(mids);
+        String merchants = merchantServiceFacade.queryMerchantByIds(ids);
+
+        JSONArray array = JSON.parseArray(merchants);
+        int length = array.size();
+
+        //遍历填充merchant
+        for (int i=0; i<length; ++i) {
+            //获取mid属性
+            JSONObject merchant = array.getJSONObject(i);
+            String mid = merchant.getString("mid");
+
+            //填充merchant信息
+            MerchantVo merchantVo = result.get(mid);
+            merchantVo.setMerchant(merchant);
+        }
+
+        List<MerchantVo> returnData = new ArrayList<>(result.values());
+
+        return returnData;
     }
 
     /**

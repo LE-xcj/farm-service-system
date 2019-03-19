@@ -13,7 +13,7 @@ public class BillItemVo {
     //查询条件
     private int status;
     private Integer iid;
-    private String mid;
+    private boolean mid = false;
 
     private Integer page;
     private Integer pageSize = Size.NORMALPAGESIZE;
@@ -23,11 +23,11 @@ public class BillItemVo {
     boolean desc = true;
 
 
-    public String getMid() {
+    public boolean isMid() {
         return mid;
     }
 
-    public void setMid(String mid) {
+    public void setMid(boolean mid) {
         this.mid = mid;
     }
 

@@ -261,11 +261,11 @@
 
   <select id="countItemComplete" parameterType="edu.zhku.vo.BillItemVo" resultMap="itemMerchantResultMap">
     select count(*) total
-    <if test="iid != null">
-      iid
+    <if test="mid == false">
+      ,iid
     </if>
-    <if test="mid != null">
-      mid
+    <if test="mid">
+      ,mid
     </if>
     from t_bill tb left join t_bill_item tbi on (tb.bid = tbi.bid)
     <where>
@@ -286,10 +286,10 @@
   
   <sql id="groupby_sql">
     GROUP  BY
-    <if test="iid != null">
+    <if test="mid == false">
       iid
     </if>
-    <if test="mid != null">
+    <if test="mid">
       mid
     </if>
   </sql>

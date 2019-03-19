@@ -2,8 +2,8 @@ package edu.zhku.service;
 
 import edu.zhku.pojo.*;
 import edu.zhku.vo.BillItemVo;
-import edu.zhku.vo.ItemMerchantVo;
 import edu.zhku.vo.ItemVo;
+import edu.zhku.vo.MerchantVo;
 import edu.zhku.vo.ShoppingCartItemVo;
 
 import java.util.List;
@@ -138,5 +138,5 @@ public interface ItemService {
 
     List<ItemNum> topItem(BillItemVo vo) throws Exception;
 
-    List<ItemMerchantVo> topMerchant(BillItemVo vo) throws Exception;
+    List<MerchantVo> topMerchant(BillItemVo vo) throws Exception;
 }

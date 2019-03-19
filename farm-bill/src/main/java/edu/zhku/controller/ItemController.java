@@ -214,9 +214,9 @@ public class ItemController {
     }
 
     @RequestMapping("/topMerchant")
-    public List<ItemMerchantVo> topMerchant(BillItemVo vo) throws Exception {
+    public List<MerchantVo> topMerchant(BillItemVo vo) throws Exception {
 
-        List<ItemMerchantVo> result = itemService.topMerchant(vo);
+        List<MerchantVo> result = itemService.topMerchant(vo);
         return result;
     }
 
