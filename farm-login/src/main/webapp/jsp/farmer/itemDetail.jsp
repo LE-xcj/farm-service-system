@@ -96,7 +96,7 @@
         <div class="txt">
             <span class="nowprice">￥<a id="price"></a></span>
             <div class="cumulative">
-                <span class="number ty1">累计售出<br /><em id="">0</em></span>
+                <span class="number ty1">累计售出<br /><em id="countComplete">0</em></span>
                 <span class="number ty1">累计评分<br /><em id="eva_avelevel">0</em></span>
                 <span class="number tyu">累计评价<br /><em id="eva_nums">0</em></span>
             </div>
@@ -277,6 +277,21 @@
             posit();
 
             queryEVAS(1);
+
+            countItemComplete();
+        }
+        
+        function countItemComplete() {
+            $.ajax({
+                type:"post",
+                url:"http://127.0.0.1:10087/farmService/item/countItemComplete",
+                async:true,
+                dataType:'json',  // 处理Ajax跨域问题
+                data:{iid: '${iid}', status: 2, page:1},
+                success: function(data){
+                    $("#countComplete").text(data);
+                }
+            });
         }
 
         function fill(data) {

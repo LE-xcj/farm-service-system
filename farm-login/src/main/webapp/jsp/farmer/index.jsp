@@ -185,111 +185,13 @@
 
         <!-- START SLIDER 第一部分-->
         <div class="skywalkerSlider">
-            <ul class="skywalkerSliderContent">
-                <li class="skywalkerSliderContentItem skywalkerSliderContentActive">
-                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_29.jpg" alt="" />
-                    <div class="skywalkerSliderContentItemBox">
-                        <div class="skywalkerSliderContentItemBoxPrev"></div>
-                        <div class="skywalkerSliderContentItemBoxNext"></div>
-                        <div class="skywalkerSliderContentItemBoxInfo">
-                            <div class="skywalkerSliderContentItemBoxInfoTitle">
-                                <div class="skywalkerSliderContentItemBoxInfoTitleBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTitleText"> lorem ipsum dolor sit amet </div>
-                            </div>
-                            <div class="skywalkerSliderContentItemBoxInfoText">
-                                <div class="skywalkerSliderContentItemBoxInfoTextBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTextContent"> Lorem ipsum dolor sit amet, mea mutat ludus te. Alii duis molestiae his ut, pri tation platonem in, forensibus deseruisse qui ea. Amet novum essent ius ea. </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="skywalkerSliderContentItem">
-                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_28.jpg" alt="" />
-                    <div class="skywalkerSliderContentItemBox">
-                        <div class="skywalkerSliderContentItemBoxPrev"></div>
-                        <div class="skywalkerSliderContentItemBoxNext"></div>
-                        <div class="skywalkerSliderContentItemBoxInfo">
-                            <div class="skywalkerSliderContentItemBoxInfoTitle">
-                                <div class="skywalkerSliderContentItemBoxInfoTitleBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTitleText"> errem inimicus duo ex </div>
-                            </div>
-                            <div class="skywalkerSliderContentItemBoxInfoText">
-                                <div class="skywalkerSliderContentItemBoxInfoTextBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTextContent"> Errem inimicus duo ex, qui ex nobis prodesset definiebas, ius natum mundi ea. Quo ex discere labores. Sea amet consul no, mea quot voluptua ex. </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="skywalkerSliderContentItem">
-                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_27.jpg" alt="" />
-                    <div class="skywalkerSliderContentItemBox">
-                        <div class="skywalkerSliderContentItemBoxPrev"></div>
-                        <div class="skywalkerSliderContentItemBoxNext"></div>
-                        <div class="skywalkerSliderContentItemBoxInfo">
-                            <div class="skywalkerSliderContentItemBoxInfoTitle">
-                                <div class="skywalkerSliderContentItemBoxInfoTitleBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTitleText"> vis an atqui albucius tractatos </div>
-                            </div>
-                            <div class="skywalkerSliderContentItemBoxInfoText">
-                                <div class="skywalkerSliderContentItemBoxInfoTextBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTextContent"> Vis an atqui albucius tractatos, mea et fabulas prodesset, ex amet cibo eam. Fabulas detraxit intellegat vis id, facilis invenire eleifend sea ut. </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="skywalkerSliderContentItem">
-                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_26.jpg" alt="" />
-                    <div class="skywalkerSliderContentItemBox">
-                        <div class="skywalkerSliderContentItemBoxPrev"></div>
-                        <div class="skywalkerSliderContentItemBoxNext"></div>
-                        <div class="skywalkerSliderContentItemBoxInfo">
-                            <div class="skywalkerSliderContentItemBoxInfoTitle">
-                                <div class="skywalkerSliderContentItemBoxInfoTitleBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTitleText"> ei ludus tamquam has </div>
-                            </div>
-                            <div class="skywalkerSliderContentItemBoxInfoText">
-                                <div class="skywalkerSliderContentItemBoxInfoTextBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTextContent"> Ei ludus tamquam has, qui ea verear repudiandae. An pri clita primis, falli aperiam id his. Principes intellegam conclusionemque at sit. </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="skywalkerSliderContentItem">
-                    <img class="skywalkerSliderContentItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_25.jpg" alt="" />
-                    <div class="skywalkerSliderContentItemBox">
-                        <div class="skywalkerSliderContentItemBoxPrev"></div>
-                        <div class="skywalkerSliderContentItemBoxNext"></div>
-                        <div class="skywalkerSliderContentItemBoxInfo">
-                            <div class="skywalkerSliderContentItemBoxInfoTitle">
-                                <div class="skywalkerSliderContentItemBoxInfoTitleBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTitleText"> mea sint dictas cotidieque et </div>
-                            </div>
-                            <div class="skywalkerSliderContentItemBoxInfoText">
-                                <div class="skywalkerSliderContentItemBoxInfoTextBackground"> </div>
-                                <div class="skywalkerSliderContentItemBoxInfoTextContent"> Mea sint dictas cotidieque et. Qui primis volumus an, sed illum repudiare cu. No his solet meliore antiopam, et luptatum pericula sea, eu vis animal argumentum. </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <ul  class="skywalkerSliderPreview">
-                <li class="skywalkerSliderPreviewItem skywalkerSliderPreviewActive">
-                    <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_29.jpg" alt="" />
-                    <div class="skywalkerSliderPreviewItemOpacity"></div>
-                </li>
-                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_28.jpg" alt="" />
-                    <div class="skywalkerSliderPreviewItemOpacity"></div>
-                </li>
-                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_27.jpg" alt="" />
-                    <div class="skywalkerSliderPreviewItemOpacity"></div>
-                </li>
-                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_26.jpg" alt="" />
-                    <div class="skywalkerSliderPreviewItemOpacity"></div>
-                </li>
-                <li class="skywalkerSliderPreviewItem"> <img class="skywalkerSliderPreviewItemImage" src="http://106.14.139.8/farmer-index/index/images/images/walker_25.jpg" alt="" />
-                    <div class="skywalkerSliderPreviewItemOpacity"></div>
-                </li>
-            </ul>
+
+            <%--大的那部分--%>
+            <ul class="skywalkerSliderContent" id="bigTopItem"></ul>
+
+            <%--下面的部分--%>
+            <ul  class="skywalkerSliderPreview" id="smallToItem"></ul>
+
             <div class="skywalkerSliderMarker"></div>
             <div class="skywalkerSliderResponsiveLeft"></div>
             <div class="skywalkerSliderResponsiveRight"></div>
@@ -300,72 +202,12 @@
         <div class="works carousel">
             <div class="carouselNext"></div>
             <div class="carouselBack"></div>
-            <div class="title">最近火热的服务</div>
+            <div class="title">销量较好的服务</div>
             <div class="clear"></div>
             <div class="titleline"></div>
             <div class="carouselView">
-                <div class="carouselContainer">
-                    <div class="columns four">
-                        <div class="work">
-                            <%--放大图--%>
-                            <a href="http://106.14.139.8/farmer-index/index/images/images/walker_1.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
-                                <%--缩小图--%>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_1.jpg" alt="cards" /></a>
-                            <h3><a href="single_project.html">Good stuff</a></h3>
-                            <h4>Leaflets, Design</h4>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="work">
-                            <a href="http://106.14.139.8/farmer-index/index/images/images/walker_2.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_2.jpg" alt="cards" /></a>
-                            <h3><a href="single_project.html">Color print</a></h3>
-                            <h4>Brochure, print</h4>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="work">
-                            <a href="http://106.14.139.8/farmer-index/index/images/images/walker_3.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_3.jpg" alt="cards" /></a>
-                            <h3><a href="single_project.html">Funny cards</a></h3>
-                            <h4>Prints start, Design</h4>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_4.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
-                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_4.jpg" alt="cards" /></a>
-                            <h3><a href="single_project.html">Rockable</a></h3>
-                            <h4>Brandbook, Design</h4>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_5.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
-                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_5.jpg" alt="cards" /></a>
-                            <h3><a href="single_project.html">Good stuff</a></h3>
-                            <h4>Leaflets, Design</h4>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_6.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
-                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_6.jpg" alt="cards" /></a>
-                            <h3><a href="single_project.html">Color print</a></h3>
-                            <h4>Brochure, print</h4>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="work"> <a href="images/images/walker_7.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
-                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_7.jpg" alt="cards" /></a>
-                            <h3><a href="single_project.html">Funny cards</a></h3>
-                            <h4>Prints start, Design</h4>
-                        </div>
-                    </div>
-                    <div class="columns four_last">
-                        <div class="work"> <a href="http://106.14.139.8/farmer-index/index/images/images/walker_8.jpg" rel="prettyPhoto[a]" class="pretty" title="This is the description"><span></span>
-                            <img src="http://106.14.139.8/farmer-index/index/images/images/walker_8.jpg" alt="cards" /></a>
-                            <h3><a href="single_project.html">Rockable</a></h3>
-                            <h4>Brandbook, Design</h4>
-                        </div>
-                    </div>
+                <div class="carouselContainer" id="topItem">
+
                     <div class="clear"></div>
                 </div>
             </div>
@@ -376,90 +218,11 @@
         <div class="blogs carousel">
             <div class="carouselNext"></div>
             <div class="carouselBack"></div>
-            <div class="title">信誉良好的商户</div>
+            <div class="title">销量较好的商户</div>
             <div class="clear"></div>
             <div class="titleline"></div>
             <div class="carouselView">
-                <div class="carouselContainer">
-                    <div class="columns four">
-                        <div class="newpost">
-                            <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" alt="cards" /></a>
-                            <div class="postphoto"></div>
-                            <h2><a href="single_post.html">Good stuff</a></h2>
-                            <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="newpost">
-                            <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_10.jpg" alt="cards" /></a>
-                            <div class="postvideo"></div>
-                            <h2><a href="single_post.html">Best choice</a></h2>
-                            <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="newpost">
-                            <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_11.jpg" alt="cards" /></a>
-                            <div class="posttext"></div>
-                            <h2><a href="single_post.html">Best future</a></h2>
-                            <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="newpost">
-                            <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_12.jpg" alt="cards" /></a>
-                            <div class="postvideo"></div>
-                            <h2><a href="single_post.html">Why us</a></h2>
-                            <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="newpost">
-                            <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_9.jpg" alt="cards" /></a>
-                            <div class="postphoto"></div>
-                            <h2><a href="single_post.html">Good stuff</a></h2>
-                            <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="newpost">
-                            <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_10.jpg" alt="cards" /></a>
-                            <div class="postvideo"></div>
-                            <h2><a href="single_post.html">Best choice</a></h2>
-                            <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
-                        </div>
-                    </div>
-                    <div class="columns four">
-                        <div class="newpost">
-                            <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span><img src="images/images/walker_11.jpg" alt="cards" /></a>
-                            <div class="posttext"></div>
-                            <h2><a href="single_post.html">Best future</a></h2>
-                            <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
-                        </div>
-                    </div>
-                    <div class="columns four_last">
-                        <div class="newpost">
-                            <div class="viewpost"><a href="single_post.html">View post</a></div>
-                            <a href="single_post.html" class="fade" title="This is the description"><span></span>
-                                <img src="http://106.14.139.8/farmer-index/index/images/images/walker_12.jpg" alt="cards" /></a>
-                            <div class="postvideo"></div>
-                            <h2><a href="single_post.html">Why us</a></h2>
-                            <p>Ut scelerisque magna a nisl porttitor posuere. Aliquam felis ipsum, interdum ut dignissim at, accumsan non tellus.</p>
-                        </div>
-                    </div>
+                <div class="carouselContainer" id="topMerchant">
                     <div class="clear"></div>
                 </div>
             </div>
@@ -526,6 +289,8 @@
     $.ready = function () {
         initSocket();
         queryUnReadNoticeNum();
+        topItem();
+        topMerchant();
     }
 
     function initSocket(){
@@ -608,6 +373,205 @@
         }
     }
 
+    function topItem() {
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/item/topItem",
+            async:false,
+            data:{status: 2, page:1, pageSize:4},
+            success: function(data){
+                fillTopItem(data);
+                fillBigAndSmallItem(data);
+            }
+
+        });
+    }
+    
+    function fillBigAndSmallItem(data) {
+
+        if (null == data) {
+            return;
+        }
+
+        var _bigTopItem = $("#bigTopItem");
+        var _smallTopItem = $("#smallToItem");
+
+        var length = data.length;
+        var _html = "";
+        var _shtml = "";
+        for(var i=0; i<length; ++i) {
+
+            var _item = data[i].item;
+            var _total = data[i].num;
+
+            var _pre = "skywalkerSliderContentItem";
+            var _spre = "skywalkerSliderPreviewItem";
+
+            if (i == 0) {
+                _pre = _pre + " skywalkerSliderContentActive";
+                _spre = _spre + " skywalkerSliderPreviewActive";
+            }
+
+            _html = _html + "\t\t<li class=\"" + _pre +"\">\n" +
+            "                    <img class=\"skywalkerSliderContentItemImage\"\n" +
+            "                         src=\"" + _item.media + "\"/>\n" +
+            "                    <div class=\"skywalkerSliderContentItemBox\">\n" +
+            "                        <div class=\"skywalkerSliderContentItemBoxPrev\"></div>\n" +
+            "                        <div class=\"skywalkerSliderContentItemBoxNext\"></div>\n" +
+            "                        <div class=\"skywalkerSliderContentItemBoxInfo\">\n" +
+            "                            <div class=\"skywalkerSliderContentItemBoxInfoTitle\">\n" +
+            "                                <div class=\"skywalkerSliderContentItemBoxInfoTitleBackground\"> </div>\n" +
+            "                                <div class=\"skywalkerSliderContentItemBoxInfoTitleText\"> " + _item.iname + "</div>\n" +
+            "                            </div>\n" +
+            "                            <div class=\"skywalkerSliderContentItemBoxInfoText\">\n" +
+            "                                <div class=\"skywalkerSliderContentItemBoxInfoTextBackground\"> </div>\n" +
+            "                                <div class=\"skywalkerSliderContentItemBoxInfoTextContent\"> " + _item.description +" </div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "                    </div>\n" +
+            "                </li>";
+
+            _shtml = _shtml +
+            "\t\t<li class=\"" + _spre + "\">\n" +
+            "                    <img class=\"skywalkerSliderPreviewItemImage\" \n" +
+            "\t\t    src=\"" + _item.media + "\"/>\n" +
+            "                    <div class=\"skywalkerSliderPreviewItemOpacity\"></div>\n" +
+            "                </li>"
+        }
+
+        _bigTopItem.html(_html);
+        _smallTopItem.html(_shtml);
+
+
+    }
+    
+    function fillTopItem(data) {
+        if (null == data) {
+            return;
+        }
+        var length = data.length;
+
+        var _main = $("#topItem");
+        for(var i=0; i<length; ++i) {
+
+            var _item = data[i].item;
+            var _total = data[i].num;
+
+            var _colums = $("<div></div>");
+            if (i == 3) {
+                _colums.attr("class", "columns four_last")
+            } else {
+                _colums.attr("class", "columns four");
+            }
+
+            var _work = $("<div></div>");
+            _work.attr("class", "work");
+
+
+            var _aimg = $("<a></a>");
+            _aimg.attr("href", _item.media).attr("rel", "prettyPhoto[a]")
+                .attr("class", "pretty").attr("title", _item.description);
+
+            var _img = $("<img/>");
+            _img.attr("src", _item.media).attr("alt", "cards");
+            _img.appendTo(_aimg);
+
+            var _h3 = $("<h3></h3>");
+            var _a = $("<a></a>");
+            var _href = "http://127.0.0.1:10086/farmService/item/itemDetailView?iid=" + _item.iid + "&mid=" + _item.mid;
+            _a.attr("href", _href).attr("target", "_blank");
+            _a.text(_item.iname);
+            _a.appendTo(_h3);
+
+            var _h4 = $("<h4></h4>");
+            var _text = "销量: " + _total;
+            _h4.text(_text);
+
+
+            _aimg.appendTo(_work);
+            _h3.appendTo(_work);
+            _h4.appendTo(_work);
+            _work.appendTo(_colums);
+            _colums.appendTo(_main);
+        }
+    }
+
+    function topMerchant() {
+        $.ajax({
+            type:"post",
+            url:"http://127.0.0.1:10087/farmService/item/topMerchant",
+            async:true,
+            data:{status: 2, page:1, pageSize:4, mid: true},
+            success: function(data){
+                fillTopMerchant(data);
+            }
+
+        });
+    }
+
+    function fillTopMerchant(data){
+
+        if(null == data) {
+            return;
+        }
+        var length = data.length;
+
+        var _main = $("#topMerchant");
+
+        for(var i=0; i<length; ++i) {
+            var merchant = data[i].merchant;
+            var total = data[i].total;
+
+            var _colums = $("<div></div>");
+            if (i == 3) {
+                _colums.attr("class", "columns four_last")
+            } else {
+                _colums.attr("class", "columns four");
+            }
+
+            var _newpost = $("<div></div>");
+            _newpost.attr("class", "newpost");
+
+
+            var _viewPost = $("<div></div>");
+            _viewPost.attr("class", "viewpost");
+            var _aimg = $("<a></a>");
+            _aimg.attr("href", merchant.picture).text("View post");
+            _aimg.appendTo(_viewPost);
+
+
+            var _aa = $("<a></a>");
+            _aa.attr("href", merchant.picture).attr("target", "_blank").attr("class", "fade").attr("title", merchant.description);
+            var _img = $("<img/>");
+            _img.attr("src", merchant.picture).attr("alt", "cards");
+            _img.appendTo(_aa);
+
+
+            var _postphoto = $("<div></div>");
+            _postphoto.attr("class", "postphoto");
+
+            var h2 = $("<h2></h2>");
+            var _a = $("<a></a>");
+            var _href = "http://127.0.0.1:10086/farmService/item/itemListViewByMid?mid=" + merchant.mid;
+            _a.attr("href", _href).attr("target", "_blank");
+            _a.text(merchant.mname);
+            _a.appendTo(h2);
+
+            var _p = $("<p></p>");
+            var _html = "销量: " + total + "<br/>简介: " + merchant.description;
+            _p.html(_html);
+
+
+            _viewPost.appendTo(_newpost);
+            _aa.appendTo(_newpost);
+            _postphoto.appendTo(_newpost);
+            h2.appendTo(_newpost);
+            _p.appendTo(_newpost);
+            _newpost.appendTo(_colums);
+            _colums.appendTo(_main);
+        }
+
+    }
 
 </script>
 </html>

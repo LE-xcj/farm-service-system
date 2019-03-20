@@ -63,6 +63,21 @@ public class ItemController {
         return mv;
     }
 
+    @RequestMapping("/itemListViewByMid")
+    public ModelAndView itemListViewByMid(String mid) throws Exception {
+
+        ModelAndView mv = new ModelAndView();
+
+        if (null != mid) {
+            Merchant merchant = merchantService.selectById(mid);
+            mv.addObject("merchant", merchant);
+        }
+
+        mv.setViewName("farmer/merchantItemList");
+        return mv;
+
+    }
+
 
     @Autowired
     private FarmerService farmerService;

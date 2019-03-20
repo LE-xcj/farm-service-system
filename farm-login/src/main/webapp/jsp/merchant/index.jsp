@@ -88,7 +88,6 @@
             <ul>
                 <li><a href="javascript:redir('${pageContext.request.contextPath }/item/addItemView');">添加服务</a> </li>
                 <li><a href="javascript:redir('${pageContext.request.contextPath }/item/itemListView');">服务列表</a></li>
-                <li><a href="#">农户评论</a></li>
             </ul>
 
             <h3 class="am-icon-cart-plus"><em></em> <a href="#"> 订单管理</a></h3>
