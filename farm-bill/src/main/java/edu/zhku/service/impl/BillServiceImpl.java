@@ -355,7 +355,7 @@ public class BillServiceImpl implements BillService {
 
         int length = itemIds.size();
 
-        //建立商品与数量的对应关系
+        //建立商品与数量的对应关系, iid -> num
         Map<Integer, Integer> map = new HashMap<>();
         for (int i=0; i<length; ++i) {
             map.put(itemIds.get(i), nums.get(i));

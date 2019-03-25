@@ -25,7 +25,6 @@ import java.util.List;
  * 写：写到mysql，然后更新到redis中
  */
 
-//todo 这里还需要解决更新同步的问题
 @Component
 public class FarmerDaoImpl implements FarmerDao{
 
@@ -35,19 +34,31 @@ public class FarmerDaoImpl implements FarmerDao{
     @Autowired
     private RedisUtil redisUtil;
 
+
+    /**
+     * 插入数据
+     * @param farmer
+     * @return
+     * @throws Exception
+     */
     @Override
     public int insertSelective(Farmer farmer) throws Exception {
 
         int flag = farmerMapper.insertSelective(farmer);
 
         if (flag == 1) {
-
             insertOrUpdate(farmer);
         }
 
         return flag;
     }
 
+    /**
+     * redis + mysql 搭配的查询
+     * @param fid
+     * @return
+     * @throws Exception
+     */
     @Override
     public Farmer selectByPrimaryKey(String fid) throws Exception {
 
@@ -61,6 +72,12 @@ public class FarmerDaoImpl implements FarmerDao{
         return farmer;
     }
 
+    /**
+     * 条件查询，交由mysql负责
+     * @param condition
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Farmer> selectFarmerByCondition(Farmer condition) throws Exception {
 
@@ -68,23 +85,41 @@ public class FarmerDaoImpl implements FarmerDao{
         return farmers;
     }
 
+    /**
+     * 更新信息
+     * @param farmer
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateByPrimaryKeySelective(Farmer farmer) throws Exception {
 
         int flag = farmerMapper.updateByPrimaryKeySelective(farmer);
+
         if (flag == 1) {
+            //重新从数据库中获取信息
+            farmer = farmerMapper.selectByPrimaryKey(farmer.getFid());
             insertOrUpdate(farmer);
-            //farmer = farmerMapper.selectByPrimaryKey(farmer.getFid());
         }
 
         return flag;
     }
 
+
+    /**
+     * 从redis那边查询
+     * @param fid
+     * @return
+     */
     private Farmer getFarmer(String fid) {
         Farmer farmer = (Farmer) redisUtil.hmGet(Table.FARMERTABLE.name(), fid);
         return farmer;
     }
 
+    /**
+     * 向redis插入或更新数据
+     * @param farmer
+     */
     private void insertOrUpdate(Farmer farmer) {
         redisUtil.hmSet(Table.FARMERTABLE.name(), farmer.getFid(), farmer);
     }

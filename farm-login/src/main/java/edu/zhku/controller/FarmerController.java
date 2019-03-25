@@ -155,7 +155,8 @@ public class FarmerController {
 
         mv.addObject("role", "1");
         mv.addObject("action", "farmer");
-        mv.addObject("self", farmer);
+        mv.addObject("farmer", farmer);
+        mv.addObject("fid", fid);
 
         mv.setViewName("farmer/index");
         return mv;

@@ -1,23 +1,28 @@
 package edu.zhku.dao.impl;
 
+import edu.zhku.constant.Table;
 import edu.zhku.dao.OperatorDao;
 import edu.zhku.mapper.OperatorMapper;
 import edu.zhku.pojo.Operator;
 import edu.zhku.pojo.OperatorCondition;
 import edu.zhku.util.RedisUtil;
+import javafx.scene.control.Tab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chujian
  * @ClassName OperatorDaoImpl
  * @Description 功能描述
  * @date 2019/2/21 22:40
+ *
+ * 整合redis
  */
-
-//todo 需要整合redis
 @Component
 public class OperatorDaoImpl implements OperatorDao {
 
@@ -29,7 +34,7 @@ public class OperatorDaoImpl implements OperatorDao {
     private RedisUtil redisUtil;
 
     /**
-     * 插入单个
+     * 插入单个，还没有被调用
      * @param record
      * @return
      * @throws Exception
@@ -37,6 +42,10 @@ public class OperatorDaoImpl implements OperatorDao {
     @Override
     public int insertSelective(Operator record) throws Exception {
         int num = operatorMapper.insertSelective(record);
+
+        if (1 == num) {
+            saveOne(record);
+        }
         return num;
     }
 
@@ -48,10 +57,14 @@ public class OperatorDaoImpl implements OperatorDao {
      */
     @Override
     public int insertOperators(List<Operator> operators) throws Exception {
-
         int num = operatorMapper.insertOperators(operators);
+
+        if (num == operators.size()) {
+            patchSave(operators);
+        }
         return num;
     }
+
 
     /**
      * 删除单个
@@ -110,7 +123,40 @@ public class OperatorDaoImpl implements OperatorDao {
      */
     @Override
     public List<Operator> queryOperatorForIDList(List<String> ids) {
-        List<Operator> operators = operatorMapper.queryOperatorForIDList(ids);
+
+        //从redis那边获取
+        List<Object> list = redisUtil.hmultiGet(Table.OPERATORTABLE, ids);
+
+        //数据准备
+        int length = ids.size();
+        List<Operator> operators = new ArrayList<>(length);
+
+        //用于查缺补漏
+        List<String> temp = new ArrayList<>(length);
+
+        //遍历
+        for (int i=0; i<length; ++i) {
+
+            //如果redis没有，obj为null
+            Object obj = list.get(i);
+
+            //找不到
+            if (null == obj) {
+                String oid = ids.get(i);
+                temp.add(oid);
+            } else {
+                Operator operator = (Operator) obj;
+                operators.add(operator);
+            }
+        }
+
+        if (!temp.isEmpty()) {
+            List<Operator> data = operatorMapper.queryOperatorForIDList(temp);
+            operators.addAll(data);
+
+            //保存到redis中
+            patchSave(data);
+        }
         return operators;
     }
 
@@ -122,10 +168,17 @@ public class OperatorDaoImpl implements OperatorDao {
      */
     @Override
     public Operator selectByPrimaryKey(String oid) throws Exception {
-        Operator operator = operatorMapper.selectByPrimaryKey(oid);
+
+        Operator operator = getOperator(oid);
+
+        if (null == operator) {
+            operator = operatorMapper.selectByPrimaryKey(oid);
+
+            //保存到redis中
+            saveOne(operator);
+        }
         return operator;
     }
-
 
     /**
      * 批量更新
@@ -136,6 +189,23 @@ public class OperatorDaoImpl implements OperatorDao {
     @Override
     public int updateOperatorsById(List<Operator> operators) throws Exception {
         int num = operatorMapper.updateOperatorsById(operators);
+
+        //更新成功
+        if (num > 0) {
+            List<String> ids = new ArrayList<>();
+
+            //包装ids
+            for (Operator operator : operators) {
+                ids.add(operator.getOid());
+            }
+
+            //批量获取operator
+            List<Operator> os = operatorMapper.queryOperatorForIDList(ids);
+
+            //批量同步到redis中
+            patchSave(os);
+        }
+
         return num;
     }
 
@@ -148,8 +218,58 @@ public class OperatorDaoImpl implements OperatorDao {
     @Override
     public int updateByPrimaryKeySelective(Operator record) throws Exception {
         int num = operatorMapper.updateByPrimaryKeySelective(record);
+
+        if (num == 1) {
+            //重新到mysql中获取
+            Operator operator = operatorMapper.selectByPrimaryKey(record.getOid());
+
+            //保存到redis
+            saveOne(operator);
+        }
+
         return num;
     }
 
+
+    /**
+     * 批量保存到redis
+     * @param operators
+     */
+    private void patchSave(List<Operator> operators) {
+
+        if (operators.isEmpty()) {
+            return;
+        }
+        Map<String, Operator> data = new HashMap<>();
+
+        for (Operator operator : operators) {
+            String oid = operator.getOid();
+            data.put(oid, operator);
+        }
+
+        redisUtil.hmultiSet(Table.OPERATORTABLE, data);
+    }
+
+    /**
+     * 保存一个到redis中
+     * @param operator
+     */
+    private void saveOne(Operator operator) {
+        redisUtil.hmSet(Table.OPERATORTABLE, operator.getOid(), operator);
+    }
+
+
+    /**
+     * 从redis中，根据id查询
+     * @param oid
+     * @return
+     */
+    private Operator getOperator(String oid) {
+
+        Object obj = redisUtil.hmGet(Table.OPERATORTABLE, oid);
+        Operator operator = (Operator) obj;
+        return operator;
+
+    }
 }
     

@@ -1,5 +1,7 @@
 package edu.zhku.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Notice {
@@ -13,6 +15,7 @@ public class Notice {
 
     private Integer status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date sendtime;
 
     public Integer getId() {

@@ -9,10 +9,14 @@ import edu.zhku.pojo.*;
 import edu.zhku.util.RedisUtil;
 import edu.zhku.vo.BillItemVo;
 import edu.zhku.vo.ItemMerchantVo;
+import javafx.scene.control.Tab;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chujian
@@ -20,8 +24,6 @@ import java.util.List;
  * @Description 功能描述
  * @date 2019/2/18 20:57
  */
-
-//todo 需要整合redis优化查询
 @Component
 public class ItemDaoImpl implements ItemDao {
 
@@ -32,25 +34,58 @@ public class ItemDaoImpl implements ItemDao {
     @Autowired
     private RedisUtil redisUtil;
 
+    /**
+     * 插入，这里就不同步到redis。因为id在数据库中是自动递增的
+     * @param record
+     * @return
+     * @throws Exception
+     */
     @Override
     public int insertSelective(Item record) throws Exception {
 
         int num = itemMapper.insertSelective(record);
+
         return num;
     }
 
+
+    /**
+     * 根据id查询
+     * @param iid
+     * @return
+     * @throws Exception
+     */
     @Override
     public Item selectByPrimaryKey(Integer iid) throws Exception {
 
-        Item item = itemMapper.selectByPrimaryKey(iid);
+        Item item = getItem(iid);
+
+        if (null == item) {
+            item = itemMapper.selectByPrimaryKey(iid);
+            saveOne(item);
+        }
+
 
         return item;
     }
 
+
+    /**
+     * 根据id更新
+     * @param record
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateByPrimaryKeySelective(Item record) throws Exception {
 
         int num = itemMapper.updateByPrimaryKeySelective(record);
+
+        //更新成功就同步到redis中
+        if (1 == num) {
+            Item item = itemMapper.selectByPrimaryKey(record.getIid());
+            saveOne(item);
+        }
         return num;
     }
 
@@ -70,6 +105,12 @@ public class ItemDaoImpl implements ItemDao {
         return num;
     }
 
+    /**
+     * 条件查询，交给mysql
+     * @param condition
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Item> selectByCondition(ItemCondition condition) throws Exception {
 
@@ -78,36 +119,124 @@ public class ItemDaoImpl implements ItemDao {
         return items;
     }
 
+    /**
+     * 根据ids集合批量查询item，对返回结果集种的item顺序没有强制
+     * 也就是ids中的位置与item集合中item不用一一对应
+     * @param ids
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Item> selectItemByIds(List<Integer> ids) throws Exception {
 
-        return itemMapper.selectItemByIds(ids);
+        //从redis那边批量获取
+        List<Object> list = redisUtil.hmultiGet(Table.ITEMTABLE, ids);
+
+        //数据准备
+        int length = ids.size();
+        List<Item> items = new ArrayList<>(length);
+
+        //用于向mysql查缺补漏
+        List<Integer> temp = new ArrayList<>();
+
+        //遍历
+        for (int i=0; i<length; ++i) {
+            Object obj = list.get(i);
+
+            //redis那边找不到
+            if (null == obj) {
+                //添加到查缺补漏阵营
+                Integer iid = ids.get(i);
+                temp.add(iid);
+
+            } else {
+
+                //添加到返回的结果集中
+                Item item = (Item) obj;
+                items.add(item);
+
+            }
+        }
+
+        //判断是否需要从mysql查询
+        if (!temp.isEmpty()) {
+            List<Item> data = itemMapper.selectItemByIds(temp);
+            items.addAll(data);
+
+            //同步到redis中
+            patchSave(data);
+        }
+
+        return items;
     }
 
+    /**
+     * 批量更新商品状态
+     * @param ids
+     * @param status
+     * @return
+     * @throws Exception
+     */
     @Override
     public int updateItemStatus(List<Integer> ids, int status) throws Exception {
         int num = itemMapper.updateItemStatus(ids, status);
+
+        if (num > 0) {
+            //批量从mysql中获取
+            List<Item> items = itemMapper.selectItemByIds(ids);
+
+            //同步到redis中
+            patchSave(items);
+        }
         return num;
     }
 
+
+
+    /**
+     * 农户专用的商品总数查询接口
+     * @param condition
+     * @return
+     * @throws Exception
+     */
     @Override
     public int countForFarmer(ItemCondition condition) throws Exception {
         int num = itemMapper.countForFarmer(condition);
         return num;
     }
 
+
+    /**
+     * 商户专用的商品条件查询接口
+     * @param item
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Item> selectByItem(ItemConditionForMerchant item) throws Exception {
         List<Item> items = itemMapper.selectByItem(item);
         return items;
     }
 
+    /**
+     * 统计满足商户条件查询的商品数量
+     * @param condition
+     * @return
+     * @throws Exception
+     */
     @Override
     public int countForMerchant(ItemConditionForMerchant condition) throws Exception {
         int count = itemMapper.countForMerchant(condition);
         return count;
     }
 
+
+    /**
+     * 查询服务的销量，订单为完成
+     * @param vo
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<ItemMerchantVo> countItemComplete(BillItemVo vo) throws Exception {
         List<ItemMerchantVo> result = itemMapper.countItemComplete(vo);
@@ -116,6 +245,10 @@ public class ItemDaoImpl implements ItemDao {
 
 
 
+
+    //////////////////////////////////////////////////
+    //////////////////评论那部分////////////////////////////
+    //////////////////////////////////////////////////
     @Autowired
     private EvaluationMapper evaluationMapper;
     /**
@@ -181,7 +314,15 @@ public class ItemDaoImpl implements ItemDao {
     }
 
 
+
+
+
+    //////////////////////////////////////////////////
+    /////////////////购物车那块////////////////////////////
+    //////////////////////////////////////////////////
+
     /**
+     * 购物车这块
      * 从redis那边获取
      * @param fid
      * @return
@@ -216,6 +357,59 @@ public class ItemDaoImpl implements ItemDao {
         return 1;
     }
 
+
+
+
+
+
+
+    //////////////////////////////////////////////////
+    ///////////////////private////////////////////////////
+    //////////////////////////////////////////////////
+
+    /**
+     * 从redis那边查询
+     * @param iid
+     * @return
+     */
+    private Item getItem(Integer iid) {
+
+        Object obj = redisUtil.hmGet(Table.ITEMTABLE, iid);
+        Item item = (Item) obj;
+        return item;
+    }
+
+    /**
+     * 保存到redis那边
+     * @param item
+     */
+    private void saveOne(Item item) {
+
+        redisUtil.hmSet(Table.ITEMTABLE, item.getIid(), item);
+
+    }
+
+
+    /**
+     * 批量插入到redis中
+     * @param items
+     */
+    private void patchSave(List<Item> items) {
+
+        if (items.isEmpty()) {
+            return;
+        }
+
+        Map<Integer, Item> data = new HashMap<>();
+
+        for (Item item : items) {
+            Integer iid = item.getIid();
+            data.put(iid, item);
+        }
+
+        redisUtil.hmultiSet(Table.ITEMTABLE, data);
+
+    }
 
 }
     

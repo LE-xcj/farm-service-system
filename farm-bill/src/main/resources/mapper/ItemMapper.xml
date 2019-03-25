@@ -282,6 +282,9 @@
     <if test="iid != null">
       and iid = #{iid}
     </if>
+    <if test="address != null">
+      and address like "%"#{address}"%"
+    </if>
   </sql>
   
   <sql id="groupby_sql">

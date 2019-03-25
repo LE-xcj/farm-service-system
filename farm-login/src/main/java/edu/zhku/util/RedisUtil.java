@@ -5,7 +5,9 @@ import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -122,6 +124,28 @@ public class RedisUtil {
     public Object hmGet(String key, Object hashKey){
         HashOperations<String, Object, Object>  hash = redisTemplate.opsForHash();
         return hash.get(key,hashKey);
+    }
+
+    /**
+     * 批量获取
+     * @param key
+     * @param collection
+     * @return
+     */
+    public List<Object> multiHGet(String key, Collection collection) {
+        HashOperations<String, Object, Object>  hash = redisTemplate.opsForHash();
+        List<Object> list = hash.multiGet(key, collection);
+        return list;
+    }
+
+    /**
+     * 批量插入数据
+     * @param key
+     * @param data
+     */
+    public void multiHset(String key, Map<?, ?> data) {
+        HashOperations<String, Object, Object>  hash = redisTemplate.opsForHash();
+        hash.putAll(key, data);
     }
 
     /**

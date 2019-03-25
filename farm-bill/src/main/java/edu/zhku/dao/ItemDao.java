@@ -16,17 +16,21 @@ import java.util.List;
 @Component
 public interface ItemDao {
 
-    int insertSelective(Item record) throws Exception;
-
-    Item selectByPrimaryKey(Integer iid) throws Exception;
-
-    int updateByPrimaryKeySelective(Item record) throws Exception;
-
+    //删除，这里暂时不提供给前端
     int deleteByPrimaryKey(Integer iid) throws Exception;
-
 
     //批量删除
     int deleteItemsById(List<Integer> ids) throws Exception;
+
+
+    //插入单个
+    int insertSelective(Item record) throws Exception;
+
+    //根据id查询
+    Item selectByPrimaryKey(Integer iid) throws Exception;
+
+    //根据id更新
+    int updateByPrimaryKeySelective(Item record) throws Exception;
 
 
     /**

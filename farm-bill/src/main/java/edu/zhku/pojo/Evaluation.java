@@ -1,5 +1,7 @@
 package edu.zhku.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Evaluation {
@@ -9,6 +11,7 @@ public class Evaluation {
 
     private String evaluation;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date time;
 
     private Integer iid;

@@ -20,7 +20,10 @@ public class BillItemVo {
     private int begin;
 
     //是否按照数量降序
-    boolean desc = true;
+    private boolean desc = true;
+
+    //位置
+    private String address;
 
 
     public boolean isMid() {
@@ -79,6 +82,15 @@ public class BillItemVo {
 
     public void setBegin(int begin) {
         this.begin = begin;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
     

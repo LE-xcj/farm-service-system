@@ -109,8 +109,13 @@
             <input id="add" name="" type="button" value="+" style="margin-top: 17px;"/>
         </div>
         <div class="nobdr-btns">
-            <button class="addcart hu" onclick="add()"><img src="http://106.14.139.8/farmer-index/itemDetail/images/shop.png" width="25" height="25"/>加入购物车</button>
-            <button class="addcart yh"><img src="http://106.14.139.8/farmer-index/itemDetail/images/ht.png" width="25" height="25"/>立即购买</button>
+            <button class="addcart hu" onclick="add()">
+                <img src="http://106.14.139.8/farmer-index/itemDetail/images/shop.png" width="25" height="25"/>加入购物车
+            </button>
+            <button class="addcart yh" onclick="buyImedialy()">
+                <img src="http://106.14.139.8/farmer-index/itemDetail/images/ht.png" width="25" height="25"/>
+                立即购买
+            </button>
         </div>
         <div class="guarantee">
             <span>支持货到付款 <a href=""><img src="http://106.14.139.8/farmer-index/itemDetail/images/me.png"/></a></span>
@@ -235,6 +240,13 @@
     </div>
 </div>
 
+
+<div style="display: none">
+    <form method="post" action="${pageContext.request.contextPath }/bill/createBillView"
+          id="myForm" enctype="multipart/form-data">
+
+    </form>
+</div>
 </body>
 
 <!--页面参数-->
@@ -270,6 +282,7 @@
                 data:{id: '${iid}'},
                 success: function(data){
                     fill(data);
+                    initForm(data);
                 }
             });
 
@@ -300,12 +313,7 @@
             $("#price").text(_price);
             $("#description").text(data.description);
             $("#media").attr("src", data.media);
-            // var imgs = $("#showbox img");
-            // console.info(data.media);
-            // console.info(imgs);
-            // for (var i=0; i<imgs.length; ++i) {
-            //     imgs[i].attr("src", data.media);
-            // }
+
         }
 
         function posit() {
@@ -451,6 +459,48 @@
                 showDialog("添加成功!");
             }
         });
+    }
+    
+    function buyImedialy() {
+        var _num = $("#text_box").val();
+
+        var pre = "items[0].";
+        var _input9 = $("<input type='text'/>");
+        _input9.attr("name", pre + "num").attr("value", _num);
+
+        var _form = $("#myForm");
+        _form.append(_input9);
+
+        _form.submit();
+    }
+
+    function initForm(data) {
+
+        var _form = $("#myForm");
+
+        var pre = "items[0].";
+        var _input1 = $("<input type='text'/>");
+        var _input2 = $("<input type='text'/>");
+        var _input3 = $("<input type='text'/>");
+        var _input4 = $("<input type='text'/>");
+        var _input5 = $("<input type='text'/>");
+        var _input6 = $("<input type='text'/>");
+        var _input7 = $("<input type='text'/>");
+        var _input8 = $("<input type='text'/>");
+
+        _input1.attr("name", pre + "description").attr("value", data.description);
+        _input2.attr("name", pre + "iid").attr("value", data.iid);
+        _input3.attr("name", pre + "iname").attr("value", data.iname);
+        _input4.attr("name", pre + "media").attr("value", data.media);
+        _input5.attr("name", pre + "mid").attr("value", data.mid);
+        _input6.attr("name", pre + "price").attr("value", data.price);
+        _input7.attr("name", pre + "status").attr("value", data.status);
+        _input8.attr("name", pre + "unit").attr("value", data.unit);
+
+
+        _form.append(_input1).append(_input2).append(_input3)
+            .append(_input4).append(_input5).append(_input6)
+            .append(_input7).append(_input8);
     }
 </script>
 </html>

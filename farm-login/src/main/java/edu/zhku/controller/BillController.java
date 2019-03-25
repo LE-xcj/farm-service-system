@@ -34,10 +34,12 @@ public class BillController {
     @RequestMapping("/createBillView")
     public ModelAndView createBillView (HttpSession session, ItemVo itemVo) throws Exception {
 
+        ModelAndView mv = new ModelAndView();
         List<Item> items = itemVo.getItems();
 
         if (isNull(items)) {
-            throw new Exception("购物车信息有误");
+            mv.setViewName("redirect:/item/shoppingCart");
+            return mv;
         }
 
         String fid = (String) session.getAttribute(Role.FARMER.getPref());
@@ -45,8 +47,6 @@ public class BillController {
 
         String mid = getMid(items);
         Merchant merchant = merchantService.selectById(mid);
-
-        ModelAndView mv = new ModelAndView();
 
         mv.addObject("farmer", farmer);
         mv.addObject("merchant", merchant);

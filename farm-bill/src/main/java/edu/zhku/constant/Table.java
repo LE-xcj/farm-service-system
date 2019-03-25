@@ -12,4 +12,6 @@ public class Table {
 
     public static final String SHOPPINGCART = "ShoppingCartTable";
 
+    public static final String OPERATORTABLE = "OperatorTable";
+
 }

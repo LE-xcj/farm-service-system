@@ -30,6 +30,8 @@
     <link type="text/css" rel="stylesheet" href="http://106.14.139.8/farm-login/css/zdialog.css">
     <script src="http://106.14.139.8/normal/js/dialog.js"></script>
     <script type="text/javascript" src="http://106.14.139.8/farm-login/js/zdialog.js"></script>
+
+    <script src="http://106.14.139.8/normal/js/city.js"></script>
 </head>
 
 <body>
@@ -294,9 +296,14 @@
     }
 
     function initSocket(){
+
+        var fid = '${fid}';
+        if (isNull(fid)) {
+            return;
+        }
         // 新建WebSocket对象，最后的/websocket对应服务器端的@ServerEndpoint("/websocket")
         socket = new WebSocket(
-            'ws://106.14.139.8:10088/farm-message/notice/' + '${self.fid}'
+            'ws://106.14.139.8:10088/farm-message/notice/' + fid
         );
 
         //打开socket连接
@@ -345,16 +352,27 @@
     function queryUnReadNoticeNum() {
         var _currentNum = $("#noticeNum").text();
 
+        var destination = '${fid}';
+        if(isNull(destination)) {
+            return;
+        }
         $.ajax({
             type:"post",
             url:"http://106.14.139.8:10088/farm-message/notice/count.action",
             async:false,
-            data:{status: 0, destination:'${self.fid}'},
+            data:{status: 0, destination:destination},
             success: function(data){
                 changeNoticeNum(data);
             }
 
         });
+    }
+
+    function isNull(_fid) {
+        if(null == _fid || "" == _fid) {
+            return true;
+        }
+        return false;
     }
 
     function changeNoticeNum(_offset) {
@@ -374,17 +392,44 @@
     }
 
     function topItem() {
+
+        var address = getAddress();
         $.ajax({
             type:"post",
             url:"http://127.0.0.1:10087/farmService/item/topItem",
             async:false,
-            data:{status: 2, page:1, pageSize:4},
+            data:{status: 2, page:1, pageSize:4, address: address},
             success: function(data){
                 fillTopItem(data);
                 fillBigAndSmallItem(data);
             }
 
         });
+    }
+    
+    function getAddress() {
+        var fid = '${fid}';
+        var address = "";
+        if(null != fid) {
+            var detail = '${farmer.address}';
+            for(var name in pc){
+
+                var _begin = detail.indexOf(name);
+                if(-1 != _begin) {
+                    var cityList = pc[name];
+                    for(var index in cityList){
+                        var city = cityList[index];
+                        var _sbegin = detail.indexOf(city);
+                        if(_sbegin != -1) {
+                            address = name + city;
+                            return address
+                        }
+                    }
+                }
+
+            }
+        }
+        return address;
     }
     
     function fillBigAndSmallItem(data) {
@@ -497,11 +542,12 @@
     }
 
     function topMerchant() {
+        var address = getAddress();
         $.ajax({
             type:"post",
             url:"http://127.0.0.1:10087/farmService/item/topMerchant",
             async:true,
-            data:{status: 2, page:1, pageSize:4, mid: true},
+            data:{status: 2, page:1, pageSize:4, mid: true, address: address},
             success: function(data){
                 fillTopMerchant(data);
             }

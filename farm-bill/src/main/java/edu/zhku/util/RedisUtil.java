@@ -120,7 +120,7 @@ public class RedisUtil {
      * @param key
      * @param map
      */
-    public void hmSet(String key, Map<Object, Object> map) {
+    public void hmultiSet(String key, Map<?, ?> map) {
         HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
         hash.putAll(key, map);
     }
@@ -141,9 +141,10 @@ public class RedisUtil {
      * @param key
      * @param value
      */
-    public List<Object> hmultiGet(String key, Collection<Object> value) {
+    public List<Object> hmultiGet(String key, Collection value) {
         HashOperations<String, Object, Object>  hash = redisTemplate.opsForHash();
-        return hash.multiGet(key, value);
+        List<Object> list = hash.multiGet(key, value);
+        return list;
     }
 
     /**
