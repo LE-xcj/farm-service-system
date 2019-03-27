@@ -88,6 +88,12 @@
             async:false,
             dataType:'json',
             data:{fid: _fid},
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = _fid;
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 fill(data);
                 setGolobalItem(data);
@@ -297,6 +303,12 @@
             async:false,
             dataType:'json',
             data:{fid: _fid, 'brief.mid': _mid, 'brief.iid': _iid, 'brief.num': _offset},
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = _fid;
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 console.info(data);
             }
@@ -329,6 +341,12 @@
              */
             processData: false,
             data:formData,
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = _fid;
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 console.info(data);
             }

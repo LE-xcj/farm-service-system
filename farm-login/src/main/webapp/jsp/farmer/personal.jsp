@@ -335,6 +335,12 @@
              * XMLHttpRequest会对 formdata 进行正确的处理
              */
             processData: false,
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = '${self.fid}';
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 if(data.code == 1){
                     showDialog(data.tip);
@@ -364,6 +370,12 @@
                 url:"${pageContext.request.contextPath }/farmer/updatePsw",
                 async:false,
                 data:{originPsw:_originPsw, psw:_newPsw, fid:_fid},
+                beforeSend: function (xhr) {
+                    var sessionId = '${pageContext.session.id}';
+                    xhr.setRequestHeader("token", sessionId);
+                    var signature = '${self.fid}';
+                    xhr.setRequestHeader("signature", signature);
+                },
                 success: function(data){
                     showDialog(data.tip);
 
@@ -390,6 +402,12 @@
             url:"${pageContext.request.contextPath }/farmer/updatePhone",
             async:false,
             data:{phone:_phone, psw:_psw, fid:_fid},
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = '${self.fid}';
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 showDialog(data.tip);
                 if (data.code == 1) {

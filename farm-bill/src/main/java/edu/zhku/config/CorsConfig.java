@@ -13,6 +13,12 @@ import org.springframework.web.filter.CorsFilter;
  * @ClassName CorsConfig
  * @Description 功能描述
  * @date 2019/2/28 11:25
+ *
+ * 跨域访问配置
+ * 为了订单系统的安全性，这里对所有跨域的请求进行一个白名单的设置
+ *
+ * 白名单：
+ * 登录系统：http://ip:10086
  */
 @Configuration
 public class CorsConfig{
@@ -25,6 +31,8 @@ public class CorsConfig{
         config.setAllowCredentials(true);
 
         // 设置你要允许的网站域名，如果全允许则设为 *
+        //todo 限制跨域访问域名
+        //config.addAllowedOrigin("http://127.0.0.1:10086");
         config.addAllowedOrigin("*");
 
         // 如果要限制 HEADER 或 METHOD 请自行更改

@@ -19,6 +19,7 @@ public class ExceptionMessage {
 
     public static final String LOCATIONNULL = "请填写您的地址，才能检索与您最近的商户";
 
+    public static final String UNLOGIN = "未登录";
 
 }
     

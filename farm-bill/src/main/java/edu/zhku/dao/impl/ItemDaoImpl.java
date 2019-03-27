@@ -129,8 +129,10 @@ public class ItemDaoImpl implements ItemDao {
     @Override
     public List<Item> selectItemByIds(List<Integer> ids) throws Exception {
 
+        List<String> stingIds = transformIds(ids);
+
         //从redis那边批量获取
-        List<Object> list = redisUtil.hmultiGet(Table.ITEMTABLE, ids);
+        List<Object> list = redisUtil.hmultiGet(Table.ITEMTABLE, stingIds);
 
         //数据准备
         int length = ids.size();
@@ -400,10 +402,10 @@ public class ItemDaoImpl implements ItemDao {
             return;
         }
 
-        Map<Integer, Item> data = new HashMap<>();
+        Map<String, Item> data = new HashMap<>();
 
         for (Item item : items) {
-            Integer iid = item.getIid();
+            String iid = item.getIid().toString();
             data.put(iid, item);
         }
 
@@ -411,5 +413,24 @@ public class ItemDaoImpl implements ItemDao {
 
     }
 
+
+    /**
+     * 转换数据类型
+     * @param ids
+     * @return
+     */
+    private List<String> transformIds(List<Integer> ids) {
+
+        List<String> result = new ArrayList<>();
+        if (ids.isEmpty())
+            return result;
+
+        for (Integer id : ids) {
+            String sid = id.toString();
+            result.add(sid);
+        }
+
+        return result;
+    }
 }
     

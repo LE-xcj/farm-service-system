@@ -53,6 +53,7 @@
         </property>
     </bean>
 
+    <!--todo 消息系统对其他系统的一些跨域设置-->
     <!-- 接口跨域配置 -->
     <mvc:cors>
         <mvc:mapping path="/**"

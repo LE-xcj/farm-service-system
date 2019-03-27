@@ -249,6 +249,12 @@
             url:"${pageContext.request.contextPath }/merchant/updatePsw",
             async:false,
             data:{originPsw:_originPsw, psw:_newPsw, mid:_mid},
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = '${mid}';
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 showDialog(data.tip);
 
@@ -274,6 +280,12 @@
             url:"${pageContext.request.contextPath }/merchant/updatePhone",
             async:false,
             data:{phone:_phone, psw:_psw, mid:_mid},
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = '${mid}';
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 showDialog(data.tip);
                 if (data.code == 1) {
@@ -353,6 +365,12 @@
             url:"http://106.14.139.8:10088/farm-message/notice/count.action",
             async:false,
             data:{status: 0, destination:${merchant.mid}},
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = '${mid}';
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 changeNoticeNum(data);
             }

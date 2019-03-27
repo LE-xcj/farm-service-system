@@ -247,6 +247,12 @@
             dataType:'json',  // 处理Ajax跨域问题
             data: {'bill.fid': '${fid}', page: _begin, 'bill.status': _status, desc: true},
             async:true,
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = '${fid}';
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 fill(data, _begin);
             },error: function (data) {
@@ -521,6 +527,12 @@
                      * XMLHttpRequest会对 formdata 进行正确的处理
                      */
                     processData: false,
+                    beforeSend: function (xhr) {
+                        var sessionId = '${pageContext.session.id}';
+                        xhr.setRequestHeader("token", sessionId);
+                        var signature = '${fid}';
+                        xhr.setRequestHeader("signature", signature);
+                    },
                     success: function(data){
                         showDialog("更新成功！");
                         refress();

@@ -453,6 +453,12 @@
              */
             processData: false,
             data:_formData,
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = '${farmer.fid}';
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 if (data == 1) {
                     removeAndLocation();
@@ -497,6 +503,12 @@
              */
             processData: false,
             data:formData,
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = '${farmer.fid}';
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 showDialog("提交成功!");
                 setTimeout(locate, 1500);
