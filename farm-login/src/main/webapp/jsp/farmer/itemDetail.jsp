@@ -276,7 +276,7 @@
         function myInit() {
             $.ajax({
                 type:"post",
-                url:"http://127.0.0.1:10087/farmService/item/queryItemById",
+                url:"http://106.14.139.8:10087/farmService/item/queryItemById",
                 async:false,
                 dataType:'json',  // 处理Ajax跨域问题
                 data:{id: '${iid}'},
@@ -297,7 +297,7 @@
         function countItemComplete() {
             $.ajax({
                 type:"post",
-                url:"http://127.0.0.1:10087/farmService/item/countItemComplete",
+                url:"http://106.14.139.8:10087/farmService/item/countItemComplete",
                 async:true,
                 dataType:'json',  // 处理Ajax跨域问题
                 data:{iid: '${iid}', status: 2, page:1},
@@ -359,7 +359,7 @@
     function queryEVAS(_begin) {
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/queryEvaluation",
+            url:"http://106.14.139.8:10087/farmService/item/queryEvaluation",
             dataType:'json',  // 处理Ajax跨域问题
             data: {'iid': '${iid}', page: _begin},
             async:true,
@@ -451,10 +451,16 @@
         console.info(_num + " " + _fid + " " + _mid);
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/addItemToshoppingCard",
+            url:"http://106.14.139.8:10087/farmService/item/addItemToshoppingCard",
             async:false,
             dataType:'json',
             data:{fid: _fid, 'brief.mid': _mid, 'brief.iid': _iid, 'brief.num': _num},
+            beforeSend: function (xhr) {
+                var sessionId = '${pageContext.session.id}';
+                xhr.setRequestHeader("token", sessionId);
+                var signature = _fid;
+                xhr.setRequestHeader("signature", signature);
+            },
             success: function(data){
                 showDialog("添加成功!");
             }

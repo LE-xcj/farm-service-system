@@ -396,7 +396,7 @@
         var address = getAddress();
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/topItem",
+            url:"http://106.14.139.8:10087/farmService/item/topItem",
             async:false,
             data:{status: 2, page:1, pageSize:4, address: address},
             success: function(data){
@@ -523,7 +523,7 @@
 
             var _h3 = $("<h3></h3>");
             var _a = $("<a></a>");
-            var _href = "http://127.0.0.1:10086/farmService/item/itemDetailView?iid=" + _item.iid + "&mid=" + _item.mid;
+            var _href = "http://106.14.139.8:10086/farmService/item/itemDetailView?iid=" + _item.iid + "&mid=" + _item.mid;
             _a.attr("href", _href).attr("target", "_blank");
             _a.text(_item.iname);
             _a.appendTo(_h3);
@@ -545,7 +545,7 @@
         var address = getAddress();
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/topMerchant",
+            url:"http://106.14.139.8:10087/farmService/item/topMerchant",
             async:true,
             data:{status: 2, page:1, pageSize:4, mid: true, address: address},
             success: function(data){
@@ -598,7 +598,7 @@
 
             var h2 = $("<h2></h2>");
             var _a = $("<a></a>");
-            var _href = "http://127.0.0.1:10086/farmService/item/itemListViewByMid?mid=" + merchant.mid;
+            var _href = "http://106.14.139.8:10086/farmService/item/itemListViewByMid?mid=" + merchant.mid;
             _a.attr("href", _href).attr("target", "_blank");
             _a.text(merchant.mname);
             _a.appendTo(h2);

@@ -167,7 +167,7 @@
         //{oname:oname, phone:phone, mid:mid, sex:sex, description:description}
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/operator/addOperator",
+            url:"http://106.14.139.8:10087/farmService/operator/addOperator",
             dataType:'json',  // 处理Ajax跨域问题
             crossDomain: true,
             async:false,

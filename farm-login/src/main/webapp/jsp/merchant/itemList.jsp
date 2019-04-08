@@ -235,7 +235,7 @@
         console.info(_status);
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/queryItemForMerchant",
+            url:"http://106.14.139.8:10087/farmService/item/queryItemForMerchant",
             dataType:'json',  // 处理Ajax跨域问题
             data: {'item.mid': ${mid}, page: _begin, 'item.status': _status},
             async:true,
@@ -350,7 +350,7 @@
         var canUpdate = false;
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/updateItem",
+            url:"http://106.14.139.8:10087/farmService/item/updateItem",
             async:false,
             dataType:'json',  // 处理Ajax跨域问题
             data:formData,
@@ -433,7 +433,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/updateItemStatus",
+            url:"http://106.14.139.8:10087/farmService/item/updateItemStatus",
             async:false,
             dataType:'json',
             data:formData,

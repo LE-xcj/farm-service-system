@@ -113,7 +113,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10086/farmService/merchant/certify",
+            url:"http://106.14.139.8:10086/farmService/merchant/certify",
             async:true,
             dataType:'json',  // 处理Ajax跨域问题
             data:formData,

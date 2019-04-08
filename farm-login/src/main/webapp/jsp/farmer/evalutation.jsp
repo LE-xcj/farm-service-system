@@ -247,7 +247,7 @@
         $("input[name='bid']").val(_bid);
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/bill/queryBillItemByBid",
+            url:"http://106.14.139.8:10087/farmService/bill/queryBillItemByBid",
             dataType:'json',  // 处理Ajax跨域问题
             data: {bid: _bid},
             async:false,
@@ -328,7 +328,7 @@
         }
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/evaluateForList",
+            url:"http://106.14.139.8:10087/farmService/item/evaluateForList",
             dataType:'json',  // 处理Ajax跨域问题
             data: _formData,
             async:false,
@@ -355,7 +355,7 @@
     }
 
     function locate() {
-        window.location.href="http://127.0.0.1:10086/farmService/bill/farmerBillList";
+        window.location.href="http://106.14.139.8:10086/farmService/bill/farmerBillList";
     }
 </script>
 </html>

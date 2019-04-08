@@ -226,7 +226,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/operator/queryOperatorByPage",
+            url:"http://106.14.139.8:10087/farmService/operator/queryOperatorByPage",
             dataType:'json',  // 处理Ajax跨域问题
             data: {'operator.mid': ${mid}, page: _begin},
             async:true,
@@ -341,7 +341,7 @@
         var canUpdate = false;
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/operator/updateOperatorById",
+            url:"http://106.14.139.8:10087/farmService/operator/updateOperatorById",
             async:false,
             dataType:'json',  // 处理Ajax跨域问题
             data:formData,

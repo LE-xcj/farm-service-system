@@ -171,7 +171,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/queryItemForMerchant",
+            url:"http://106.14.139.8:10087/farmService/item/queryItemForMerchant",
             async:false,
             dataType:'json',  // 处理Ajax跨域问题
             data:{'item.mid': '${merchant.mid}', 'item.status':1, page: _page, pageSize:8},
@@ -208,7 +208,7 @@
             _a.appendTo(_work);
 
             var _h3 = $("<h3></h3>");
-            var _href = "http://127.0.0.1:10086/farmService/item/itemDetailView?iid="+ _items[i].iid + "&mid=" + _items[i].mid;
+            var _href = "http://106.14.139.8:10086/farmService/item/itemDetailView?iid="+ _items[i].iid + "&mid=" + _items[i].mid;
             $("<a></a>").attr("target", "_blank").attr("href", _href).text(_items[i].iname).appendTo(_h3);
             _h3.appendTo(_work);
 

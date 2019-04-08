@@ -57,7 +57,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
 
-        response.sendRedirect("http://106.14.139.8/normal/html/loginErro.html");
+        
+        //response.sendRedirect("http://106.14.139.8/normal/html/loginErro.html");
+        response.getWriter().write("unLogin");
         return false;
     }
 }

@@ -2,6 +2,7 @@ package edu.zhku.config;
 
 import edu.zhku.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date 2019/2/15 11:54
  */
 //todo 登录配置
-//@Configuration
+@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
@@ -51,6 +52,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
         interceptorRegistration.excludePathPatterns("/*/registe");
         interceptorRegistration.excludePathPatterns("/*/sendCode");
         interceptorRegistration.excludePathPatterns("/farmer/index");
+
+        interceptorRegistration.excludePathPatterns("/item/itemListViewByMid");
+        interceptorRegistration.excludePathPatterns("/item/queryItemByPageView");
+        interceptorRegistration.excludePathPatterns("/item/itemDetailView");
 
         //配置拦截策略
         interceptorRegistration.addPathPatterns("/**");

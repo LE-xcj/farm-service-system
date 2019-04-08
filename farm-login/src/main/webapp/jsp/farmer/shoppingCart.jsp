@@ -84,7 +84,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/shoppingCardList",
+            url:"http://106.14.139.8:10087/farmService/item/shoppingCardList",
             async:false,
             dataType:'json',
             data:{fid: _fid},
@@ -227,7 +227,7 @@
                 _product_name.attr("class", "product-name").text(_item.iname);
 
                 var _p_a = $("<a></a>");
-                var _href = "http://127.0.0.1:10086/farmService/item/itemDetailView?iid="+ _item.iid + "&mid=" + _item.mid;
+                var _href = "http://106.14.139.8:10086/farmService/item/itemDetailView?iid="+ _item.iid + "&mid=" + _item.mid;
                 _p_a.attr("href", _href).attr("target", "_blank");
                 _p_a.append(_p_img).append(_product_name);
 
@@ -299,7 +299,7 @@
         var _fid = $("input[name='fid']").val();
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/addItemToshoppingCard",
+            url:"http://106.14.139.8:10087/farmService/item/addItemToshoppingCard",
             async:false,
             dataType:'json',
             data:{fid: _fid, 'brief.mid': _mid, 'brief.iid': _iid, 'brief.num': _offset},
@@ -328,7 +328,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/removeItemFromShoppingCard",
+            url:"http://106.14.139.8:10087/farmService/item/removeItemFromShoppingCard",
             async:false,
             dataType:'json',
             /**

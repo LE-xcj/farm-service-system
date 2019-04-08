@@ -322,7 +322,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10086/farmService/farmer/updateFarmer",
+            url:"http://106.14.139.8:10086/farmService/farmer/updateFarmer",
             async:false,
             dataType:'json',  // 处理Ajax跨域问题
             data:formData,

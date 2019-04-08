@@ -376,7 +376,7 @@ public class ItemDaoImpl implements ItemDao {
      */
     private Item getItem(Integer iid) {
 
-        Object obj = redisUtil.hmGet(Table.ITEMTABLE, iid);
+        Object obj = redisUtil.hmGet(Table.ITEMTABLE, iid.toString());
         Item item = (Item) obj;
         return item;
     }
@@ -387,7 +387,7 @@ public class ItemDaoImpl implements ItemDao {
      */
     private void saveOne(Item item) {
 
-        redisUtil.hmSet(Table.ITEMTABLE, item.getIid(), item);
+        redisUtil.hmSet(Table.ITEMTABLE, item.getIid().toString(), item);
 
     }
 

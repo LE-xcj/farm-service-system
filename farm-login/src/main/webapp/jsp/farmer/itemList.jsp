@@ -333,7 +333,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/queryItemByPage",
+            url:"http://106.14.139.8:10087/farmService/item/queryItemByPage",
             async:false,
             dataType:'json',  // 处理Ajax跨域问题
             data:{fid: _fid, page: _page, address: _address, desc: _desc, pageSize:8},
@@ -366,11 +366,11 @@
             var _a = $("<a></a>");
             _a.attr("href", _items[i].media).attr("rel", "prettyPhoto[a]").attr("class", "pretty");
             $("<span></span>").appendTo(_a);
-            $("<img />").attr("src", _items[i].media).attr("alt", "cards").appendTo(_a);
+            $("<img />").attr("style","height: 143px;").attr("src", _items[i].media).attr("alt", "cards").appendTo(_a);
             _a.appendTo(_work);
 
             var _h3 = $("<h3></h3>");
-            var _href = "http://127.0.0.1:10086/farmService/item/itemDetailView?iid="+ _items[i].iid + "&mid=" + _items[i].mid;
+            var _href = "http://106.14.139.8:10086/farmService/item/itemDetailView?iid="+ _items[i].iid + "&mid=" + _items[i].mid;
             $("<a></a>").attr("target", "_blank").attr("href", _href).text(_items[i].iname).appendTo(_h3);
             _h3.appendTo(_work);
 

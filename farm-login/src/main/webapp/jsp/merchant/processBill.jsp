@@ -304,7 +304,7 @@
     function getBills(_begin) {
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/bill/queryBill",
+            url:"http://106.14.139.8:10087/farmService/bill/queryBill",
             dataType:'json',  // 处理Ajax跨域问题
             data: {'bill.mid': ${mid}, page: _begin, 'bill.status': 1, dealineFirst: true},
             async:true,
@@ -490,7 +490,7 @@
         var _formData = new FormData(formobj);
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/bill/updateBill",
+            url:"http://106.14.139.8:10087/farmService/bill/updateBill",
             async:false,
             dataType:'json',
             /**
@@ -522,7 +522,7 @@
     }
 
     function locate() {
-        window.location.href="http://127.0.0.1:10086/farmService/bill/merchantProcessingBill";
+        window.location.href="http://106.14.139.8:10086/farmService/bill/merchantProcessingBill";
     }
 
     function posit() {
@@ -609,7 +609,7 @@
     function getOperatorList(_begin) {
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/operator/queryOperatorByPage",
+            url:"http://106.14.139.8:10087/farmService/operator/queryOperatorByPage",
             dataType:'json',  // 处理Ajax跨域问题
             data: {'operator.mid': ${mid}, page: _begin},
             async:false,
@@ -696,7 +696,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/bill/arragenOperator",
+            url:"http://106.14.139.8:10087/farmService/bill/arragenOperator",
             dataType:'json',  // 处理Ajax跨域问题
             async:false,
             dataType:'json',

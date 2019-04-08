@@ -150,7 +150,7 @@
 
 
         <%--主体--%>
-        <form id="myForm" action="http://127.0.0.1:10087/farmService/bill/createBill" method="post">
+        <form id="myForm" action="http://106.14.139.8:10087/farmService/bill/createBill" method="post">
             <div>
                 <h3 class="dib">确认订单信息</h3>
                 <table cellspacing="0" cellpadding="0" class="order-table" id="J_OrderTable" summary="统一下单订单信息区域">
@@ -202,7 +202,7 @@
                         <c:forEach var="item" items="${items }" varStatus="i" step="1">
                             <tr class="item" data-lineid="19614514619:31175333266:35612993875" data-pointrate="0">
                                 <td class="s-title">
-                                    <a href="http://127.0.0.1:10086/farmService/item/itemDetailView?iid=${item.iid}&mid=${item.mid}" target="_blank" class="J_MakePoint">
+                                    <a href="http://106.14.139.8:10086/farmService/item/itemDetailView?iid=${item.iid}&mid=${item.mid}" target="_blank" class="J_MakePoint">
                                         <img src="${item.media}" class="itempic">
                                         <span class="title J_MakePoint">
                                             ${item.iname}
@@ -440,7 +440,7 @@
         var _formData = new FormData(formobj);
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/bill/createBill",
+            url:"http://106.14.139.8:10087/farmService/bill/createBill",
             async:false,
             dataType:'json',
             /**
@@ -490,7 +490,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/removeItemFromShoppingCard",
+            url:"http://106.14.139.8:10087/farmService/item/removeItemFromShoppingCard",
             async:false,
             dataType:'json',
             /**
@@ -518,7 +518,7 @@
     }
 
     function locate() {
-        window.location.href="http://127.0.0.1:10086/farmService/farmer/index";
+        window.location.href="http://106.14.139.8:10086/farmService/farmer/index";
     }
 </script>
 </html>

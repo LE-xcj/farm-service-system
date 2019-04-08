@@ -243,7 +243,7 @@
         console.info(_status);
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/bill/queryBill",
+            url:"http://106.14.139.8:10087/farmService/bill/queryBill",
             dataType:'json',  // 处理Ajax跨域问题
             data: {'bill.fid': '${fid}', page: _begin, 'bill.status': _status, desc: true},
             async:true,
@@ -354,7 +354,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/queryEvaluationByBid",
+            url:"http://106.14.139.8:10087/farmService/item/queryEvaluationByBid",
             dataType:'json',  // 处理Ajax跨域问题
             data: {bid: _bid, page:1, pageSize: 45},
             async:true,
@@ -514,7 +514,7 @@
 
                 $.ajax({
                     type:"post",
-                    url:"http://127.0.0.1:10087/farmService/bill/updateBillStatusForList",
+                    url:"http://106.14.139.8:10087/farmService/bill/updateBillStatusForList",
                     async:false,
                     dataType:'json',
                     data:formData,

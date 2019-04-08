@@ -166,7 +166,7 @@
 
         $.ajax({
             type:"post",
-            url:"http://127.0.0.1:10087/farmService/item/addItem",
+            url:"http://106.14.139.8:10087/farmService/item/addItem",
             async:false,
             dataType:'json',  // 处理Ajax跨域问题
             data:formData,

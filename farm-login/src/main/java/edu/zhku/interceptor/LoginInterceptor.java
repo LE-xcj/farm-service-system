@@ -28,36 +28,40 @@ public class LoginInterceptor implements HandlerInterceptor {
         System.out.println("preHandle被调用");
 
         //根据url上的路径辨别请求角色
-        String[] path = request.getServletPath().split("/");
-        String role = path[1];
+        //String[] path = request.getServletPath().split("/");
+        //String role = path[1];
+
+        String[] roles = {"farmer", "merchant"};
 
         //获取服务器这边设置的属性
         HttpSession session = request.getSession();
-        String id = (String) session.getAttribute(role);
 
-        //判断是否已经在某个客户端登录了
-        if (null != id){
+        for (String role : roles) {
+            String id = (String) session.getAttribute(role);
 
-            String key = id;
+            //判断是否已经在某个客户端登录了
+            if (null != id){
 
-            //获取redis那边的信息
-            Object value = redisUtil.get(key);
-            //Object value = redisUtil.hmGet(Literal.ONLINE, key);
+                String key = id;
 
-            //再从redis获取，判断session是否已经过期了
-            if(value != null) {
+                //获取redis那边的信息
+                Object value = redisUtil.get(key);
+                //Object value = redisUtil.hmGet(Literal.ONLINE, key);
 
-                //更新保存时长
-                redisUtil.set(key, value, MyDuration.LOGINALIVE);
-                return true;    //如果false，停止流程，api被拦截
+                //再从redis获取，判断session是否已经过期了
+                if(value != null) {
+
+                    //更新保存时长
+                    redisUtil.set(key, value, MyDuration.LOGINALIVE);
+                    return true;    //如果false，停止流程，api被拦截
+
+                }
 
             }
-
         }
 
-
-        String redirectPath = request.getContextPath() + "/" + role + "/signIn";
-        response.sendRedirect(redirectPath);
+        //String redirectPath = request.getContextPath() + "/" + role + "/signIn";
+        response.sendRedirect("http://106.14.139.8/normal/html/loginErro.html");
         return false;
     }
 
