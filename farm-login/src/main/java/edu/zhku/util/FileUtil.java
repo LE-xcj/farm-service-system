@@ -14,8 +14,8 @@ import java.io.IOException;
 public class FileUtil {
 
     //todo 到生产环境要变
-    private static final String PATH = "D:/BaiduYunDownload/picture/";
-    //private static final String PATH = "/zhku/resources/picture/";
+    //private static final String PATH = "D:/BaiduYunDownload/picture/";
+    private static final String PATH = "/zhku/resources/picture/";
 
     private static final String URL =  "http://106.14.139.8/picture/";
 

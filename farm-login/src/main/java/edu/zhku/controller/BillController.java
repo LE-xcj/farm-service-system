@@ -6,6 +6,7 @@ import edu.zhku.pojo.Item;
 import edu.zhku.pojo.Merchant;
 import edu.zhku.service.FarmerService;
 import edu.zhku.service.MerchantService;
+import edu.zhku.util.ViewNameUtil;
 import edu.zhku.vo.ItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class BillController {
 
     @Autowired
     private MerchantService merchantService;
+
+    @Autowired
+    private ViewNameUtil viewNameUtil;
 
     @RequestMapping("/createBillView")
     public ModelAndView createBillView (HttpSession session, ItemVo itemVo) throws Exception {
@@ -56,25 +60,38 @@ public class BillController {
         return mv;
     }
 
+
+    /**
+     * 商户的订单视图
+     * @param session
+     * @return
+     */
     @RequestMapping("/merchantBillList")
-    public ModelAndView merchantBillList(HttpSession session) {
+    public ModelAndView merchantBillList(HttpSession session) throws Exception {
 
         ModelAndView mv = new ModelAndView();
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
 
         mv.addObject("mid", mid);
-        mv.setViewName("merchant/billManager");
+        //mv.setViewName("merchant/billManager");
+        viewNameUtil.setViewName(mv, mid, "merchant/billManager");
         return mv;
     }
 
+    /**
+     * 商户的进行中订单视图
+     * @param session
+     * @return
+     */
     @RequestMapping("/merchantProcessingBill")
-    public ModelAndView merchantProcessingBill(HttpSession session) {
+    public ModelAndView merchantProcessingBill(HttpSession session) throws Exception {
 
         ModelAndView mv = new ModelAndView();
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
 
         mv.addObject("mid", mid);
-        mv.setViewName("merchant/processBill");
+        //mv.setViewName("merchant/processBill");
+        viewNameUtil.setViewName(mv, mid, "merchant/processBill");
         return mv;
     }
 

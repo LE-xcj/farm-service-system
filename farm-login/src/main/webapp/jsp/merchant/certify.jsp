@@ -127,12 +127,13 @@
              */
             processData: false,
             success: function(data){
-                if(data == 1){
-                    certify = true;
-                    showDialog("请求成功！");
-                } else {
-                    showDialog("认证失败！");
-                }
+                location.reload();
+                // if(data == 1){
+                //     certify = true;
+                //     showDialog("请求成功！");
+                // } else {
+                //     showDialog("认证失败！");
+                // }
             },error: function (data) {
                 showDialog("请求失败！");
             }

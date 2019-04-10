@@ -156,7 +156,7 @@
                     <li><a href="${pageContext.request.contextPath }/item/shoppingCart" target="_blank">购物车</a></li>
 
                     <li>
-                        <a href="blog.html">通知 <span style="color: red;" id="star"></span></a>
+                        <a href="#">通知 <span style="color: red;" id="star"></span></a>
                         <ul class="MenuDropdown">
                             <li>
                                 <a href="${pageContext.request.contextPath }/notice/farmerNoticeList" target="_blank">系统通知
@@ -166,7 +166,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="single_project.html">账户管理</a>
+                    <li><a href="#">账户管理</a>
                         <ul class="MenuDropdown">
                             <li><a href="${pageContext.request.contextPath }/farmer/updateFarmerView" target="_blank">个人信息</a></li>
                             <li><a href="${pageContext.request.contextPath }/bill/farmerBillList" target="_blank">订单查看</a></li>
@@ -328,7 +328,7 @@
         if (1 == _descFlag) {
             _desc = false;
         } else {
-            _descFlag = true;
+            _desc = true;
         }
 
         $.ajax({

@@ -1,6 +1,8 @@
 package edu.zhku.controller;
 
 import edu.zhku.constant.Role;
+import edu.zhku.util.ViewNameUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,23 +19,27 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/operator")
 public class OperatorController {
 
+    @Autowired
+    private ViewNameUtil viewNameUtil;
 
     @RequestMapping("/addOperatorView")
-    public ModelAndView addOperatorView(HttpSession session) {
+    public ModelAndView addOperatorView(HttpSession session) throws Exception {
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
         ModelAndView mv = new ModelAndView();
         mv.addObject("mid", mid);
-        mv.setViewName("merchant/addOperator");
+        //mv.setViewName("merchant/addOperator");
+        viewNameUtil.setViewName(mv, mid, "merchant/addOperator");
         return mv;
     }
 
 
     @RequestMapping("/operatorListView")
-    public ModelAndView operatorListView(HttpSession session) {
+    public ModelAndView operatorListView(HttpSession session) throws Exception {
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
         ModelAndView mv = new ModelAndView();
         mv.addObject("mid", mid);
-        mv.setViewName("merchant/operatorList");
+        //mv.setViewName("merchant/operatorList");
+        viewNameUtil.setViewName(mv, mid, "merchant/operatorList");
         return mv;
     }
 

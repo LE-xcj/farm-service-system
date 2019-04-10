@@ -5,6 +5,7 @@ import edu.zhku.pojo.Farmer;
 import edu.zhku.pojo.Merchant;
 import edu.zhku.service.FarmerService;
 import edu.zhku.service.MerchantService;
+import edu.zhku.util.ViewNameUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,9 @@ public class ItemController {
     @Autowired
     private MerchantService merchantService;
 
+    @Autowired
+    private ViewNameUtil viewNameUtil;
+
     /**
      * 添加item
      * @param session
@@ -38,16 +42,13 @@ public class ItemController {
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
         mv.addObject("mid", mid);
 
-        boolean certify = merchantService.isCertify(mid);
-        if (certify) {
-            mv.setViewName("merchant/addItem");
-        } else {
-            mv.setViewName("merchant/certify");
-        }
+        viewNameUtil.setViewName(mv, mid, "merchant/addItem");
 
         return mv;
 
     }
+
+
 
 
     /**
@@ -55,11 +56,13 @@ public class ItemController {
      * @return
      */
     @RequestMapping("/itemListView")
-    public ModelAndView itemListView(HttpSession session) {
+    public ModelAndView itemListView(HttpSession session) throws Exception {
         ModelAndView mv = new ModelAndView();
         String mid = (String) session.getAttribute(Role.MERCHANT.getPref());
         mv.addObject("mid", mid);
-        mv.setViewName("merchant/itemList");
+
+        //mv.setViewName("merchant/itemList");
+        viewNameUtil.setViewName(mv, mid, "merchant/itemList");
         return mv;
     }
 
@@ -160,5 +163,7 @@ public class ItemController {
 
         return mv;
     }
+
+
 }
     

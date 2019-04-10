@@ -365,12 +365,6 @@
             url:"http://106.14.139.8:10088/farm-message/notice/count.action",
             async:false,
             data:{status: 0, destination:${merchant.mid}},
-            beforeSend: function (xhr) {
-                var sessionId = '${pageContext.session.id}';
-                xhr.setRequestHeader("token", sessionId);
-                var signature = '${mid}';
-                xhr.setRequestHeader("signature", signature);
-            },
             success: function(data){
                 changeNoticeNum(data);
             }
