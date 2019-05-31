@@ -1,0 +1,200 @@
+/* SETTINGS BOX CSS */
+.backwrapper{
+    max-width: 1000px;
+    margin:0px auto;
+	padding:0px 15px;
+}
+.backwrappercolor{
+    background: #fff;
+}
+.bodycolor01{
+    background-color: #555;
+}
+.bodycolor02{
+    background-color: #B5AE9B;
+}
+.bodycolor03{
+    background-color: #86524D;
+}
+.bodycolor04{
+    background-color: #655D59;
+}
+.bodycolor05{
+    background-color: #8D8E91;
+}
+.bodycolor06{
+    background-color: #88A65E;
+}
+.bodycolor07{
+    background-color: #A36F76;
+}
+.bodycolor08{
+    background-color: #53777A;
+}
+.bodycolor09{
+    background-color: #574951;
+}
+.bodycolor10{
+    background-color: #2B4959;
+}
+.bodytexture01{
+    background-image: url('textures/01.png');
+}
+.bodytexture02{
+    background-image: url('textures/02.png');
+}
+.bodytexture03{
+    background-image: url('textures/03.png');
+}
+.bodytexture04{
+    background-image: url('textures/04.png');
+}
+.bodytexture05{
+    background-image: url('textures/05.png');
+}
+.bodytexture06{
+    background-image: url('textures/06.png');
+}
+.bodytexture07{
+    background-image: url('textures/07.png');
+}
+.bodytexture08{
+    background-image: url('textures/08.png');
+}
+.bodytexture09{
+    background-image: url('textures/09.png');
+}
+.bodytexture10{
+    background-image: url('textures/10.png');
+}
+.bodytexture01.bodytexturePreview{
+    background-image: url('textures/01.1.png');
+}
+.bodytexture02.bodytexturePreview{
+    background-image: url('textures/02.1.png');
+}
+.bodytexture03.bodytexturePreview{
+    background-image: url('textures/03.1.png');
+}
+.bodytexture04.bodytexturePreview{
+    background-image: url('textures/04.1.png');
+}
+.bodytexture05.bodytexturePreview{
+    background-image: url('textures/05.1.png');
+}
+.bodytexture06.bodytexturePreview{
+    background-image: url('textures/06.1.png');
+}
+.bodytexture07.bodytexturePreview{
+    background-image: url('textures/07.1.png');
+}
+.bodytexture08.bodytexturePreview{
+    background-image: url('textures/08.1.png');
+}
+.bodytexture09.bodytexturePreview{
+    background-image: url('textures/09.1.png');
+}
+.bodytexture10.bodytexturePreview{
+    background-image: url('textures/10.1.png');
+}
+.customPanel{
+    border-radius:0px 6px 6px 0px;
+    z-index:999999;
+    box-shadow:1px 1px 2px #555;
+    position: fixed;
+    padding: 20px 15px 20px 20px;
+    width: 156px;
+    background: white;
+    border-top: 1px solid #e2e2e2;
+    border-right: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
+    top: 87px;
+    left: -195px;
+    font-family: 'PT Sans Narrow';
+}
+.customPanel .customPanelOptions{
+    
+}
+.customPanel h1 {
+	border-bottom:1px dotted #ccc; 
+	margin-bottom:10px;
+	padding-bottom:3px;
+	font-size:14px;
+	font-weight:700;
+}
+.customPanel select {
+	margin:2px 0px 6px;
+	border:1px solid #ccc;
+	border-radius:4px;
+	padding:3px;
+	width:100%;
+}
+.customPanel .customPanelOptions .customPanelOptionsDefault{
+    border: 1px solid #D5D5D5;
+    background: #F1F1F1;
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(#E8E8E8));
+    background: -moz-linear-gradient(top, white, #E8E8E8);
+    background: -o-linear-gradient(white,#E8E8E8);
+    cursor: pointer;
+    overflow: hidden;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+	margin-top:3px;
+	border-radius:4px;
+}
+.customPanel .customPanelOptions .customPanelOptionsDefault:hover{
+    background: -webkit-gradient(linear, left top, left bottom, from(#E8E8E8), to(white));
+    background: -moz-linear-gradient(top, #E8E8E8, white);
+    background: -o-linear-gradient(#E8E8E8,white);
+}
+.customPanel .customPanelOptions .customPanelOptionsColor{
+    height: 24px;
+    width: 24px;
+    float: left;
+    border: 1px solid #ABABAB;
+    margin: 0 5px 5px 0;
+    cursor: pointer;
+}
+.customPanel .customPanelOptions .customPanelOptionsTexture{
+    height: 24px;
+    width: 24px;
+    float: left;
+    border: 1px solid #ABABAB;
+    margin: 0 5px 5px 0;
+    cursor: pointer;
+}
+.customPanel .customPanelButton{
+    position: absolute;
+    height: 33px;
+    width: 34px;
+    background: white  url('images/options_button.png') no-repeat center center;
+    top: 20px;
+    right: -45px;
+    border-top: 1px solid #e2e2e2;
+    border-right: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
+    cursor: pointer;
+    border-radius:0px 6px 6px 0px;
+    padding:5px;
+    box-shadow:1px 1px 2px #555;
+}
+.customPanel .customPanelButton:hover{
+    background-image: url('images/options_button_hover.png');
+}
+.customPanel .customPanelOptions .customPanelOptionsPickerButton{
+    background: url('images/colorpicker_button.png') no-repeat 0px 0px;
+    height: 24px;
+    width: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    float: left;
+    margin: 0 5px 5px 0;
+    border: 1px solid #ABABAB;
+}
+.customPanel .customPanelOptionsPicker{
+    position: absolute;
+    top: 70px;
+    right: -200px;
+    display: none;
+}

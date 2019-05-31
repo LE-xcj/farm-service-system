@@ -1,0 +1,25 @@
+ul {
+   padding-left: 0;
+   overflow: hidden;
+}
+ul li {
+   float: left;
+   list-style: none;
+   width: 20px;
+   height: 20px;
+}
+ul li a {
+   display: inline-block;
+   padding-top:20px;
+   width: 50%;
+   overflow: hidden;
+}
+.halfStar{
+   background: url("http://106.14.139.8/farmer-index/evaluation/images/halfStar.png")
+}
+.fullStar{
+   background: url("http://106.14.139.8/farmer-index/evaluation/images/fullStar.png")
+}
+.emptyStar{
+   background: url("http://106.14.139.8/farmer-index/evaluation/images/emptyStar.png")
+}

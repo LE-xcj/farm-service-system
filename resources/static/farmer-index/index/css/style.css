@@ -1,0 +1,1552 @@
+/* RED-SKY CSS Document */
+
+
+/* ============================ START CSS RESET AND OPTIONS ============================ */
+* {
+	margin:0px;
+	padding:0px;
+	border:0px;
+	vertical-align:top;
+	text-decoration:none;
+}
+a {
+	color:#6e6e6e;
+}
+body {
+	background:#f1f1f1;
+	color:#6e6e6e;
+	margin:0px;
+	padding:0px;
+	border:0px;
+	font-size:13px;
+	line-height:22px;
+	font-family: 'Droid Sans', sans-serif;
+}
+.quote {
+	font-family: 'Open Sans', sans-serif;
+	font-weight:300;
+	font-size:24px;
+	line-height:38px;
+	text-align:center;
+	padding:33px 0px;
+	color:#444;
+}
+.quoteleft {
+	font-family: 'Open Sans', sans-serif;
+	font-weight:300;
+	font-size:24px;
+	line-height:38px;
+	text-align:left;
+	padding:33px 0px;
+	color:#444;
+}
+.sorry {
+	font-family: 'Open Sans', sans-serif;
+	font-weight:300;
+	font-size:30px;
+	line-height:40px;
+	padding:30px 0px;
+	color:#222;
+	text-align:center;
+}
+.path {
+	font-family: 'Open Sans', sans-serif;
+	font-weight:300;
+	font-size:30px;
+	line-height:40px;
+	padding:25px 0px 30px 0px;
+	color:#222;
+	border-bottom:1px solid #efefef;
+	margin-bottom:40px;
+}
+.path span {
+	float:right;
+	font-size:14px;
+}
+.path span a {
+	color:#222;
+}
+.copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+#box {
+	padding:0px 20px 80px 20px;
+	background:#fff;
+	max-width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.slider {
+	margin-bottom:50px;
+}
+.works {
+	margin-bottom:40px;
+}
+.googlemaps {
+	overflow:hidden;
+	padding:3px;
+	border:1px solid #cfd7da;
+	margin-bottom:50px;
+	box-shadow:0px 2px 1px #eee;
+}
+.googlemaps iframe {
+	width:100% !important;
+	height:350px !important;
+}
+.title {
+	background:#e5e5e5;
+	text-transform:uppercase;
+	font-size:14px;
+	line-height:20px;
+	color:#646263;
+	padding:2px 20px 2px 40px;
+	float:left;
+	font-weight:bold;
+	margin-left:-40px;
+}
+.title2 {
+	text-transform:uppercase;
+	font-size:14px;
+	line-height:20px;
+	color:#333;
+	padding:2px 20px 2px 0px;
+	float:left;
+}
+.title3 {
+	text-transform:uppercase;
+	font-size:14px;
+	line-height:20px;
+	color:#333;
+	padding:2px 0px 15px 0px;
+}
+.values p {
+	margin-bottom:22px;
+}
+.titleline {
+	border-bottom:1px solid #efefef;
+	padding-bottom:10px;
+	margin-bottom:25px;
+}
+h6 {
+	font-size:15px !important;
+	line-height:22px !important;
+	font-weight:300;
+	color:#222;
+	margin-bottom:3px;
+}
+.dropcap {
+	color: #222;
+	font-size: 16px;
+	padding: 8px 11px;
+	border: 1px solid #cfd7da;
+	line-height: 16px;
+	float: left;
+	margin-right: 10px;
+	margin-top: 5px;
+}
+.separate {
+	clear:both;
+	padding-top:20px;
+	border-bottom:1px solid #cfd7da;
+	margin-bottom:20px;
+}
+.pagination {
+	margin-bottom:30px;
+	text-align:center;
+}
+.pagination a {
+	color:#333;
+	background:#f1f1f1;
+	border-radius:15px;
+	padding:4px 8px;
+}
+.youlike {
+	margin-top:70px;
+}
+.navigationmicro {
+	display:none;
+}
+.directions {
+	float:right;
+}
+/* ============================ END CSS RESET AND OPTIONS ============================ */
+
+
+
+/* ============================ START MARGINS ============================ */
+.mb10 {
+	margin-bottom:10px;
+}
+.mt10 {
+	margin-top:10px;
+}
+.ml10 {
+	margin-right:10px;
+}
+.mr10 {
+	margin-left:10px;
+}
+.mb20 {
+	margin-bottom:20px;
+}
+.mt20 {
+	margin-top:20px;
+}
+.ml20 {
+	margin-right:20px;
+}
+.mr20 {
+	margin-left:20px;
+}
+.mb30 {
+	margin-bottom:30px;
+}
+.mt30 {
+	margin-top:30px;
+}
+.ml30 {
+	margin-right:30px;
+}
+.mr30 {
+	margin-left:30px;
+}
+.mb40 {
+	margin-bottom:30px;
+}
+.mt40 {
+	margin-top:30px;
+}
+.ml40 {
+	margin-right:30px;
+}
+.mr40 {
+	margin-left:30px;
+}
+/* ============================ END MARGINS ============================ */
+
+
+
+/* ============================ START COLOR CHANGE ============================ */
+.postvideo {
+	background:#28b8ff url(../images/movie.png) no-repeat;
+}
+a:hover {
+	color:#28b8ff;
+}
+#topline .content .social li img:hover {
+	background:#28b8ff;
+}
+#bottomarea .social li img:hover {
+	background:#28b8ff;
+}
+#header .logo span {
+	color:#28b8ff;
+}
+.path span a:hover {
+	color:#28b8ff;
+}
+#header .topmenu li:hover, #header .topmenu li.active {
+	border-top:4px solid #28b8ff;
+	border-bottom:1px solid #28b8ff;
+}
+#header .topmenu li:hover {
+	background:#28b8ff url(../images/menu_activ.png) no-repeat;
+}
+#header .topmenu li.active {
+	background:#28b8ff url(../images/menu_activ.png) no-repeat;
+}
+#topline .content .searchbutton {
+	background:#28b8ff url(../images/search_butt.png) no-repeat;
+}
+.work:hover {
+	background:#28b8ff url(../images/menu_activ.png) no-repeat;
+	border-bottom:1px solid #28b8ff;
+}
+.newpost h2 {
+	background:#28b8ff url(../images/title_bg.png) no-repeat;
+}
+.project h2 {
+	background:#28b8ff url(../images/title_bg.png) no-repeat;
+}
+.post h3 {
+	background:#28b8ff url(../images/title_bg.png) no-repeat;
+}
+#footer h2 {
+	background:#28b8ff url(../images/footer_title_bg.png) no-repeat;
+}
+#footer h2 span {
+	color:#28b8ff;
+}
+#footer ul.twitter li {
+	background:#28b8ff url(../images/twitter.png) no-repeat;
+}
+#header ul li:hover ul.MenuDropdown li:hover>a {
+	background:#28b8ff !important;
+}
+.post .postinfo .posttype {
+	background:#28b8ff;
+}
+.skywalkerSlider .skywalkerSliderMarker {
+	background:#28b8ff;
+}
+.newpost:hover .viewpost {
+	background:#28b8ff;
+}
+.posttext {
+	background:#28b8ff url(../images/text.png) no-repeat;
+}
+.postphoto {
+	background:#28b8ff url(../images/photo.png) no-repeat;
+}
+.post .postinfo a:hover {
+	color:#28b8ff;
+}
+.post .viewlink a {
+	color:#28b8ff;
+}
+#comments .date a:hover {
+	color:#28b8ff;
+}
+/* ============================ END COLOR CHANGE ============================ */
+
+
+
+/* ============================ START COMMENTS ============================ */
+#comments {
+	border-top:1px dotted #cfd7da;
+	padding:4px 0px 30px;
+}
+#comments h2 {
+	font-size:14px;
+	margin-bottom:30px;
+}
+#comments .comment {
+	border:1px solid #e5e5e5;
+	margin-bottom:30px;
+	padding:10px;
+	margin-left:70px;
+	color:#444;
+}
+#comments .comment .line {
+	margin-left:-19px;
+	width:9px;
+	height:22px;
+	position:absolute;
+	background:url(../images/commentline.png) no-repeat;
+}
+#comments .replay {
+	border:1px solid #e5e5e5;
+	margin-bottom:30px;
+	padding:10px;
+	margin-left:100px;
+	color:#444;
+}
+#comments .replay .line {
+	margin-left:-19px;
+	width:9px;
+	height:22px;
+	position:absolute;
+	background:url(../images/commentline.png) no-repeat;
+}
+#comments .image {
+	position:absolute;
+	margin-left:-80px;
+	margin-top:-10px;
+}
+#comments .date {
+	margin-bottom:10px;
+	color:#777;
+}
+#comments .date a {
+	float:right;
+	color:#777;
+}
+.commentform {
+	padding-top:30px;
+}
+.commentform p {
+	position:absolute;
+	color:#222;
+}
+.commentform input {
+	border:1px solid #cfd7da;
+	padding:4px;
+	color:#222;
+	margin-left:70px;
+	width:40%;
+	margin-bottom:10px;
+}
+.commentform .button {
+	border:1px solid #cfd7da;
+	padding:4px 6px 6px 6px;
+	margin-left:70px;
+	width:80px;
+	text-align:center;
+	margin-bottom:10px;
+	color:#555;
+	cursor:pointer;
+	background:url(../images/tabbg.png) repeat-x;
+}
+.commentform .button:hover, .contactform .button2:hover {
+	color:#222;
+}
+.commentform textarea {
+	margin-left:70px;
+	border:1px solid #cfd7da;
+	padding:4px;
+	color:#222;
+	width:80%;
+	height:150px;
+	resize:vertical;
+	margin-bottom:10px;
+}
+/* ============================ END COMMENTS ============================ */
+
+
+
+/* ============================ START BLOG PAGE ============================ */
+.post {
+	margin-bottom:50px;
+}
+.post .image {
+	overflow:hidden;
+	padding:3px;
+	border:1px solid #cfd7da;
+	margin-bottom:30px;
+}
+.post .postinfo {
+	float:left;
+	position:absolute;
+	width:120px;
+	color:#555;
+	font-size:12px;
+	line-height:26px;
+}
+.post .postinfo a {
+	color:#555;
+}
+.post .postinfo .posttype {
+	float:left;
+	margin-bottom:10px;
+	border-radius:30px;
+}
+.post h3 {
+	text-transform: uppercase;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: bold;
+	margin-bottom: 16px;
+	color:#444;
+	background-position: bottom left;
+	padding-bottom: 12px;
+}
+.post .resume {
+	padding-left:145px;
+}
+.post .resume p {
+	color:#555;
+	margin-bottom:20px;
+}
+.post .resume p a {
+	color:#555;
+}
+.post .viewlink a {
+	font-size:11px;
+	font-style:italic;
+}
+.post .viewlink a:hover {
+	text-decoration:underline;
+}
+/* ============================ END BLOG PAGE ============================ */
+
+
+
+/* ============================ START CONTACTS ============================ */
+.contactform p {
+	position:absolute;
+	color:#222;
+}
+.contactform input {
+	border:1px solid #cfd7da;
+	padding:4px;
+	color:#222;
+	margin-left:70px;
+	width:40%;
+	margin-bottom:10px;
+}
+.contactform .button {
+	border:1px solid #cfd7da;
+	padding:4px 6px;
+	margin-left:70px;
+	width:60px;
+	text-align:center;
+	margin-bottom:10px;
+	color:#555;
+	cursor:pointer;
+	background:url(../images/tabbg.png) repeat-x;
+}
+.contactform .button2 {
+	border:1px solid #cfd7da;
+	padding:4px 6px;
+	margin-left:10px;
+	width:60px;
+	color:#555;
+	text-align:center;
+	margin-bottom:10px;
+	cursor:pointer;
+	background:url(../images/tabbg.png) repeat-x;
+}
+.contactform .button:hover, .contactform .button2:hover {
+	color:#222;
+}
+.contactform textarea {
+	margin-left:70px;
+	border:1px solid #cfd7da;
+	padding:4px;
+	color:#222;
+	width:80%;
+	height:150px;
+	resize:vertical;
+	margin-bottom:10px;
+}
+/* ============================ END CONTACTS ============================ */
+
+
+
+/* ============================ START SIDE BAR ============================ */
+.sidebar .title {
+	background:none;
+	text-transform:uppercase;
+	font-size:14px;
+	line-height:20px;
+	color:#646263;
+	padding:0px 0px 15px 0px;
+	font-weight:normal;
+	margin-left:0px;
+	float:none;
+}
+.sidebar ul {
+	margin-bottom:50px;
+}
+.sidebar ul li {
+	list-style:none;
+	border-bottom:1px dotted #cfd7da;
+	padding:0px 0px 4px 10px;
+	margin-bottom:6px;
+	background:url(../images/arrow.png) no-repeat;
+	background-position:left 7px;
+}
+.sidebar ul li:hover {
+	color:#222;
+}
+.sidebar .tabs {
+	margin-bottom:50px;
+	overflow: hidden;
+	height: 500px;
+	position: relative;
+}
+.sidebar .tabs .tab {
+	float:left;
+	text-align:center;
+	border:1px solid #cfd7da;
+	background:url(../images/tabbg.png) repeat-x top left;
+	padding:5px 10px;
+	cursor:pointer;
+	position: relative;
+}
+.sidebar .tabs .tab.tabActive {
+	background:#fff;
+	color:#222;
+	z-index:20;
+	padding:5px 10px;
+	border-top:1px solid #cfd7da;
+	border-left:1px solid #cfd7da;
+	border-bottom:1px solid #fff;
+	border-right:1px solid #cfd7da;
+	cursor: auto;
+}
+.sidebar .tabs .tab:hover {
+	color:#222;
+}
+.sidebar .tabs .content {
+	margin-top:-1px;
+	z-index:10;
+	border:1px solid #cfd7da;
+	padding:0px 15px;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.sidebar .tabs .content .projects {
+	margin:15px 0px;
+}
+.sidebar .tabs .content .projects h4 a {
+	color:#222;
+	font-size:11px;
+	line-height:18px;
+	text-transform:uppercase;
+}
+.sidebar .tabs .content .projects p {
+	font-size:11px;
+	font-style:italic;
+}
+.sidebar .tabs .content .projects h4 {
+	margin-bottom:2px;
+}
+.sidebar .tabs .content .projects img {
+	float:left;
+	padding:2px;
+	border:1px solid #cfd7da;
+	width:60px;
+	margin-right:10px;
+}
+/* ============================ END SIDE BAR ============================ */
+
+
+
+/* ============================ START SLIDER ================================ */
+.skywalkerSlider {
+	width: 960px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+	margin-bottom:50px;
+}
+.skywalkerSlider .skywalkerSliderContent {
+	list-style: none;
+	height: 380px;
+	position: relative;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 0;
+	opacity: 0.0;
+	filter:alpha(opacity=0);
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem.skywalkerSliderContentActive {
+	opacity: 1.0;
+	filter:alpha(opacity=100);
+	z-index: 1;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemImage {
+	width: 100%;
+	height: 100%;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox {
+	width: 507px;
+	position: absolute;
+	top: 100px;
+	left: 226px;
+	opacity: 0.0;
+	filter:alpha(opacity=0);
+}
+.skywalkerSlider .skywalkerSliderContent:hover .skywalkerSliderContentItem.skywalkerSliderContentActive .skywalkerSliderContentItemBox {
+	opacity: 1.0;
+	filter:alpha(opacity=100);
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxPrev, .skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxNext {
+	width: 19px;
+	background-color: rgba(214,214,214,0.7);
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxPrev {
+	margin-right: 2px;
+	left: 0;
+	background:rgba(214,214,214,0.7) url(../images/slider/slide_left.png) no-repeat;
+	background-position:50% 50%;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxNext {
+	margin-left: 2px;
+	right: 0;
+	background:rgba(214,214,214,0.7) url(../images/slider/slide_right.png) no-repeat;
+	background-position:50% 50%;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxPrev:hover, .skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxNext:hover {
+	background-color: rgba(214,214,214,0.9);
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxInfo {
+	color: #ffffff;
+	margin-left: 21px;
+	margin-right: 21px;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxInfo .skywalkerSliderContentItemBoxInfoTitle {
+	height: 46px;
+	position: relative;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxInfo .skywalkerSliderContentItemBoxInfoTitle .skywalkerSliderContentItemBoxInfoTitleBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: #28B8FF;
+	opacity: 0.7;
+	filter:alpha(opacity=70);
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxInfo .skywalkerSliderContentItemBoxInfoTitle .skywalkerSliderContentItemBoxInfoTitleText {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	line-height: 18px;
+	padding: 14px;
+	word-break: break-all;
+	text-transform: uppercase;
+	font-size: 18px;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxInfo .skywalkerSliderContentItemBoxInfoText {
+	position: relative;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxInfo .skywalkerSliderContentItemBoxInfoText .skywalkerSliderContentItemBoxInfoTextBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: #000000;
+	opacity: 0.7;
+	filter:alpha(opacity=70);
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox .skywalkerSliderContentItemBoxInfo .skywalkerSliderContentItemBoxInfoText .skywalkerSliderContentItemBoxInfoTextContent {
+	word-break: break-all;
+	padding: 14px;
+	line-height: 18px;
+	font-size: 14px;
+	position: relative;
+}
+.skywalkerSlider .skywalkerSliderPreview {
+	list-style: none;
+	overflow: hidden;
+	background-color: #d6d6d6;
+	height: 85px;
+}
+.skywalkerSlider .skywalkerSliderPreview .skywalkerSliderPreviewItem {
+	float: left;
+	height: 81px;
+	width: 239px;
+	cursor: pointer;
+	position: relative;
+	border-left: 1px solid #ffffff;
+	margin-top: 4px;
+}
+.skywalkerSlider .skywalkerSliderPreview .skywalkerSliderPreviewItem:first-child {
+	width: 240px;
+	border-left: none;
+}
+.skywalkerSlider .skywalkerSliderPreview .skywalkerSliderPreviewItem.skywalkerSliderPreviewActive {
+}
+.skywalkerSlider .skywalkerSliderPreview .skywalkerSliderPreviewItem .skywalkerSliderPreviewItemImage {
+	width: 100%;
+	height: 100%;
+}
+.skywalkerSlider .skywalkerSliderPreview .skywalkerSliderPreviewItem .skywalkerSliderPreviewItemOpacity {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255,255,255,0.7);
+}
+.skywalkerSlider .skywalkerSliderPreview .skywalkerSliderPreviewItem:hover .skywalkerSliderPreviewItemOpacity, .skywalkerSlider .skywalkerSliderPreview .skywalkerSliderPreviewItem.skywalkerSliderPreviewActive .skywalkerSliderPreviewItemOpacity {
+	background-color: transparent;
+}
+.skywalkerSlider .skywalkerSliderLeft {
+	left: 0;
+	background:rgba(214,214,214,0.7) url(../images/slider/slide_left.png) no-repeat;
+	background-position:50% 50%;
+}
+.skywalkerSlider .skywalkerSliderRight {
+	right: 0;
+	background:rgba(214,214,214,0.7) url(../images/slider/slide_right.png) no-repeat;
+	background-position:50% 50%;
+}
+.skywalkerSlider .skywalkerSliderLeft, .skywalkerSlider .skywalkerSliderRight {
+	position: absolute;
+	width: 19px;
+	height: 81px;
+	bottom: 0;
+	background-color: rgba(214,214,214,0.7);
+	cursor: pointer;
+}
+.skywalkerSlider .skywalkerSliderLeft:hover, .skywalkerSlider .skywalkerSliderRight:hover {
+	background-color: rgba(214,214,214,0.9);
+}
+.skywalkerSlider .skywalkerSliderMarker {
+	height: 4px;
+	width: 240px;
+	position: absolute;
+	left: 0;
+	bottom: 81px;
+	background: #28b8ff;
+}
+.skywalkerSlider .skywalkerSliderResponsiveLeft {
+	left: 0;
+}
+.skywalkerSlider .skywalkerSliderResponsiveRight {
+	right: 0;
+}
+.skywalkerSlider .skywalkerSliderResponsiveLeft, .skywalkerSlider .skywalkerSliderResponsiveRight {
+	position: absolute;
+	width: 19px;
+	height: 81px;
+	background-color: rgba(214,214,214,0.7);
+	cursor: pointer;
+	display: none;
+	z-index: 1;
+}
+/* ============================ END SLIDER ============================ */
+
+
+
+
+/* ============================ START TOP HIDDEN AREA ============================ */
+#topline {
+	background:#393939;
+	margin-top: -60px;
+}
+#topline .opentop {
+	margin-right:-20px;
+	position:absolute;
+	right:0px;
+	cursor:pointer;
+	font-size:20px;
+	line-height:14px;
+	margin-top:62px;
+	background:#393939;
+	font-weight:bold;
+	color:#fff;
+	padding: 4px 0;
+	text-align: center;
+	width: 20px;
+	height: 14px;
+}
+#topline .content {
+	padding:19px 0px;
+}
+#topline .content .searchline {
+	background:url(../images/search_bg.png);
+	height:24px;
+	font-size:12px;
+	line-height:18px;
+	color:#333;
+	border-radius:15px;
+	padding:0px 8px;
+	font-style:italic;
+	width:150px;
+	outline: none;
+}
+#topline .content .searchbutton {
+	width:20px;
+	height:20px;
+	margin-left:-26px;
+	margin-top:2px;
+	cursor:pointer;
+	border-radius:15px;
+}
+#topline .content .social {
+	float:right;
+}
+#topline .content .social li {
+	float:left;
+	list-style:none;
+	margin-left:10px;
+}
+#topline .content .social li img {
+	background:#fff;
+	overflow:hidden;
+}
+/* ============================ END TOP HIDDEN AREA ============================ */
+
+
+
+/* ============================ START TITLE CSS EFFECT ============================ */
+span.show-tooltip-text {
+	z-index:99999;
+	display:none;
+	position:fixed;
+	background:#393939;
+	border:1px solid #333;
+	margin:0px 10px 0px 0px;
+	padding:0px 12px;
+	border-radius:10px;
+	color: #fff;
+	font: 13px/22px;
+	font-weight: normal;
+}
+/* ============================ END TITLE CSS EFFECT ============================ */
+
+
+
+/* ==================================== #Base 960 Grid ================================== */
+
+/* ==================================== START HEADER ==================================== */
+#header {
+	border-bottom:1px solid #efefef;
+}
+#header .logo {
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size:28px;
+	line-height:36px;
+	font-weight:bold;
+	padding-top:22px;
+}
+#header .logo a {
+	color:#858585;
+}
+#header .topmenu {
+	margin-top:-4px;
+	float:right;
+}
+#header .topmenu li {
+	float:left;
+	list-style:none;
+	padding:34px 0px 31px 0px;
+}
+#header .topmenu li:hover {
+	background-position:bottom right;
+	padding:30px 0px;
+}
+#header .topmenu li.active {
+	background-position:bottom right;
+	padding:30px 0px;
+}
+#header .topmenu li a.active {
+	color:#000;
+}
+#header .topmenu li a {
+	font-family: 'PT Sans Narrow', sans-serif;
+	text-transform:uppercase;
+	color:#6d6d6d;
+	font-size:16px;
+	padding:30px 25px;
+}
+#header .topmenu li a:hover {
+	color:#000;
+}
+/* ==================================== END HEADER ====================================== */
+
+
+
+/* ==================================== START PORTFOLIO SLIDER ====================================== */
+.portofolioSlider{
+    overflow: hidden;
+    position: relative;
+}
+.portofolioSlider .portofolioSliderContainer{
+    width: 999999px;
+    overflow: hidden;
+}
+.portofolioSlider .portofolioSliderContainer .image{
+    float: left;
+    width: 630px;
+}
+.portofolioSlider .portofolioSliderNext{
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 10px;
+    right: 10px;
+    background: url('../images/next.png') no-repeat;
+    cursor: pointer;
+}
+.portofolioSlider .portofolioSliderNext:hover{
+    background-image: url('../images/next_i.png');
+}
+.portofolioSlider .portofolioSliderBack{
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 10px;
+    right: 35px;
+    background: url('../images/back.png') no-repeat;
+    cursor: pointer;
+}
+.portofolioSlider .portofolioSliderBack:hover{
+    background-image: url('../images/back_i.png');
+}
+/* ==================================== END PORTFOLIO SLIDER ====================================== */
+
+
+
+/* ==================================== START PRETTY ==================================== */
+.pretty {
+	position: relative;
+	display: block;
+	color: inherit;
+}
+.pretty span {
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	position:absolute;
+}
+.pretty:hover span {
+	background: rgba(255,255,255,0.5) url(../images/slider-zoom.png) no-repeat center center;
+}
+.fade {
+	position: relative;
+	display: block;
+	color: inherit;
+}
+.fade span {
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	position:absolute;
+}
+.fade:hover span {
+	background: rgba(255,255,255,0.5);
+}
+/* ==================================== END PRETTY ==================================== */
+
+
+
+/* ==================================== START WORKS ==================================== */
+.work img {
+	margin-bottom:15px;
+}
+.work {
+	color:#6e6e6e;
+	padding-bottom:20px;
+	text-align:center;
+	margin-bottom:20px;
+	border:1px solid #eee;
+}
+.work {
+	border:1px solid #eee;
+}
+.work:hover {
+	border-top:0px;
+	border-left:0px;
+	border-right:0px;
+	margin:1px 1px 20px 1px;
+	background-position:bottom right;
+}
+.work h3 {
+	font-size:14px;
+	line-height:26px;
+	font-weight:normal;
+}
+.work h4 {
+	font-size:12px;
+	line-height:16px;
+	font-weight:normal;
+}
+/* ==================================== END WORKS ==================================== */
+
+
+
+/* ==================================== START POSTS ==================================== */
+.newpost img {
+	margin-bottom:15px;
+}
+.newpost {
+	color:#6e6e6e;
+	padding-bottom:20px;
+	margin-bottom:20px;
+}
+.project h2 {
+	text-transform:uppercase;
+	font-size:14px !important;
+	line-height:20px;
+	font-weight:bold;
+	margin-bottom:16px;
+	background-position:bottom left;
+	padding-bottom:8px;
+}
+.project p {
+	margin-bottom:15px;
+}
+.project .image {
+	margin-bottom:20px;
+}
+.newpost h2 {
+	text-transform:uppercase;
+	font-size:14px;
+	line-height:20px;
+	font-weight:bold;
+	margin-bottom:8px;
+	background-position:bottom left;
+	padding-bottom:12px;
+}
+.newpost h2 a {
+	color:#646263;
+}
+.newpost h2 a:hover {
+	color:#222;
+}
+.postvideo {
+	position:absolute;
+	margin-top:-66px;
+	margin-left:6px;
+	width:46px;
+	height:46px;
+	border-radius:36px;
+}
+.newpost:hover .postvideo, .newpost:hover .posttext, .newpost:hover .postphoto {
+	display:none;
+}
+.newpost .viewpost {
+	display:none;
+}
+.newpost:hover .viewpost {
+	display:block;
+	color:#fff;
+	float:left;
+	position:absolute;
+	z-index:100;
+	text-transform:uppercase;
+	font-weight:bold;
+	font-size:11px;
+	padding:3px 10px 1px 10px;
+}
+.newpost:hover .viewpost a {
+	color:#fff;
+}
+.posttext {
+	position:absolute;
+	margin-top:-66px;
+	margin-left:6px;
+	width:46px;
+	height:46px;
+	border-radius:36px;
+}
+.postphoto {
+	position:absolute;
+	margin-top:-66px;
+	margin-left:6px;
+	width:46px;
+	height:46px;
+	border-radius:36px;
+}
+/* ==================================== END POSTS ==================================== */
+
+
+
+/* ==================================== START DROPDOWN MENU ==================================== */
+#header ul.MenuDropdown {
+	margin-top:31px;
+	margin-left:0px;
+	z-index:1000;
+}
+#header ul.MenuDropdown li ul.MenuDropdown {
+	margin-top: -35px;
+	left: 160px;
+}
+#header ul.MenuDropdown li {
+	padding:0px !important;
+	border-bottom:0px solid #efefef !important;
+}
+#header ul.MenuDropdown li a {
+	padding:6px 10px !important;
+	font-weight:300;
+	font-size:14px;
+}
+#header ul li ul.MenuDropdown {
+	display: none;
+	position: absolute;
+	padding:0px;
+	color:#fff;
+	border:1px solid #efefef;
+}
+#header ul li:hover>ul.MenuDropdown {
+	display: block;
+}
+#header ul li:hover ul.MenuDropdown li {
+	background:#f9f9f9;
+	border-top:1px dotted #efefef;
+	display: block;
+	float: none;
+	width: 160px;
+}
+#header ul li:hover ul.MenuDropdown li a {
+	padding: 0px;
+	height: auto;
+	border: none;
+	display: block;
+	color:#666;
+}
+#header ul li ul.MenuDropdown li a {
+	padding: 0px;
+}
+#header ul li:hover ul.MenuDropdown li a:hover {
+	background:none;
+}
+#header ul li:hover ul.MenuDropdown li:hover>a {
+	color: #fff;
+	border-radius:0px;
+}
+#header ul li:hover ul.MenuDropdown li:first-child {
+	border-top: none;
+}
+/* ==================================== END DROPDOWN MENU ==================================== */
+
+
+
+/* ===================================== START CAROUSEL ==================================== */
+.carouselView {
+	overflow: hidden;
+	position: relative;
+	clear: both;
+}
+.carouselBack, .carouselNext {
+	text-decoration: underline;
+	cursor: pointer;
+	float: right;
+	height: 19px;
+	width: 19px;
+}
+.carouselBack:hover {
+	background: url('../images/back_i.png') no-repeat;
+}
+.carouselNext:hover {
+	margin-left: 3px;
+	background: url('../images/next_i.png') no-repeat;
+}
+.carouselBack {
+	background-image: url('../images/back.png');
+}
+.carouselNext {
+	margin-left: 3px;
+	background-image: url('../images/next.png');
+}
+/* ===================================== END CAROUSEL ==================================== */
+
+
+
+/* ===================================== START FOOTER ==================================== */
+#footer {
+	padding:20px;
+	background:#3a3a3a;
+	max-width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+	color:#c1c1c1;
+}
+#footer p {
+	margin-bottom:10px;
+}
+#footer ul.twitter li {
+	list-style:none;
+	margin-bottom:14px;
+	padding-left:50px;
+	position:top left;
+	border-bottom:1px solid #444;
+	padding-bottom:10px;
+}
+#footer ul.twitter li.last {
+	border-bottom:0px solid #646464;
+}
+#footer ul.twitter li span {
+	text-transform:uppercase;
+	display:block;
+	font-size:10px;
+	color:#777;
+}
+#footer h2 {
+	margin-top:10px;
+	text-transform:uppercase;
+	font-size:14px;
+	line-height:20px;
+	color:#fff;
+	font-weight:bold;
+	margin-bottom:20px;
+	padding-bottom:10px;
+	background-position:bottom left;
+}
+#footer img {
+	float:left;
+	width:60px !important;
+	height:60px !important;
+	float: left;
+	max-width: none !important;
+}
+.skywalkerPhotostream {
+	overflow: hidden;
+}
+.skywalkerPhotostream .skywalkerPhotostreamLink {
+	display: block;
+	float: left;
+	width: 60px;
+	height: 60px;
+	padding: 2px;
+	background: white;
+	border: 1px solid #EEE;
+	margin-bottom: 8px;
+	margin-right: 8px;
+	box-shadow: 0px 0px 5px #eee;
+	overflow: hidden;
+}
+#footer img {
+	float: left;
+	padding: 0;
+	background: none;
+	border: none;
+	margin-bottom: 0;
+	margin-right: 0;
+	box-shadow: none;
+	max-width: none !important;
+}
+/* ===================================== END FOOTER ==================================== */
+
+
+
+
+/* ===================================== START FOOTER BOTTOM ==================================== */
+#bottomarea {
+	padding:10px 20px 6px 20px;
+	background:#303030;
+	max-width:1000px;
+	margin-left:auto;
+	margin-right:auto;
+	color:#c1c1c1;
+}
+#bottomarea .social {
+	float:right;
+}
+#bottomarea .social li {
+	float:left;
+	list-style:none;
+	margin-left:10px;
+}
+#bottomarea .social li img {
+	background:#fff;
+	overflow:hidden;
+}
+#bottomarea .bottommenu li {
+	float:left;
+	list-style:none;
+	margin-right:10px;
+	text-transform:uppercase;
+	font-size:11px;
+}
+/* ===================================== END FOOTER BOTTOM ==================================== */
+
+
+
+/* ======================================= #Tablet ====================================== */
+@media only screen and (min-width: 768px) and (max-width: 960px) {
+#header .topmenu li a {
+	font-family: 'PT Sans Narrow', sans-serif;
+	text-transform:uppercase;
+	color:#6d6d6d;
+	font-size:16px;
+	padding:30px 18px;
+}
+.navigationmicro {
+	display:none;
+}
+.skywalkerSlider {
+	width: 768px;
+}
+.skywalkerSlider .skywalkerSliderContent {
+	height: 304px;
+}
+.skywalkerSlider .skywalkerSliderPreview,  .skywalkerSlider .skywalkerSliderLeft,  .skywalkerSlider .skywalkerSliderRight,  .skywalkerSlider .skywalkerSliderMarker {
+	display: none;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox {
+	left: 131px;
+	top: 75px;
+}
+.portofolioSlider .portofolioSliderContainer .image{
+    width: 505px;
+}
+}
+
+/* ======================================= #Mobile ====================================== */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+#topline .content .searchbutton {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	margin-left: 99%;
+	margin-top: -22px;
+	cursor: pointer;
+	border-radius: 15px;
+}
+#topline .content .searchline {
+	background: url(../images/search_bg.png);
+	height: 24px;
+	font-size: 12px;
+	line-height: 18px;
+	color: #333;
+	border-radius: 15px;
+	padding: 0px 8px;
+	font-style: italic;
+	width: 100%;
+}
+#topline .content .social {
+	display:none;
+}
+.sidebar {
+	margin-top:20px;
+}
+h6 {
+	padding-top:20px !important;
+}
+#header .logo {
+	text-align:center;
+}
+.topmenu {
+	display:none;
+}
+.navigationmicro {
+	display:block;
+	padding:4px 10px;
+	border-radius:4px;
+	width:100%;
+	margin-top:30px;
+	background:#f9f9f9;
+	border:1px solid #f1f1f1;
+}
+#header {
+	border-bottom:0px solid #000;
+}
+.skywalkerSlider {
+	width: 420px;
+}
+.skywalkerSlider .skywalkerSliderContent {
+	height: 166px;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox,  .skywalkerSlider .skywalkerSliderPreview,  .skywalkerSlider .skywalkerSliderLeft,  .skywalkerSlider .skywalkerSliderRight,  .skywalkerSlider .skywalkerSliderMarker {
+	display: none;
+}
+.skywalkerSlider .skywalkerSliderResponsiveLeft,  .skywalkerSlider .skywalkerSliderResponsiveRight {
+	top: 43px;
+	display: block;
+}
+#bottomarea .social {
+	float:none;
+	text-align:center;
+	margin-top:10px;
+}
+#bottomarea .social li {
+	display:inline;
+	float:none;
+}
+#bottomarea .bottommenu {
+	text-align:center;
+}
+#bottomarea .bottommenu li {
+	display:inline;
+	float:none;
+}
+.skywalkerSlider .skywalkerSliderResponsiveLeft {
+	left: 0;
+	background:rgba(214,214,214,0.7) url(../images/slider/slide_left.png) no-repeat;
+	background-position:50% 50%;
+}
+.skywalkerSlider .skywalkerSliderResponsiveRight {
+	right: 0;
+	background:rgba(214,214,214,0.7) url(../images/slider/slide_right.png) no-repeat;
+	background-position:50% 50%;
+}
+.portofolioSlider .portofolioSliderContainer .image{
+    width: 420px;
+}
+}
+
+
+/* ======================================= #Mobile ======================================= */
+@media only screen and (max-width: 480px) {
+#topline .content .searchbutton {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	margin-left: 98%;
+	margin-top: -22px;
+	cursor: pointer;
+	border-radius: 15px;
+}
+#topline .content .searchline {
+	background: url(../images/search_bg.png);
+	height: 24px;
+	font-size: 12px;
+	line-height: 18px;
+	color: #333;
+	border-radius: 15px;
+	padding: 0px 8px;
+	font-style: italic;
+	width: 100%;
+}
+#topline .content .social {
+	display:none;
+}
+.sidebar {
+	margin-top:20px;
+}
+h6 {
+	margin-top:20px !important;
+}
+#header .logo {
+	text-align:center;
+}
+#header {
+	border-bottom:0px solid #000;
+}
+.topmenu {
+	display:none;
+}
+.navigationmicro {
+	display:block;
+	padding:4px 10px;
+	border-radius:4px;
+	width:100%;
+	margin-top:30px;
+	background:#f9f9f9;
+	border:1px solid #f1f1f1;
+}
+.skywalkerSlider {
+	width: 300px;
+}
+.skywalkerSlider .skywalkerSliderContent {
+	height: 119px;
+}
+.skywalkerSlider .skywalkerSliderContent .skywalkerSliderContentItem .skywalkerSliderContentItemBox,  .skywalkerSlider .skywalkerSliderPreview,  .skywalkerSlider .skywalkerSliderLeft,  .skywalkerSlider .skywalkerSliderRight,  .skywalkerSlider .skywalkerSliderMarker {
+	display: none;
+}
+.skywalkerSlider .skywalkerSliderResponsiveLeft,  .skywalkerSlider .skywalkerSliderResponsiveRight {
+	top: 17px;
+	display: block;
+}
+#bottomarea .social {
+	float:none;
+	text-align:center;
+	margin-top:10px;
+}
+#bottomarea .social li {
+	display:inline;
+	float:none;
+}
+#bottomarea .bottommenu {
+	text-align:center;
+}
+#bottomarea .bottommenu li {
+	display:inline;
+	float:none;
+}
+.skywalkerSlider .skywalkerSliderResponsiveLeft {
+	left: 0;
+	background:rgba(214,214,214,0.7) url(../images/slider/slide_left.png) no-repeat;
+	background-position:50% 50%;
+}
+.skywalkerSlider .skywalkerSliderResponsiveRight {
+	right: 0;
+	background:rgba(214,214,214,0.7) url(../images/slider/slide_right.png) no-repeat;
+	background-position:50% 50%;
+}
+.portofolioSlider .portofolioSliderContainer .image{
+    width: 300px;
+}
+}
